@@ -1,0 +1,21 @@
+[site]
+title = "Riverside STEM Foundation"
+description = "The Riverside STEM Foundation (RSF) is a 501 (c)(3) non-profit corporation founded in 2016 to support the STEM education in the Inland Empire region. The Board of Directors comprises educators, scientists, parents, philanthropists, and business and community leaders."
+favicon = "/favicon.png"
+# last_updated = "March 2026"
+
+[author]
+name = "Riverside STEM Foundation"
+title = "Non-profit Organization"
+avatar = "/bio.jpg"
+
+[social]
+email = "directors@stemacademyfoundation.org"
+location = "Riverside, CA"
+location_url = "https://maps.google.com/?q=Riverside,+CA"
+
+# [[navigation]]
+# title = "About"
+# type = "page"
+# target = "about"
+# href = "/"

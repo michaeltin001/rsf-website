@@ -13,7 +13,7 @@ export async function generateMetadata(): Promise<Metadata> {
       template: `%s | ${config.site.title}`
     },
     description: config.site.description,
-    keywords: [config.author.name, "PhD", "Research", config.author.institution],
+    keywords: [config.author.name, "STEM", "Education", "Nonprofit", "Riverside", "Inland Empire"],
     authors: [{ name: config.author.name }],
     creator: config.author.name,
     publisher: config.author.name,
@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
       locale: "en_US",
       title: config.site.title,
       description: config.site.description,
-      siteName: `${config.author.name}'s Academic Website`,
+      siteName: config.site.title,
     },
   };
 }
@@ -41,19 +41,17 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <head>
         <link rel="icon" href={config.site.favicon} type="image/png" />
-        {/* Speed up font connections */}
-        <link rel="dns-prefetch" href="https://google-fonts.jialeliu.com" />
-        <link rel="preconnect" href="https://google-fonts.jialeliu.com" crossOrigin="" />
-        {/* Non-blocking Google Fonts: preload + print media swap to avoid render-blocking */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
           rel="preload"
           as="style"
-          href="https://google-fonts.jialeliu.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap"
         />
         <link
           rel="stylesheet"
           id="gfonts-css"
-          href="https://google-fonts.jialeliu.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap"
           media="print"
         />
         <script
@@ -70,10 +68,9 @@ export default function RootLayout({
           }}
         />
         <noscript>
-          {/* Fallback for no-JS environments */}
           <link
             rel="stylesheet"
-            href="https://google-fonts.jialeliu.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap"
           />
         </noscript>
         <script
@@ -99,15 +96,13 @@ export default function RootLayout({
       </head>
       <body className={`font-sans antialiased`}>
         <ThemeProvider>
-          <Navigation
-            items={config.navigation}
-            siteTitle={config.site.title}
-            enableOnePageMode={config.features.enable_one_page_mode}
-          />
+          <Navigation items={config.navigation} />
+          
           <main className="min-h-screen pt-20 lg:pt-24">
             {children}
           </main>
-          <Footer lastUpdated={config.site.last_updated} />
+          
+          <Footer />
         </ThemeProvider>
       </body>
     </html>

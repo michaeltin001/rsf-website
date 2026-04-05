@@ -11,16 +11,14 @@ import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { SiteConfig } from '@/lib/config';
 
 interface NavigationProps {
-  items: SiteConfig['navigation'];
-  siteTitle: string;
-  enableOnePageMode?: boolean;
+  items?: SiteConfig['navigation']; // Made optional
 }
 
-export default function Navigation({ items, enableOnePageMode }: NavigationProps) {
+export default function Navigation({ items }: NavigationProps) {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
-  const [activeHash, setActiveHash] = useState('');
 
+  // Keep the nice blur effect when scrolling down
   useEffect(() => {
     const handleScroll = () => {
       const isScrolled = window.scrollY > 20;
@@ -30,53 +28,6 @@ export default function Navigation({ items, enableOnePageMode }: NavigationProps
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  useEffect(() => {
-    if (enableOnePageMode) {
-      // Set initial hash on client-side to avoid hydration mismatch
-      setActiveHash(window.location.hash);
-      const handleHashChange = () => setActiveHash(window.location.hash);
-      window.addEventListener('hashchange', handleHashChange);
-
-      // Scroll Spy Logic
-      const observerCallback = (entries: IntersectionObserverEntry[]) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Update active hash based on intersecting section
-            const id = entry.target.id;
-            // Only update if we are not currently scrolling to a target (optional refinement, 
-            // but for now simple intersection is enough, we might want to debounce or check intersection ratio)
-            // We use history.replaceState to update URL without jumping or window.location.hash which might jump
-            // But for the nav highlighting, we just need to update local state if we want it to be responsive
-            // However, the requirement says "nav bar did not change". 
-            // Let's update the activeHash state.
-            setActiveHash(id === 'about' ? '' : `#${id}`);
-          }
-        });
-      };
-
-      const observerOptions = {
-        root: null,
-        rootMargin: '-20% 0px -60% 0px', // Adjust these margins to trigger when section is roughly in view
-        threshold: 0
-      };
-
-      const observer = new IntersectionObserver(observerCallback, observerOptions);
-
-      // Observe all sections
-      items.forEach(item => {
-        if (item.type === 'page') {
-          const element = document.getElementById(item.target);
-          if (element) observer.observe(element);
-        }
-      });
-
-      return () => {
-        window.removeEventListener('hashchange', handleHashChange);
-        observer.disconnect();
-      };
-    }
-  }, [enableOnePageMode, items]);
 
   return (
     <Disclosure as="nav" className="fixed top-0 left-0 right-0 z-50">
@@ -102,23 +53,17 @@ export default function Navigation({ items, enableOnePageMode }: NavigationProps
                 <div className="hidden lg:block">
                   <div className="ml-10 flex items-center space-x-8">
                     <div className="flex items-baseline space-x-8">
-                      {items.map((item) => {
-                        const isActive = enableOnePageMode
-                          ? activeHash === `#${item.target}` || (!activeHash && item.target === 'about')
-                          : (item.href === '/'
-                            ? pathname === '/'
-                            : pathname.startsWith(item.href));
-
-                        const href = enableOnePageMode
-                          ? `/#${item.target}`
-                          : item.href;
+                      {/* Safely map over items only if they exist */}
+                      {items?.map((item) => {
+                        const isActive = item.href === '/' 
+                          ? pathname === '/' 
+                          : pathname.startsWith(item.href);
 
                         return (
                           <Link
                             key={item.title}
-                            href={href}
+                            href={item.href}
                             prefetch={true}
-                            onClick={() => enableOnePageMode && setActiveHash(`#${item.target}`)}
                             className={cn(
                               'relative px-3 py-2 text-base font-medium transition-all duration-200 rounded hover:bg-accent/10 hover:shadow-sm',
                               isActive
@@ -132,17 +77,14 @@ export default function Navigation({ items, enableOnePageMode }: NavigationProps
                                 layoutId="activeTab"
                                 className="absolute inset-0 bg-accent/10 rounded-lg"
                                 initial={false}
-                                transition={{
-                                  type: 'spring',
-                                  stiffness: 500,
-                                  damping: 30
-                                }}
+                                transition={{ type: 'spring', stiffness: 500, damping: 30 }}
                               />
                             )}
                           </Link>
                         );
                       })}
                     </div>
+                    {/* Theme Toggle is still visible even if links are disabled */}
                     <ThemeToggle />
                   </div>
                 </div>
@@ -180,16 +122,11 @@ export default function Navigation({ items, enableOnePageMode }: NavigationProps
                   className="lg:hidden bg-background/95 backdrop-blur-xl border-b border-neutral-200/50 shadow-lg"
                 >
                   <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                    {items.map((item, index) => {
-                      const isActive = enableOnePageMode
-                        ? (item.href === '/' ? pathname === '/' && !activeHash : activeHash === `#${item.target}`)
-                        : (item.href === '/'
-                          ? pathname === '/'
-                          : pathname.startsWith(item.href));
-
-                      const href = enableOnePageMode
-                        ? (item.href === '/' ? '/' : `/#${item.target}`)
-                        : item.href;
+                    {/* Safely map over items only if they exist */}
+                    {items?.map((item, index) => {
+                      const isActive = item.href === '/' 
+                        ? pathname === '/' 
+                        : pathname.startsWith(item.href);
 
                       return (
                         <motion.div
@@ -200,9 +137,8 @@ export default function Navigation({ items, enableOnePageMode }: NavigationProps
                         >
                           <Disclosure.Button
                             as={Link}
-                            href={href}
+                            href={item.href}
                             prefetch={true}
-                            onClick={() => enableOnePageMode && setActiveHash(item.href === '/' ? '' : `#${item.target}`)}
                             className={cn(
                               'block px-3 py-2 rounded-md text-base font-medium transition-all duration-200',
                               isActive

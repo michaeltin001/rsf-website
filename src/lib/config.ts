@@ -12,38 +12,19 @@ export interface SiteConfig {
     author: {
         name: string;
         title: string;
-        institution: string;
         avatar: string;
     };
     social: {
-        email?: string;
-        location?: string;
-        location_url?: string;
-        location_details?: string[];
-        google_scholar?: string;
-        orcid?: string;
-        github?: string;
-        twitter?: string;
-        linkedin?: string;
-        [key: string]: string | string[] | undefined;
+        email: string;
+        location: string;
+        location_url: string;
     };
-    features: {
-        enable_likes: boolean;
-        enable_one_page_mode?: boolean;
-    };
-    navigation: Array<{
+    
+    navigation?: Array<{
         title: string;
         type: 'section' | 'page' | 'link';
         target: string;
         href: string;
-    }>;
-    sections: Array<{
-        id: string;
-        type: 'markdown' | 'publications' | 'list' | 'cards';
-        source?: string;
-        title?: string;
-        filter?: string;
-        limit?: number;
     }>;
 }
 
