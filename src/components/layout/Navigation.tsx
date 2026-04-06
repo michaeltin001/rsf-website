@@ -3,57 +3,77 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { Disclosure } from '@headlessui/react';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import { Bars3Icon, XMarkIcon, BeakerIcon } from '@heroicons/react/24/outline';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { SiteConfig } from '@/lib/config';
 
 interface NavigationProps {
-  items?: SiteConfig['navigation']; // Made optional
+  items?: SiteConfig['navigation'];
 }
 
 export default function Navigation({ items }: NavigationProps) {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
 
-  // Keep the nice blur effect when scrolling down
+  const { scrollY } = useScroll();
+  const navBackgroundOpacity = useTransform(scrollY, [0, 100], [0, 1]);
+  const navY = useTransform(scrollY, [0, 50], [-100, 0]);
+
   useEffect(() => {
     const handleScroll = () => {
-      const isScrolled = window.scrollY > 20;
-      setScrolled(isScrolled);
+      setScrolled(window.scrollY > 100);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
-    <Disclosure as="nav" className="fixed top-0 left-0 right-0 z-50">
+    <Disclosure as="nav" className="fixed top-0 left-0 right-0 z-50 pointer-events-none">
       {({ open }) => (
         <>
           <motion.div
-            initial={{ y: -100 }}
-            animate={{ y: 0 }}
-            transition={{ duration: 0.6 }}
-            className={cn(
-              'transition-all duration-300 ease-out',
-              scrolled
-                ? 'bg-background/80 backdrop-blur-xl border-b-2 border-neutral-300 shadow-lg'
-                : 'bg-background border-b-2 border-neutral-300'
-            )}
+            style={{ y: scrolled ? 0 : navY }}
+            className="transition-all duration-300 ease-out pointer-events-auto relative"
           >
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="flex justify-between items-center h-14 lg:h-16">
-                {/* Spacer for layout balance */}
-                <div className="flex-shrink-0" />
+            <motion.div 
+              style={{ opacity: navBackgroundOpacity }}
+              className="absolute inset-0 bg-background/90 backdrop-blur-xl border-b border-neutral-200 dark:border-neutral-800 shadow-sm"
+            />
 
-                {/* Desktop Navigation */}
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+              <div className="flex justify-between items-center h-14 lg:h-16">
+                <div className="flex-shrink-0 flex items-center">
+                  <button 
+                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                    className="focus:outline-none"
+                    aria-label="Scroll to top"
+                  >
+                    <AnimatePresence mode="wait">
+                      {scrolled && (
+                        <motion.div 
+                          initial={{ opacity: 0, y: 15 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -15 }}
+                          transition={{ duration: 0.4 }}
+                          className="flex items-center text-primary hover:text-accent transition-colors"
+                        >
+                          <span className="hidden md:block text-xl font-bold tracking-tight">
+                            Riverside STEM Foundation
+                          </span>
+                          <BeakerIcon className="h-6 w-6 md:hidden" />
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </button>
+                </div>
+
                 <div className="hidden lg:block">
                   <div className="ml-10 flex items-center space-x-8">
                     <div className="flex items-baseline space-x-8">
-                      {/* Safely map over items only if they exist */}
                       {items?.map((item) => {
                         const isActive = item.href === '/' 
                           ? pathname === '/' 
@@ -84,12 +104,10 @@ export default function Navigation({ items }: NavigationProps) {
                         );
                       })}
                     </div>
-                    {/* Theme Toggle is still visible even if links are disabled */}
                     <ThemeToggle />
                   </div>
                 </div>
 
-                {/* Mobile menu button and theme toggle */}
                 <div className="lg:hidden flex items-center space-x-2">
                   <ThemeToggle />
                   <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-neutral-600 hover:text-primary hover:bg-neutral-100 dark:hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent transition-colors duration-200">
@@ -110,10 +128,9 @@ export default function Navigation({ items }: NavigationProps) {
             </div>
           </motion.div>
 
-          {/* Mobile Navigation Menu */}
           <AnimatePresence>
-            {open && (
-              <Disclosure.Panel static>
+            {open && scrolled && (
+              <Disclosure.Panel static className="pointer-events-auto">
                 <motion.div
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
@@ -122,7 +139,6 @@ export default function Navigation({ items }: NavigationProps) {
                   className="lg:hidden bg-background/95 backdrop-blur-xl border-b border-neutral-200/50 shadow-lg"
                 >
                   <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                    {/* Safely map over items only if they exist */}
                     {items?.map((item, index) => {
                       const isActive = item.href === '/' 
                         ? pathname === '/' 
