@@ -50,29 +50,8 @@ export default function RootLayout({
         />
         <link
           rel="stylesheet"
-          id="gfonts-css"
           href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap"
-          media="print"
         />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function(){
-                var l = document.getElementById('gfonts-css');
-                if (!l) return;
-                if (l.media !== 'all') {
-                  l.addEventListener('load', function(){ try { l.media = 'all'; } catch(e){} });
-                }
-              })();
-            `,
-          }}
-        />
-        <noscript>
-          <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap"
-          />
-        </noscript>
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -98,7 +77,7 @@ export default function RootLayout({
         <ThemeProvider>
           <Navigation items={config.navigation} />
           
-          <main className="min-h-screen pt-20 lg:pt-24">
+          <main className="min-h-screen pt-14 lg:pt-16">
             {children}
           </main>
           
