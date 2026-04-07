@@ -19,3 +19,27 @@ location_url = "https://maps.google.com/?q=Riverside,+CA"
 # type = "page"
 # target = "about"
 # href = "/"
+
+[[navigation]]
+title = "About Us"
+type = "section"
+target = "about-us"
+href = "/#about-us"
+
+[[navigation]]
+title = "Our Impact"
+type = "section"
+target = "our-impact"
+href = "/#our-impact"
+
+[[navigation]]
+title = "Our Initiatives"
+type = "section"
+target = "our-initiatives"
+href = "/#our-initiatives"
+
+[[navigation]]
+title = "Get Involved"
+type = "section"
+target = "get-involved"
+href = "/#get-involved"

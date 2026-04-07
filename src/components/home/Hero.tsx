@@ -167,7 +167,7 @@ export default function Hero() {
       <div ref={contentRef} className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
         {/* 1. ABOUT SECTION (Split Layout: Zig-Zag Reversed) */}
-        <section className="py-8 md:py-16">
+        <section id="about-us" className="py-8 md:py-16">
           <div className="flex flex-col lg:flex-row-reverse gap-12 lg:gap-16 items-center">
             
             <motion.div 
@@ -213,7 +213,7 @@ export default function Hero() {
         </section>
 
         {/* 2. IMPACT SECTION (Split Layout: Metric + Category Grid) */}
-        <section className="py-8 md:py-16">
+        <section id="our-impact" className="py-8 md:py-16">
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
             
             <motion.div 
@@ -272,7 +272,7 @@ export default function Hero() {
         </section>
 
         {/* 3. INITIATIVES CAROUSEL */}
-        <section className="py-8 md:py-16">
+        <section id="our-initiatives" className="py-8 md:py-16">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -362,7 +362,7 @@ export default function Hero() {
         </section>
 
         {/* 4. GET INVOLVED / CTA SECTION */}
-        <section className="py-8 md:py-16">
+        <section id="get-involved" className="py-8 md:py-16">
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
             
             <motion.div 

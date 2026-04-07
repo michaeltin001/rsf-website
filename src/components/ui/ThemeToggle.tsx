@@ -56,7 +56,7 @@ export function ThemeToggle() {
           setTheme(next);
         }}
         className={cn(
-          'flex items-center justify-center w-10 h-10 rounded-lg',
+          'flex items-center justify-center w-10 h-10 rounded-lg cursor-pointer',
           'border border-neutral-200 bg-background hover:bg-neutral-50',
           'dark:border-[rgba(148,163,184,0.24)] dark:bg-neutral-800 dark:hover:bg-neutral-700',
           'transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/50',
@@ -111,7 +111,7 @@ export function ThemeToggleDropdown() {
         onMouseDown={(e) => e.preventDefault()}
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          'flex items-center justify-center w-10 h-10 rounded-lg',
+          'flex items-center justify-center w-10 h-10 rounded-lg cursor-pointer',
           'border border-neutral-200 bg-background hover:bg-neutral-50',
           'dark:border-[rgba(148,163,184,0.24)] dark:bg-neutral-800 dark:hover:bg-neutral-700',
           'transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/50',
@@ -149,7 +149,7 @@ export function ThemeToggleDropdown() {
                   setIsOpen(false);
                 }}
                 className={cn(
-                  'flex items-center w-full px-3 py-2 text-sm',
+                  'flex items-center w-full px-3 py-2 text-sm cursor-pointer',
                   'hover:bg-neutral-50 dark:hover:bg-neutral-700',
                   'transition-colors duration-200',
                   theme === themeOption.value
