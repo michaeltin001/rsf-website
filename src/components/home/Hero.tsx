@@ -272,7 +272,7 @@ export default function Hero() {
         </section>
 
         {/* 3. INITIATIVES CAROUSEL */}
-        <section id="our-initiatives" className="py-8 md:py-16">
+        <section id="initiatives" className="py-8 md:py-16">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -281,7 +281,7 @@ export default function Hero() {
             className="text-center max-w-7xl mx-auto mb-4 px-4"
           >
             <h2 className="text-sm font-bold tracking-widest text-accent uppercase">
-              Our Initiatives
+              Initiatives
             </h2>
           </motion.div>
 
@@ -361,8 +361,8 @@ export default function Hero() {
           </motion.div>
         </section>
 
-        {/* 4. GET INVOLVED / CTA SECTION */}
-        <section id="get-involved" className="py-8 md:py-16">
+        {/* 4. VOLUNTEER / CTA SECTION */}
+        <section id="volunteer" className="py-8 md:py-16">
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
             
             <motion.div 
@@ -373,10 +373,10 @@ export default function Hero() {
               className="w-full lg:w-1/2 space-y-6"
             >
               <h2 className="text-sm font-bold tracking-widest text-accent uppercase">
-                Get Involved
+                Volunteer
               </h2>
               <div className="text-6xl md:text-7xl lg:text-8xl font-extrabold text-primary tracking-tighter leading-tight">
-                Connect
+                Join Us
               </div>
               <p className="text-lg text-neutral-600 dark:text-neutral-500 leading-relaxed">
                 We welcome your creative ideas for grant proposals, symposium speakers, and <span className="text-accent font-semibold">community partnerships</span>. If you have expertise in fundraising, grant writing, or non-profit work that you'd like to share, we would greatly appreciate it. 

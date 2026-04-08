@@ -33,13 +33,13 @@ target = "our-impact"
 href = "/#our-impact"
 
 [[navigation]]
-title = "Our Initiatives"
+title = "Initiatives"
 type = "section"
-target = "our-initiatives"
-href = "/#our-initiatives"
+target = "initiatives"
+href = "/#initiatives"
 
 [[navigation]]
-title = "Get Involved"
+title = "Volunteer"
 type = "section"
-target = "get-involved"
-href = "/#get-involved"
+target = "volunteer"
+href = "/#volunteer"

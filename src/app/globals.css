@@ -11,24 +11,24 @@
   --foreground: #111111;
 
   /* Brand colors */
-  --primary: #111111;
-  --primary-light: #333333;
-  --primary-dark: #000000;
-  --accent: #1a6b3c;
-  --accent-light: #238b4e;
-  --accent-dark: #145a31;
+  --primary: #26276F;
+  --primary-light: #3a3b85;
+  --primary-dark: #131438;
+  --accent: #1100BD;
+  --accent-light: #3525d4;
+  --accent-dark: #090066;
   
   /* Neutral colors - green-gray (no blue tint) */
-  --neutral-50: #f7faf8;
-  --neutral-100: #eef3ef;
-  --neutral-200: #d9e1db;
-  --neutral-300: #b5c2b9;
-  --neutral-400: #829489;
-  --neutral-500: #58695e;
-  --neutral-600: #3d4d43;
-  --neutral-700: #2b3830;
-  --neutral-800: #1c261f;
-  --neutral-900: #111a14;
+  --neutral-50: #f2f5f7;
+  --neutral-100: #D5E0E7;
+  --neutral-200: #becad2;
+  --neutral-300: #a6b3bc;
+  --neutral-400: #8f9aa2;
+  --neutral-500: #777D82;
+  --neutral-600: #5f6468;
+  --neutral-700: #474b4e;
+  --neutral-800: #303234;
+  --neutral-900: #18191a;
   
   /* Semantic colors */
   --success: #10b981;
@@ -130,33 +130,33 @@
 
 /* Dark mode styles */
 .dark {
-  --background: #0f172a;
-  --foreground: #f8fafc;
+  --background: #0d0d12;
+  --foreground: #f2f5f7;
   
   /* Adjust colors for dark mode */
-  --primary: #f8fafc;
-  --primary-light: #e2e8f0;
-  --primary-dark: #cbd5e1;
-  --accent: #2ea55b;
-  --accent-light: #3cb96c;
-  --accent-dark: #1a6b3c;
+  --primary: #ffffff;
+  --primary-light: #D5E0E7;
+  --primary-dark: #becad2;
+  --accent: #7a85ff;
+  --accent-light: #a3aaff;
+  --accent-dark: #505cff;
   
   /* Dark mode glass effect */
-  --glass-bg: rgba(15, 23, 42, 0.8);
+  --glass-bg: rgba(13, 13, 18, 0.8);
   --glass-border: rgba(255, 255, 255, 0.1);
   --glass-shadow: rgba(0, 0, 0, 0.5);
   
   /* Neutral colors for dark mode - properly inverted */
-  --neutral-50: #0f172a;
-  --neutral-100: #1e293b;
-  --neutral-200: #334155;
-  --neutral-300: #475569;
-  --neutral-400: #64748b;
-  --neutral-500: #94a3b8;
-  --neutral-600: #cbd5e1;
-  --neutral-700: #e2e8f0;
-  --neutral-800: #1e293b;
-  --neutral-900: #0f172a;
+  --neutral-50: #f2f5f7;
+  --neutral-100: #D5E0E7;
+  --neutral-200: #becad2;
+  --neutral-300: #a6b3bc;
+  --neutral-400: #9ba7af;
+  --neutral-500: #8f9aa2;
+  --neutral-600: #777D82;
+  --neutral-700: #474b4e;
+  --neutral-800: #202224;
+  --neutral-900: #121315;
 }
 
 
