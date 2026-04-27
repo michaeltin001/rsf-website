@@ -15,33 +15,13 @@ import {
   HeartIcon,       
   BriefcaseIcon    
 } from '@heroicons/react/24/outline';
+import type { Initiative } from '@/types/home';
 
-// --- REAL DATA ---
+interface HeroProps {
+  initiatives: Initiative[];
+}
 
-const initiativesData = [
-  { 
-    title: "Community Partnerships", 
-    content: "Backing STEM outreach, civic leadership projects, and program development. This includes public showcases and creating innovative programs through dedicated training and planning initiatives." 
-  },
-  { 
-    title: "First Lego Robotics", 
-    content: "Promoting the development of immersive Robotics Programs within RUSD, with a strong focus on fostering inclusion, hands-on collaboration, and lasting community partnerships." 
-  },
-  { 
-    title: "MS & HS Experience", 
-    content: "Enhancing the day-to-day lives of middle and high school students. From funding ASB equipment to helping establish popular new clubs, we directly support the student experience." 
-  },
-  { 
-    title: "Grant Writing", 
-    content: "Supporting the foundation in securing vital funding through dedicated grant writing initiatives, perfectly aligned with the shared mission and vision of RSF and RUSD." 
-  },
-  { 
-    title: "Green Solutions", 
-    content: "Providing resources for campus Green Teams to promote environmentally conscious behaviors. We aim to develop student leadership and inspire action in sustainable green solutions." 
-  }
-];
-
-export default function Hero() {
+export default function Hero({ initiatives }: HeroProps) {
   const [scrolled, setScrolled] = useState(false);
   const isSnapping = useRef(false);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -49,11 +29,11 @@ export default function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev === initiativesData.length - 1 ? 0 : prev + 1));
+    setCurrentSlide((prev) => (prev === initiatives.length - 1 ? 0 : prev + 1));
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev === 0 ? initiativesData.length - 1 : prev - 1));
+    setCurrentSlide((prev) => (prev === 0 ? initiatives.length - 1 : prev - 1));
   };
 
   const performSmoothScroll = (targetPos: number) => {
@@ -271,21 +251,19 @@ export default function Hero() {
           </div>
         </section>
 
-        {/* 3. INITIATIVES CAROUSEL */}
+        {/* 3. INITIATIVES CAROUSEL – now data‑driven */}
         <section id="initiatives" className="py-8 md:py-16">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
             className="text-center max-w-7xl mx-auto mb-4 px-4"
           >
-            <h2 className="text-sm font-bold tracking-widest text-accent uppercase">
-              Initiatives
-            </h2>
+            <h2 className="text-sm font-bold tracking-widest text-accent uppercase">Initiatives</h2>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -294,7 +272,7 @@ export default function Hero() {
           >
             <AnimatePresence mode="wait">
               <motion.div
-                key={currentSlide} 
+                key={currentSlide}
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
@@ -303,7 +281,7 @@ export default function Hero() {
               >
                 <div className="w-full text-center mb-4 md:mb-6 px-4">
                   <h3 className="font-extrabold text-3xl md:text-4xl lg:text-5xl text-primary tracking-tight">
-                    {initiativesData[currentSlide].title}
+                    {initiatives[currentSlide]?.title ?? 'Untitled'}
                   </h3>
                 </div>
 
@@ -313,13 +291,13 @@ export default function Hero() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
                     <span className="font-medium tracking-wide uppercase text-sm md:text-base pb-12">
-                      [{initiativesData[currentSlide].title} Image]
+                      [{initiatives[currentSlide]?.title ?? 'Initiative'} Image]
                     </span>
                   </div>
 
                   <div className="absolute bottom-4 md:bottom-6 left-4 right-4 md:left-1/2 md:-translate-x-1/2 md:w-11/12 max-w-4xl p-4 md:p-6 rounded-2xl backdrop-blur-md bg-white/75 dark:bg-black/60 border border-white/30 dark:border-white/10 shadow-lg text-center transition-all duration-300">
                     <p className="text-sm md:text-base lg:text-lg text-neutral-600 dark:text-neutral-500 leading-relaxed font-medium">
-                      {initiativesData[currentSlide].content}
+                      {initiatives[currentSlide]?.content ?? ''}
                     </p>
                   </div>
                 </div>
@@ -327,7 +305,7 @@ export default function Hero() {
             </AnimatePresence>
 
             <div className="flex justify-center items-center gap-6 mt-4 md:mt-6">
-              <button 
+              <button
                 onClick={prevSlide}
                 className="p-2 text-neutral-400 dark:text-neutral-500 opacity-50 hover:opacity-100 hover:text-accent dark:hover:text-accent hover:-translate-x-1 transition-all focus:outline-none flex-shrink-0"
                 aria-label="Previous slide"
@@ -336,13 +314,13 @@ export default function Hero() {
               </button>
 
               <div className="flex justify-center items-center space-x-3">
-                {initiativesData.map((_, index) => (
+                {initiatives.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => setCurrentSlide(index)}
                     className={`transition-all duration-300 rounded-full ${
-                      currentSlide === index 
-                        ? 'w-8 h-2.5 bg-accent' 
+                      currentSlide === index
+                        ? 'w-8 h-2.5 bg-accent'
                         : 'w-2.5 h-2.5 bg-neutral-300 dark:bg-neutral-600 hover:bg-neutral-400 dark:hover:bg-neutral-500'
                     }`}
                     aria-label={`Go to slide ${index + 1}`}
@@ -350,7 +328,7 @@ export default function Hero() {
                 ))}
               </div>
 
-              <button 
+              <button
                 onClick={nextSlide}
                 className="p-2 text-neutral-400 dark:text-neutral-500 opacity-50 hover:opacity-100 hover:text-accent dark:hover:text-accent hover:translate-x-1 transition-all focus:outline-none flex-shrink-0"
                 aria-label="Next slide"
