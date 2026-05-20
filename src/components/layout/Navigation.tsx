@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 // import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
@@ -18,6 +18,14 @@ export default function Navigation({ items }: NavigationProps) {
   // const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [activeHash, setActiveHash] = useState(''); // Tracks the section currently in view
+  const isClickNavigating = useRef(false);
+  const clickTimeout = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (clickTimeout.current) clearTimeout(clickTimeout.current);
+    };
+  }, []);
 
   const { scrollY } = useScroll();
   const navBackgroundOpacity = useTransform(scrollY, [0, 100], [0, 1]);
@@ -26,6 +34,8 @@ export default function Navigation({ items }: NavigationProps) {
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 100);
+
+      if (isClickNavigating.current) return;
 
       const isAtBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 10;
       
@@ -49,6 +59,8 @@ export default function Navigation({ items }: NavigationProps) {
     }
 
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      if (isClickNavigating.current) return;
+
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           setActiveHash(`#${entry.target.id}`);
@@ -96,6 +108,12 @@ export default function Navigation({ items }: NavigationProps) {
     
     // 3. Clear the active tab highlight
     setActiveHash('');
+
+    isClickNavigating.current = true;
+    if (clickTimeout.current) clearTimeout(clickTimeout.current);
+    clickTimeout.current = setTimeout(() => {
+      isClickNavigating.current = false;
+    }, 1000);
   };
 
   return (
@@ -154,7 +172,14 @@ export default function Navigation({ items }: NavigationProps) {
                             key={item.title}
                             href={item.href}
                             prefetch={true}
-                            onClick={() => setActiveHash(`#${item.target}`)}
+                            onClick={() => {
+                              setActiveHash(`#${item.target}`);
+                              isClickNavigating.current = true;
+                              if (clickTimeout.current) clearTimeout(clickTimeout.current);
+                              clickTimeout.current = setTimeout(() => {
+                                isClickNavigating.current = false;
+                              }, 1000);
+                            }}
                             className={cn(
                               'relative px-3 py-2 text-base font-medium transition-all duration-200 rounded hover:bg-accent/20 hover:shadow-sm',
                               isActive
@@ -228,7 +253,14 @@ export default function Navigation({ items }: NavigationProps) {
                             as={Link}
                             href={item.href}
                             prefetch={true}
-                            onClick={() => setActiveHash(`#${item.target}`)}
+                            onClick={() => {
+                              setActiveHash(`#${item.target}`);
+                              isClickNavigating.current = true;
+                              if (clickTimeout.current) clearTimeout(clickTimeout.current);
+                              clickTimeout.current = setTimeout(() => {
+                                isClickNavigating.current = false;
+                              }, 1000);
+                            }}
                             className={cn(
                               'block px-3 py-2 rounded-md text-base font-medium transition-all duration-200',
                               isActive
