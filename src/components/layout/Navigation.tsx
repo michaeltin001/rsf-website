@@ -158,8 +158,8 @@ export default function Navigation({ items }: NavigationProps) {
                             className={cn(
                               'relative px-3 py-2 text-base font-medium transition-all duration-200 rounded hover:bg-accent/20 hover:shadow-sm',
                               isActive
-                                ? 'text-primary'
-                                : 'text-neutral-600 hover:text-primary'
+                                ? 'text-primary dark:text-primary-light'
+                                : 'text-neutral-600 dark:text-neutral-300 hover:text-primary dark:hover:text-primary-light'
                             )}
                           >
                             <span className="relative z-10">{item.title}</span>
@@ -232,8 +232,8 @@ export default function Navigation({ items }: NavigationProps) {
                             className={cn(
                               'block px-3 py-2 rounded-md text-base font-medium transition-all duration-200',
                               isActive
-                                ? 'text-primary bg-accent/20 border-l-4 border-accent'
-                                : 'text-neutral-600 hover:text-primary hover:bg-accent/20'
+                                ? 'text-primary dark:text-primary-light bg-accent/20 border-l-4 border-accent'
+                                : 'text-neutral-600 dark:text-neutral-300 hover:text-primary dark:hover:text-primary-light hover:bg-accent/20'
                             )}
                           >
                             {item.title}

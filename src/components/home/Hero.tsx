@@ -15,13 +15,29 @@ import {
   HeartIcon,       
   BriefcaseIcon    
 } from '@heroicons/react/24/outline';
-import type { Initiative } from '@/types/home';
+import type { Initiative, HeroSection, AboutSection, ImpactSection, VolunteerSection } from '@/types/home';
+
+// Icon Map for dynamic icon rendering
+const iconMap: Record<string, React.ElementType> = {
+  BuildingLibraryIcon,
+  CpuChipIcon,
+  UserGroupIcon,
+  SparklesIcon,
+  AcademicCapIcon, 
+  BeakerIcon,      
+  HeartIcon,       
+  BriefcaseIcon
+};
 
 interface HeroProps {
+  hero: HeroSection;
+  about: AboutSection;
+  impact: ImpactSection;
   initiatives: Initiative[];
+  volunteer: VolunteerSection;
 }
 
-export default function Hero({ initiatives }: HeroProps) {
+export default function Hero({ hero, about, impact, initiatives, volunteer }: HeroProps) {
   const [scrolled, setScrolled] = useState(false);
   const isSnapping = useRef(false);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -106,7 +122,7 @@ export default function Hero({ initiatives }: HeroProps) {
       >
         <div 
           className="absolute inset-0 bg-cover bg-center z-0"
-          style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2000&auto=format&fit=crop")' }}
+          style={{ backgroundImage: `url("${hero?.backgroundImage}")` }}
         />
         <div className="absolute inset-0 bg-black/40 z-10" />
 
@@ -120,7 +136,7 @@ export default function Hero({ initiatives }: HeroProps) {
               className="relative z-20 text-center px-8 py-10 rounded-2xl backdrop-blur-md bg-white/10 border border-white/20 shadow-glass"
             >
               <h1 className="text-4xl md:text-6xl font-bold text-white tracking-tight drop-shadow-lg">
-                Riverside STEM Foundation
+                {hero?.title}
               </h1>
             </motion.div>
           )}
@@ -158,16 +174,15 @@ export default function Hero({ initiatives }: HeroProps) {
               className="w-full lg:w-1/2 space-y-6"
             >
               <h2 className="text-sm font-bold tracking-widest text-accent uppercase">
-                About Us
+                {about?.title}
               </h2>
               <div className="text-6xl md:text-7xl lg:text-8xl font-extrabold text-primary tracking-tighter">
-                Est. 2016
+                {about?.headline}
               </div>
-              <p className="text-lg text-neutral-600 dark:text-neutral-500 leading-relaxed">
-                The Riverside STEM Foundation (RSF) is a registered <span className="text-accent font-semibold">501(c)(3) non-profit</span> corporation dedicated to supporting STEM education across the Inland Empire region.
-                <br/><br/>
-                Our Board of Directors is a diverse coalition united by a single goal: empowering the next generation of innovators.
-              </p>
+              <p 
+                className="text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: about?.content ?? '' }}
+              />
             </motion.div>
 
             <motion.div 
@@ -183,7 +198,7 @@ export default function Hero({ initiatives }: HeroProps) {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
                   <span className="font-medium tracking-wide uppercase text-sm">
-                    [Board of Directors Image]
+                    {about?.imagePlaceholder}
                   </span>
                 </div>
               </div>
@@ -204,16 +219,15 @@ export default function Hero({ initiatives }: HeroProps) {
               className="w-full lg:w-1/2 space-y-6"
             >
               <h2 className="text-sm font-bold tracking-widest text-accent uppercase">
-                Our Impact
+                {impact?.title}
               </h2>
               <div className="text-6xl md:text-7xl lg:text-8xl font-extrabold text-primary tracking-tighter">
-                $300k<span className="text-accent">+</span>
+                {impact?.headlinePrefix}<span className="text-accent">{impact?.headlineHighlight}</span>
               </div>
-              <p className="text-lg text-neutral-600 dark:text-neutral-500 leading-relaxed">
-                Through developing partnerships with the Riverside community and beyond, applying for grants, and engaging interested donors, the Riverside STEM Foundation has raised over $300,000. 
-                <br/><br/>
-                This funding has been directly reinvested into our community to support various vital educational and infrastructure initiatives.
-              </p>
+              <p 
+                className="text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: impact?.content ?? '' }}
+              />
             </motion.div>
 
             <motion.div 
@@ -223,29 +237,16 @@ export default function Hero({ initiatives }: HeroProps) {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="w-full lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6"
             >
-              <div className="bg-neutral-50 dark:bg-neutral-800/50 p-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 hover:shadow-md transition-shadow">
-                <BuildingLibraryIcon className="h-8 w-8 text-accent mb-4" />
-                <h3 className="text-lg font-semibold text-primary mb-2">School Infrastructure</h3>
-                <p className="text-sm text-neutral-600 dark:text-neutral-500">Funding major campus projects to create better learning environments.</p>
-              </div>
-
-              <div className="bg-neutral-50 dark:bg-neutral-800/50 p-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 hover:shadow-md transition-shadow">
-                <CpuChipIcon className="h-8 w-8 text-accent mb-4" />
-                <h3 className="text-lg font-semibold text-primary mb-2">Educational Tech</h3>
-                <p className="text-sm text-neutral-600 dark:text-neutral-500">Supplying modern tools like solar-powered greenhouses and C-STEM robots.</p>
-              </div>
-
-              <div className="bg-neutral-50 dark:bg-neutral-800/50 p-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 hover:shadow-md transition-shadow">
-                <UserGroupIcon className="h-8 w-8 text-accent mb-4" />
-                <h3 className="text-lg font-semibold text-primary mb-2">Student Activities</h3>
-                <p className="text-sm text-neutral-600 dark:text-neutral-500">Sponsoring and expanding extracurriculars like Robotics and Chess clubs.</p>
-              </div>
-
-              <div className="bg-neutral-50 dark:bg-neutral-800/50 p-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 hover:shadow-md transition-shadow">
-                <SparklesIcon className="h-8 w-8 text-accent mb-4" />
-                <h3 className="text-lg font-semibold text-primary mb-2">Community Events</h3>
-                <p className="text-sm text-neutral-600 dark:text-neutral-500">Supporting teacher development and hosting events like Innovate Riverside.</p>
-              </div>
+              {impact?.metrics?.map((metric, idx) => {
+                const Icon = iconMap[metric.icon] || SparklesIcon;
+                return (
+                  <div key={idx} className="bg-neutral-50 dark:bg-neutral-800/50 p-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 hover:shadow-md transition-shadow">
+                    <Icon className="h-8 w-8 text-accent mb-4" />
+                    <h3 className="text-lg font-semibold text-primary mb-2">{metric.title}</h3>
+                    <p className="text-sm text-neutral-600 dark:text-neutral-300">{metric.description}</p>
+                  </div>
+                );
+              })}
             </motion.div>
 
           </div>
@@ -296,7 +297,7 @@ export default function Hero({ initiatives }: HeroProps) {
                   </div>
 
                   <div className="absolute bottom-4 md:bottom-6 left-4 right-4 md:left-1/2 md:-translate-x-1/2 md:w-11/12 max-w-4xl p-4 md:p-6 rounded-2xl backdrop-blur-md bg-white/75 dark:bg-black/60 border border-white/30 dark:border-white/10 shadow-lg text-center transition-all duration-300">
-                    <p className="text-sm md:text-base lg:text-lg text-neutral-600 dark:text-neutral-500 leading-relaxed font-medium">
+                    <p className="text-sm md:text-base lg:text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed font-medium">
                       {initiatives[currentSlide]?.content ?? ''}
                     </p>
                   </div>
@@ -351,22 +352,22 @@ export default function Hero({ initiatives }: HeroProps) {
               className="w-full lg:w-1/2 space-y-6"
             >
               <h2 className="text-sm font-bold tracking-widest text-accent uppercase">
-                Volunteer
+                {volunteer?.title}
               </h2>
               <div className="text-6xl md:text-7xl lg:text-8xl font-extrabold text-primary tracking-tighter leading-tight">
-                Join Us
+                {volunteer?.headline}
               </div>
-              <p className="text-lg text-neutral-600 dark:text-neutral-500 leading-relaxed">
-                We welcome your creative ideas for grant proposals, symposium speakers, and <span className="text-accent font-semibold">community partnerships</span>. If you have expertise in fundraising, grant writing, or non-profit work that you'd like to share, we would greatly appreciate it. 
-                Additionally, if you're interested in making a <span className="text-accent font-semibold">tax-deductible donation</span> to support RSF's mission, please reach out!
-              </p>
+              <p 
+                className="text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: volunteer?.content ?? '' }}
+              />
               
               <div className="pt-4 flex flex-col sm:flex-row gap-4">
                 <button className="px-6 py-3 bg-accent text-white text-sm font-semibold rounded-lg hover:bg-accent-light shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5">
-                  Contact Us
+                  {volunteer?.buttonPrimary}
                 </button>
                 <button className="px-6 py-3 bg-white dark:bg-neutral-800 text-primary dark:text-white text-sm font-semibold rounded-lg shadow-sm border border-neutral-200 dark:border-neutral-700 hover:border-accent dark:hover:border-accent transition-all hover:-translate-y-0.5">
-                  Donate Now
+                  {volunteer?.buttonSecondary}
                 </button>
               </div>
             </motion.div>
@@ -384,7 +385,7 @@ export default function Hero({ initiatives }: HeroProps) {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
                   <span className="font-medium tracking-wide uppercase text-sm">
-                    [Community Partnership Image]
+                    {volunteer?.imagePlaceholder}
                   </span>
                 </div>
               </div>

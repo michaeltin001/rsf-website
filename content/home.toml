@@ -1,3 +1,39 @@
+[hero]
+title = "Riverside STEM Foundation"
+backgroundImage = "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2000&auto=format&fit=crop"
+
+[about]
+title = "About Us"
+headline = "Est. 2016"
+content = "The Riverside STEM Foundation (RSF) is a registered <span class=\"text-accent font-semibold\">501(c)(3) non-profit</span> corporation dedicated to supporting STEM education across the Inland Empire region.<br/><br/>Our Board of Directors is a diverse coalition united by a single goal: empowering the next generation of innovators."
+imagePlaceholder = "[Board of Directors Image]"
+
+[impact]
+title = "Our Impact"
+headlinePrefix = "$300k"
+headlineHighlight = "+"
+content = "Through developing partnerships with the Riverside community and beyond, applying for grants, and engaging interested donors, the Riverside STEM Foundation has raised over $300,000.<br/><br/>This funding has been directly reinvested into our community to support various vital educational and infrastructure initiatives."
+
+[[impact.metrics]]
+icon = "BuildingLibraryIcon"
+title = "School Infrastructure"
+description = "Funding major campus projects to create better learning environments."
+
+[[impact.metrics]]
+icon = "CpuChipIcon"
+title = "Educational Tech"
+description = "Supplying modern tools like solar-powered greenhouses and C-STEM robots."
+
+[[impact.metrics]]
+icon = "UserGroupIcon"
+title = "Student Activities"
+description = "Sponsoring and expanding extracurriculars like Robotics and Chess clubs."
+
+[[impact.metrics]]
+icon = "SparklesIcon"
+title = "Community Events"
+description = "Supporting teacher development and hosting events like Innovate Riverside."
+
 [[initiatives]]
 title = "Community Partnerships"
 content = "Backing STEM outreach, civic leadership projects, and program development. This includes public showcases and creating innovative programs through dedicated training and planning initiatives."
@@ -17,3 +53,11 @@ content = "Supporting the foundation in securing vital funding through dedicated
 [[initiatives]]
 title = "Green Solutions"
 content = "Providing resources for campus Green Teams to promote environmentally conscious behaviors. We aim to develop student leadership and inspire action in sustainable green solutions."
+
+[volunteer]
+title = "Volunteer"
+headline = "Get Involved"
+content = "We welcome your creative ideas for grant proposals, symposium speakers, and <span class=\"text-accent font-semibold\">community partnerships</span>. If you have expertise in fundraising, grant writing, or non-profit work that you'd like to share, we would greatly appreciate it. Additionally, if you're interested in making a <span class=\"text-accent font-semibold\">tax-deductible donation</span> to support RSF's mission, please reach out!"
+buttonPrimary = "Contact Us"
+buttonSecondary = "Donate Now"
+imagePlaceholder = "[Community Partnership Image]"
