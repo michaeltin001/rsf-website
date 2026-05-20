@@ -43,3 +43,9 @@ title = "Volunteer"
 type = "section"
 target = "volunteer"
 href = "/#volunteer"
+
+[[navigation]]
+title = "MS Collaboration"
+type = "page"
+target = "stem-ms"
+href = "/stem-ms"

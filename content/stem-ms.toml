@@ -1,0 +1,10 @@
+type = "stem-ms"
+title = "RUSD STEM MS Collaboration"
+
+[header]
+headline = "Fostering STEM Education in Middle Schools"
+description = "Our collaboration with RUSD aims to bring hands-on..."
+
+[program_details]
+title = "Program Details"
+content = "Detailed information about the collaboration..."

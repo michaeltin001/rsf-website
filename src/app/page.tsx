@@ -1,10 +1,10 @@
 import { getPageConfig } from '@/lib/content';
-import type { HomeContent } from '@/types/home';
+import type { HomePageConfig } from '@/types/page';
 import Hero from '@/components/home/Hero';
 
 export default function Home() {
   // 2. Fetch the homepage specific data from the file system using the generic fetcher
-  const homeContent = getPageConfig<HomeContent>('home');
+  const homeContent = getPageConfig<HomePageConfig>('home');
   
   // Provide a fallback array to prevent mapping errors if the TOML file is empty or malformed
   const initiatives = homeContent?.initiatives || [];
