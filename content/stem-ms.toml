@@ -1,45 +1,64 @@
 type = "stem-ms"
 title = "RUSD STEM MS Collaboration"
 
-[header]
+[hero]
 headline = "RUSD STEM MS Collaboration"
-partnership_text = "In partnership with:"
-partners = ["Riverside STEM Foundation", "Delta SIFY", "Riverside STEM Academy"]
+sub_headline = "A new resource-sharing partnership for RUSD educators."
+cta_button = "Learn More"
+bg_image = "https://images.unsplash.com/photo-1564069114553-7215e1ff1890?q=80&w=2000&auto=format&fit=crop"
 
-[our_program]
-title = "OUR PROGRAM"
-headline = "Empowering RUSD Middle Schools"
-content = "Our initiative is proudly open to all RUSD middle schools. Whether you are starting entirely new programs from scratch or building the capacity of existing ones, our collaboration is designed to support you. We provide the mentorship, resources, and structured pathways necessary to foster an engaging STEM ecosystem that inspires students and elevates education across the district."
+[initiative]
+title = "The Initiative"
+headline = "Empowering Middle School STEM"
+paragraphs = [
+  "Building a STEM program from scratch—or expanding an existing one—takes time and resources. In partnership with the Riverside STEM Foundation, Delta SIFY, and the Riverside STEM Academy, we are offering a comprehensive resource-sharing initiative designed to kickstart STEM clubs at your middle school.",
+  "Designed specifically as professional development for educators, our goal is to provide you with the curriculum, practice materials, and structural support you need. There are no mandatory commitments, no rigid deadlines, and no hidden expectations. Use what works for your classroom."
+]
+
+[[initiative.partners]]
+name = "Riverside STEM Foundation"
+short_name = "RSF"
+
+[[initiative.partners]]
+name = "Delta SIFY"
+short_name = "DS"
+
+[[initiative.partners]]
+name = "Riverside STEM Academy"
+short_name = "RSA"
 
 [programs]
-title = "2026-2027 PROGRAMS"
+title = "Core Programs"
+headline = "Available Resources"
 
 [[programs.items]]
-title = "MATH COMPETITION CLUBS"
-description = "Competitive problem-solving, teamwork, preparation for contests"
+title = "Math Competition Clubs"
+focus = "Competitive problem-solving and teamwork."
+resources = "Preparation materials targeted specifically for MATHCOUNTS and the Math Olympiad."
 icon = "CalculatorIcon"
 
 [[programs.items]]
-title = "SCIENCE OLYMPIAD"
-description = "Hands-on engineering, lab skills, science exploration"
+title = "Science Olympiad"
+focus = "Hands-on engineering, lab skills, and science exploration."
+resources = "A structured syllabus featuring weekly content, including lectures, presentations, and practice exams."
 icon = "BeakerIcon"
 
 [[programs.items]]
-title = "FIRST LEGO ROBOTICS"
-description = "Design, build, program, innovate; team competition"
-icon = "PuzzlePieceIcon"
+title = "FIRST LEGO Robotics"
+focus = "Design, build, program, and innovate."
+resources = "An interactive, beginner-friendly curriculum designed to teach your students the fundamentals of robotics and programming."
+icon = "CpuChipIcon"
 
 [[programs.items]]
-title = "SCIENCE FAIR"
-description = "Research skills, engineering design, presenting at competition"
+title = "Science Fair"
+focus = "Research skills, engineering design, and scientific presentation."
+resources = "Guidance and structured support that leads directly to competing in the RUSD District Science Fair."
 icon = "PresentationChartBarIcon"
 
-[involvement]
-title = "GET INVOLVED"
-headline = "CONNECT & INQUIRE: PARTNER WITH US TO BUILD YOUR STEM PROGRAM!"
-
 [contact]
-title = "CONTACT"
-text = "Contact JOSHUA ZONKER at jzonker@riversideunified.org to get started and learn more."
-email = "jzonker@riversideunified.org"
-name = "JOSHUA ZONKER"
+headline = "Ready to bring these resources to your school?"
+body = "Our partnership kicks off in August. Because there is no formal application process or binding commitment, getting started is simple. Reach out today to gain access to the curriculum."
+
+[contact.info]
+name = "Joshua Zonker"
+email = "jzonker [at] riversideunified [dot] org"

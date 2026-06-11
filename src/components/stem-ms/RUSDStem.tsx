@@ -3,20 +3,18 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
+  ChevronDownIcon,
   CalculatorIcon,
   BeakerIcon,
-  PuzzlePieceIcon,
-  PresentationChartBarIcon,
-  AcademicCapIcon,
-  ChevronDownIcon
+  CpuChipIcon,
+  PresentationChartBarIcon
 } from '@heroicons/react/24/outline';
 import type { RUSDStemPageConfig } from '@/types/page';
 
-// Icon Map for dynamic icon rendering
 const iconMap: Record<string, React.ElementType> = {
   CalculatorIcon,
   BeakerIcon,
-  PuzzlePieceIcon,
+  CpuChipIcon,
   PresentationChartBarIcon,
 };
 
@@ -25,10 +23,11 @@ interface RusdStemProps {
 }
 
 export default function RUSDStem({ config }: RusdStemProps) {
-  const { header, our_program, programs, involvement, contact } = config;
+  const { hero, initiative, programs, contact } = config;
 
   const [scrolled, setScrolled] = useState(false);
   const isSnapping = useRef(false);
+  const contactRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
   const performSmoothScroll = (targetPos: number) => {
@@ -43,14 +42,14 @@ export default function RUSDStem({ config }: RusdStemProps) {
       if (Math.abs(currentY - targetPos) < 2) {
         clearInterval(checkIfScrollFinished);
         isSnapping.current = false;
-      }
+      } 
       else if (currentY === lastY) {
         idleTicks++;
         if (idleTicks >= 2) {
           clearInterval(checkIfScrollFinished);
           isSnapping.current = false;
         }
-      }
+      } 
       else {
         idleTicks = 0;
       }
@@ -76,7 +75,7 @@ export default function RUSDStem({ config }: RusdStemProps) {
           performSmoothScroll(0);
         }
       }
-
+      
       lastScrollY = currentScrollY;
     };
 
@@ -85,6 +84,13 @@ export default function RUSDStem({ config }: RusdStemProps) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const scrollToContact = () => {
+    if (contactRef.current) {
+      const navHeight = window.innerWidth >= 1024 ? 64 : 56;
+      performSmoothScroll(contactRef.current.offsetTop - navHeight);
+    }
+  };
+
   const scrollToContent = () => {
     if (contentRef.current) {
       const navHeight = window.innerWidth >= 1024 ? 64 : 56;
@@ -92,56 +98,54 @@ export default function RUSDStem({ config }: RusdStemProps) {
     }
   };
 
+  const renderHeadline = (text: string) => {
+    if (text === 'RUSD STEM MS Collaboration') {
+      return (
+        <>
+          <span className="text-[#2563eb] dark:text-[#60a5fa]">RUSD </span>
+          <span className="text-[#16a34a] dark:text-[#4ade80]">STEM </span>
+          <span className="text-[#ea580c] dark:text-[#fb923c]">MS </span>
+          <span className="text-white block mt-2">Collaboration</span>
+        </>
+      );
+    }
+    return text;
+  };
+
   return (
     <div className="w-full">
-      {/* 1. HERO / HEADER SECTION */}
-      <section className="relative w-full h-screen -mt-14 lg:-mt-16 overflow-hidden bg-gradient-to-b from-neutral-50 to-white dark:from-neutral-900 dark:to-neutral-950 shadow-sm border-b border-neutral-200 dark:border-neutral-800 flex flex-col justify-center">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8 md:space-y-12">
+      {/* 1. Hero Section */}
+      <section className="relative w-full h-screen -mt-14 lg:-mt-16 overflow-hidden shadow-2xl flex items-center justify-center">
+        <div 
+          className="absolute inset-0 bg-cover bg-center z-0"
+          style={{ backgroundImage: `url("${hero.bg_image}")` }}
+        />
+        <div className="absolute inset-0 bg-black/40 z-10" />
 
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tighter">
-              <span className="text-[#1e4b6b] dark:text-[#5aa5d7]">RUSD </span>
-              <span className="text-[#2a7b45] dark:text-[#42ad66]">STEM </span>
-              <span className="text-[#d97c2b] dark:text-[#e8954d]">MS </span>
-              <span className="text-primary block mt-2 md:mt-4">Collaboration</span>
-            </h1>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="space-y-4 md:space-y-6"
-          >
-            <p className="text-neutral-500 dark:text-neutral-400 font-medium tracking-widest uppercase text-sm md:text-base">
-              {header.partnership_text}
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto pt-4">
-              {header.partners.map((partner, idx) => (
-                <div key={idx} className="flex flex-col items-center group cursor-pointer transition-transform duration-300 hover:-translate-y-1">
-                  <div className="w-full aspect-video bg-neutral-200 dark:bg-neutral-800 rounded-2xl overflow-hidden shadow-lg border border-neutral-200 dark:border-neutral-700 relative mb-4">
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#1e4b6b]/20 to-[#2a7b45]/20 dark:from-[#5aa5d7]/20 dark:to-[#42ad66]/20 flex flex-col items-center justify-center text-neutral-500 transition-transform duration-500 group-hover:scale-105">
-                      <svg className="w-10 h-10 mb-2 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                      </svg>
-                      <span className="font-medium tracking-wide uppercase text-xs text-center px-2">
-                        {partner} Image
-                      </span>
-                    </div>
-                  </div>
-                  <div className="text-base md:text-lg font-bold text-neutral-800 dark:text-neutral-200 text-center transition-colors group-hover:text-[#1e4b6b] dark:group-hover:text-[#5aa5d7]">
-                    {partner}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-
-        </div>
+        <AnimatePresence>
+          {!scrolled && (
+             <motion.div 
+               initial={{ opacity: 0, y: 30 }}
+               animate={{ opacity: 1, y: 0 }}
+               exit={{ opacity: 0, y: -30, filter: "blur(4px)" }}
+               transition={{ duration: 0.5 }}
+               className="relative z-20 text-center px-6 md:px-12 py-10 rounded-2xl backdrop-blur-md bg-white/10 border border-white/20 shadow-glass w-full max-w-7xl mx-auto"
+             >
+               <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight drop-shadow-lg mb-4 text-white">
+                 {renderHeadline(hero.headline)}
+               </h1>
+               <p className="text-xl md:text-2xl text-neutral-200 font-medium tracking-wide mb-8">
+                 {hero.sub_headline}
+               </p>
+               <button 
+                 onClick={scrollToContact}
+                 className="px-8 py-4 bg-accent hover:bg-accent-light text-white text-lg font-bold rounded-full shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5"
+               >
+                 {hero.cta_button}
+               </button>
+             </motion.div>
+          )}
+        </AnimatePresence>
 
         <AnimatePresence>
           {!scrolled && (
@@ -151,7 +155,7 @@ export default function RUSDStem({ config }: RusdStemProps) {
               exit={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.5 }}
               onClick={scrollToContent}
-              className="absolute bottom-12 left-1/2 -translate-x-1/2 text-neutral-400 hover:text-primary dark:text-neutral-500 dark:hover:text-white z-20 focus:outline-none transition-colors"
+              className="absolute bottom-12 left-1/2 -translate-x-1/2 text-white/80 hover:text-white z-20 focus:outline-none transition-colors"
               aria-label="Scroll down to content"
             >
               <ChevronDownIcon className="h-10 w-10 animate-bounce drop-shadow-md" />
@@ -161,118 +165,136 @@ export default function RUSDStem({ config }: RusdStemProps) {
       </section>
 
       {/* CONTENT WRAPPER */}
-      <div ref={contentRef} className="w-full overflow-hidden">
-        {/* 2. OUR PROGRAM SECTION */}
-        <section className="py-16 md:py-24 bg-white dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-800">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="space-y-6 md:space-y-8"
-            >
-              <h2 className="text-sm font-bold tracking-widest text-[#d97c2b] uppercase">
-                {our_program.title}
-              </h2>
-              <div className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#1e4b6b] dark:text-[#5aa5d7] tracking-tight leading-tight">
-                {our_program.headline}
-              </div>
-              <div className="w-24 h-1 bg-[#2a7b45] dark:bg-[#42ad66] mx-auto rounded-full"></div>
-              <p className="text-lg md:text-xl text-neutral-600 dark:text-neutral-300 leading-relaxed mx-auto max-w-3xl">
-                {our_program.content}
-              </p>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* 3. PROGRAMS SECTION */}
-        <section className="py-12 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
+      <div ref={contentRef} className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 overflow-hidden">
+        
+        {/* 2. The Initiative (Value Proposition) */}
+        <section className="py-8 md:py-16 flex flex-col items-center space-y-12">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="text-center mb-12 md:mb-16"
+            transition={{ duration: 0.6 }}
+            className="w-full text-center space-y-6"
           >
-            <h2 className="inline-block px-8 py-3 bg-white dark:bg-neutral-900 rounded-2xl text-2xl md:text-4xl font-extrabold text-primary tracking-tight border border-neutral-200 dark:border-neutral-800 shadow-sm uppercase">
-              {programs.title}
-            </h2>
+            <h2 className="text-sm font-bold tracking-widest text-accent uppercase">{initiative.title}</h2>
+            <div className="text-4xl md:text-6xl font-extrabold text-primary tracking-tighter">
+              {initiative.headline}
+            </div>
+            {initiative.paragraphs.map((p, idx) => (
+              <p key={idx} className="text-lg md:text-xl text-neutral-600 dark:text-neutral-300 leading-relaxed">
+                {p.includes('There are no mandatory commitments') ? (
+                  <span dangerouslySetInnerHTML={{ __html: p.replace('There are no mandatory commitments, no rigid deadlines, and no hidden expectations.', '<strong class="text-accent font-semibold">There are no mandatory commitments, no rigid deadlines, and no hidden expectations.</strong>') }} />
+                ) : (
+                  p
+                )}
+              </p>
+            ))}
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 max-w-6xl mx-auto">
-            {programs.items.map((program, idx) => {
-              const Icon = iconMap[program.icon] || AcademicCapIcon;
-              return (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: idx * 0.1 }}
-                  className="flex flex-col sm:flex-row items-center sm:items-start gap-6 bg-white dark:bg-neutral-900 p-8 rounded-3xl shadow-xl border border-neutral-100 dark:border-neutral-800 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group"
-                >
-                  <div className="flex-shrink-0 w-20 h-20 rounded-2xl bg-[#eef5fa] dark:bg-[#1a2b38] border border-[#d6e6f2] dark:border-[#243d50] flex items-center justify-center group-hover:scale-110 group-hover:bg-[#1e4b6b] group-hover:border-[#1e4b6b] transition-all duration-500">
-                    <Icon className="w-10 h-10 text-[#1e4b6b] dark:text-[#5aa5d7] group-hover:text-white transition-colors duration-500" />
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="w-full grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8"
+          >
+            {initiative.partners.map((partner, idx) => (
+              <a 
+                href="#contact"
+                key={idx} 
+                className="group cursor-pointer flex flex-col h-full bg-neutral-50 dark:bg-neutral-800/50 rounded-3xl overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-2 border border-neutral-200 dark:border-neutral-800 transition-all duration-300"
+              >
+                <div className="relative w-full aspect-[4/3] bg-neutral-200 dark:bg-neutral-800 overflow-hidden shrink-0">
+                  <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-primary/20 flex flex-col items-center justify-center text-neutral-500 transition-transform duration-500 group-hover:scale-105">
+                    <svg className="w-12 h-12 mb-3 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <span className="font-medium tracking-wide uppercase text-sm">
+                      {partner.short_name} Image
+                    </span>
                   </div>
-                  <div className="text-center sm:text-left">
-                    <h3 className="text-xl md:text-2xl font-extrabold text-primary mb-3 uppercase tracking-tight">
-                      {program.title}
-                    </h3>
-                    <p className="text-neutral-600 dark:text-neutral-400 text-sm md:text-base leading-relaxed">
-                      {program.description}
-                    </p>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
+                </div>
+                <div className="p-6 flex-grow flex items-center justify-center text-center bg-white dark:bg-neutral-900 group-hover:bg-accent/5 dark:group-hover:bg-accent/5 transition-colors duration-300">
+                  <h3 className="font-bold text-primary group-hover:text-accent transition-colors duration-300 text-lg">{partner.name}</h3>
+                </div>
+              </a>
+            ))}
+          </motion.div>
         </section>
 
-        {/* 4. INVOLVEMENT / CONTACT SECTION */}
-        <section className="py-16 md:py-24 bg-gradient-to-t from-neutral-100 to-white dark:from-neutral-900 dark:to-neutral-950 border-t border-neutral-200 dark:border-neutral-800 overflow-hidden">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
+        {/* 3. Core Programs (The Grid) */}
+        <section className="py-8 md:py-16 space-y-12">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center max-w-3xl mx-auto"
+          >
+            <h2 className="text-sm font-bold tracking-widest text-accent uppercase mb-4">{programs.title}</h2>
+            <h3 className="text-4xl md:text-6xl font-extrabold text-primary tracking-tighter">{programs.headline}</h3>
+          </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="bg-[#1e4b6b] text-white rounded-[2.5rem] p-8 md:p-16 shadow-2xl relative overflow-hidden"
-            >
-              {/* Decorative background elements */}
-              <div className="absolute top-0 right-0 w-80 h-80 bg-white opacity-5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4"></div>
-              <div className="absolute bottom-0 left-0 w-80 h-80 bg-[#d97c2b] opacity-10 rounded-full blur-3xl translate-y-1/4 -translate-x-1/4"></div>
-
-              <div className="relative z-10">
-                <div className="inline-block px-6 py-2 bg-[#d97c2b] text-white font-extrabold tracking-widest text-sm rounded-full mb-8 shadow-md uppercase">
-                  {involvement.title}
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="grid grid-cols-1 md:grid-cols-2 gap-8"
+          >
+            {programs.items.map((item, idx) => {
+              const Icon = iconMap[item.icon] || CalculatorIcon;
+              return (
+                <div 
+                  key={idx}
+                  className="bg-neutral-50 dark:bg-neutral-800/50 p-8 md:p-10 rounded-3xl shadow-xl border border-neutral-200 dark:border-neutral-800"
+                >
+                  <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mb-6">
+                    <Icon className="w-8 h-8 text-accent" />
+                  </div>
+                  <h4 className="text-2xl font-extrabold text-primary mb-4 tracking-tight">{item.title}</h4>
+                  <div className="space-y-3">
+                    <p className="text-neutral-600 dark:text-neutral-300 text-lg"><strong className="text-accent font-semibold">The Focus:</strong> {item.focus}</p>
+                    <p className="text-neutral-600 dark:text-neutral-300 text-lg"><strong className="text-accent font-semibold">The Resources:</strong> {item.resources}</p>
+                  </div>
                 </div>
+              );
+            })}
+          </motion.div>
+        </section>
 
-                <h2 className="text-3xl md:text-5xl font-extrabold mb-10 tracking-tight uppercase leading-tight text-white/95">
-                  {involvement.headline}
-                </h2>
-
-                <div className="w-full h-px bg-white/20 mb-10 max-w-md mx-auto"></div>
-
-                <div className="space-y-5">
-                  <h3 className="text-lg md:text-xl font-bold tracking-widest uppercase text-white/80">
-                    {contact.title}
-                  </h3>
-                  <p className="text-xl md:text-2xl font-medium text-white">
-                    Contact <span className="font-extrabold text-[#d97c2b]">{contact.name}</span> at{' '}
-                    <a href={`mailto:${contact.email}`} className="underline decoration-[#d97c2b] underline-offset-4 hover:text-[#d97c2b] transition-colors">
-                      {contact.email}
-                    </a>
-                  </p>
-                  <p className="text-lg text-white/80">
-                    to get started and learn more.
-                  </p>
-                </div>
+        {/* 4. Next Steps & Contact (Bottom) */}
+        <section ref={contactRef} id="contact" className="py-8 md:py-16">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="bg-neutral-900 dark:bg-black text-white rounded-[3rem] p-10 md:p-16 lg:p-20 shadow-2xl relative overflow-hidden text-center mx-auto"
+          >
+            {/* Background Decorations */}
+            <div className="absolute top-0 right-0 w-96 h-96 bg-accent opacity-20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4"></div>
+            <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary opacity-20 rounded-full blur-3xl translate-y-1/4 -translate-x-1/4"></div>
+            
+            <div className="relative z-10 space-y-8 max-w-4xl mx-auto">
+              <h2 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight">
+                {contact.headline}
+              </h2>
+              <p className="text-lg md:text-xl lg:text-2xl text-neutral-300 leading-relaxed font-medium">
+                {contact.body}
+              </p>
+              
+              <div className="w-32 h-1 bg-accent mx-auto rounded-full my-8 opacity-50"></div>
+              
+              <div className="pt-4 text-xl md:text-2xl font-medium tracking-wide">
+                Contact <span className="font-bold text-white">{contact.info.name}</span> at <br className="md:hidden" />
+                <span className="font-bold text-accent">
+                  {contact.info.email}
+                </span>
+                <br className="md:hidden" /> to inquire and get started.
               </div>
-            </motion.div>
-
-          </div>
+            </div>
+          </motion.div>
         </section>
 
       </div>

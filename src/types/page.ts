@@ -55,47 +55,54 @@ export interface HomePageConfig extends BasePageConfig {
 }
 
 // --- 2. RUSD STEM MS Collaboration Types ---
-export interface StemHeaderSection {
+export interface StemHeroSection {
     headline: string;
-    partnership_text: string;
-    partners: string[];
+    sub_headline: string;
+    cta_button: string;
+    bg_image: string;
 }
 
-export interface StemOurProgramSection {
+export interface StemPartner {
+    name: string;
+    short_name: string;
+}
+
+export interface StemInitiativeSection {
     title: string;
     headline: string;
-    content: string;
+    paragraphs: string[];
+    partners: StemPartner[];
 }
 
 export interface StemProgramItem {
     title: string;
-    description: string;
+    focus: string;
+    resources: string;
     icon: string;
 }
 
 export interface StemProgramsSection {
     title: string;
+    headline: string;
     items: StemProgramItem[];
 }
 
-export interface StemInvolvementSection {
-    title: string;
-    headline: string;
+export interface StemContactInfo {
+    name: string;
+    email: string;
 }
 
 export interface StemContactSection {
-    title: string;
-    text: string;
-    email: string;
-    name: string;
+    headline: string;
+    body: string;
+    info: StemContactInfo;
 }
 
 export interface RUSDStemPageConfig extends BasePageConfig {
     type: 'stem-ms';
-    header: StemHeaderSection;
-    our_program: StemOurProgramSection;
+    hero: StemHeroSection;
+    initiative: StemInitiativeSection;
     programs: StemProgramsSection;
-    involvement: StemInvolvementSection;
     contact: StemContactSection;
 }
 
