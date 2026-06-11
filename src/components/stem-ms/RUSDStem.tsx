@@ -100,9 +100,9 @@ export default function RUSDStem({ config }: RusdStemProps) {
     if (text === 'RUSD STEM MS Collaboration') {
       return (
         <>
-          <span className="text-[#2563eb] dark:text-[#60a5fa]">RUSD </span>
-          <span className="text-[#16a34a] dark:text-[#4ade80]">STEM </span>
-          <span className="text-[#ea580c] dark:text-[#fb923c]">MS </span>
+          <span className="text-[#3b82f6] dark:text-[#60a5fa]">RUSD </span>
+          <span className="text-[#22c55e] dark:text-[#4ade80]">STEM </span>
+          <span className="text-[#f97316] dark:text-[#fb923c]">MS </span>
           <span className="text-white block mt-2">Collaboration</span>
         </>
       );
