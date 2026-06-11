@@ -1,11 +1,11 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-// import { usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
-import { Disclosure } from '@headlessui/react';
-import { Bars3Icon, XMarkIcon, BeakerIcon } from '@heroicons/react/24/outline';
+import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
+import { Bars3Icon, XMarkIcon, HomeIcon } from '@heroicons/react/24/outline';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { SiteConfig } from '@/lib/config';
@@ -15,17 +15,8 @@ interface NavigationProps {
 }
 
 export default function Navigation({ items }: NavigationProps) {
-  // const pathname = usePathname();
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
-  const [activeHash, setActiveHash] = useState(''); // Tracks the section currently in view
-  const isClickNavigating = useRef(false);
-  const clickTimeout = useRef<NodeJS.Timeout | null>(null);
-
-  useEffect(() => {
-    return () => {
-      if (clickTimeout.current) clearTimeout(clickTimeout.current);
-    };
-  }, []);
 
   const { scrollY } = useScroll();
   const navBackgroundOpacity = useTransform(scrollY, [0, 100], [0, 1]);
@@ -34,86 +25,19 @@ export default function Navigation({ items }: NavigationProps) {
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 100);
-
-      if (isClickNavigating.current) return;
-
-      const isAtBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 10;
-      
-      if (isAtBottom && items && items.length > 0) {
-        const lastItem = items[items.length - 1];
-        if (lastItem.target) {
-          setActiveHash(`#${lastItem.target}`);
-        }
-      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [items]);
-
-  // Set up the Intersection Observer for "Scroll Spy" functionality
-  useEffect(() => {
-    // Set initial hash on client load
-    if (typeof window !== 'undefined') {
-      setActiveHash(window.location.hash);
-    }
-
-    const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      if (isClickNavigating.current) return;
-
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setActiveHash(`#${entry.target.id}`);
-        }
-      });
-    };
-
-    const observerOptions = {
-      root: null,
-      // Creates a tight 2% detection band in the exact center of the screen
-      rootMargin: '-49% 0px -49% 0px',
-      threshold: 0
-    };
-
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
-
-    // Grab the targets dynamically based on your config.toml
-    items?.forEach(item => {
-      if (item.target) {
-        const element = document.getElementById(item.target);
-        if (element) observer.observe(element);
-      }
-    });
-
-    return () => observer.disconnect();
-  }, [items]);
-
-  // Quality of Life: Cleanse URL hash on page refresh
-  useEffect(() => {
-    if (typeof window !== 'undefined' && window.location.hash) {
-      // Replaces the URL with just the pathname (e.g., '/', stripping the hash)
-      window.history.replaceState(null, '', window.location.pathname);
-      
-      // Optional: If you also want to force the user back to the very top of the page on refresh, uncomment the line below:
-      // window.scrollTo(0, 0); 
-    }
   }, []);
 
-  const handleLogoClick = () => {
-    // 1. Scroll to top
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    
-    // 2. Cleanse the URL in the browser address bar
-    window.history.replaceState(null, '', window.location.pathname);
-    
-    // 3. Clear the active tab highlight
-    setActiveHash('');
+  const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (pathname !== '/') {
+      return;
+    }
 
-    isClickNavigating.current = true;
-    if (clickTimeout.current) clearTimeout(clickTimeout.current);
-    clickTimeout.current = setTimeout(() => {
-      isClickNavigating.current = false;
-    }, 1000);
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -132,54 +56,39 @@ export default function Navigation({ items }: NavigationProps) {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
               <div className="flex justify-between items-center h-14 lg:h-16">
                 <div className="flex-shrink-0 flex items-center">
-                  <button 
+                  <Link
+                    href="/"
                     onClick={handleLogoClick}
                     className="focus:outline-none cursor-pointer"
-                    aria-label="Scroll to top"
+                    aria-label="Home"
                   >
-                    <AnimatePresence mode="wait">
-                      {scrolled && (
-                        <motion.div 
-                          initial={{ opacity: 0, y: 15 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: -15 }}
-                          transition={{ duration: 0.4 }}
-                          className="flex items-center text-primary hover:text-accent transition-colors"
-                        >
-                          <span className="hidden md:block text-xl font-bold tracking-tight">
-                            Riverside STEM Foundation
-                          </span>
-                          <BeakerIcon className="h-6 w-6 md:hidden" />
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </button>
+                    <motion.div
+                      initial={{ opacity: 0, y: 15 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4 }}
+                      className="flex items-center text-primary hover:text-accent transition-colors"
+                    >
+                      <span className="hidden md:block text-xl font-bold tracking-tight">
+                        Riverside STEM Foundation
+                      </span>
+                      <HomeIcon className="h-6 w-6 md:hidden" />
+                    </motion.div>
+                  </Link>
                 </div>
 
                 <div className="hidden lg:block">
                   <div className="ml-10 flex items-center space-x-8">
                     <div className="flex items-baseline space-x-8">
                       {items?.map((item) => {
-                        // const isActive = item.href === '/' 
-                        //   ? pathname === '/' 
-                        //   : pathname.startsWith(item.href);
-
-                        // Check if the current hash matches the target from config.toml
-                        const isActive = activeHash === `#${item.target}`;
+                        const isActive = item.href === '/' 
+                          ? pathname === '/' 
+                          : pathname.startsWith(item.href);
 
                         return (
                           <Link
                             key={item.title}
                             href={item.href}
                             prefetch={true}
-                            onClick={() => {
-                              setActiveHash(`#${item.target}`);
-                              isClickNavigating.current = true;
-                              if (clickTimeout.current) clearTimeout(clickTimeout.current);
-                              clickTimeout.current = setTimeout(() => {
-                                isClickNavigating.current = false;
-                              }, 1000);
-                            }}
                             className={cn(
                               'relative px-3 py-2 text-base font-medium transition-all duration-200 rounded hover:bg-accent/20 hover:shadow-sm',
                               isActive
@@ -206,7 +115,7 @@ export default function Navigation({ items }: NavigationProps) {
 
                 <div className="lg:hidden flex items-center space-x-2">
                   <ThemeToggle />
-                  <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-neutral-600 hover:text-primary hover:bg-neutral-100 dark:hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent transition-colors duration-200 cursor-pointer">
+                  <DisclosureButton className="inline-flex items-center justify-center p-2 rounded-md text-neutral-600 hover:text-primary hover:bg-neutral-100 dark:hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent transition-colors duration-200 cursor-pointer">
                     <span className="sr-only">Open main menu</span>
                     <motion.div
                       animate={{ rotate: open ? 180 : 0 }}
@@ -218,7 +127,7 @@ export default function Navigation({ items }: NavigationProps) {
                         <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
                       )}
                     </motion.div>
-                  </Disclosure.Button>
+                  </DisclosureButton>
                 </div>
               </div>
             </div>
@@ -226,7 +135,7 @@ export default function Navigation({ items }: NavigationProps) {
 
           <AnimatePresence>
             {open && scrolled && (
-              <Disclosure.Panel static className="pointer-events-auto">
+              <DisclosurePanel static className="pointer-events-auto">
                 <motion.div
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
@@ -236,11 +145,9 @@ export default function Navigation({ items }: NavigationProps) {
                 >
                   <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                     {items?.map((item, index) => {
-                      // const isActive = item.href === '/' 
-                      //   ? pathname === '/' 
-                      //   : pathname.startsWith(item.href);
-
-                      const isActive = activeHash === `#${item.target}`;
+                      const isActive = item.href === '/' 
+                        ? pathname === '/' 
+                        : pathname.startsWith(item.href);
 
                       return (
                         <motion.div
@@ -249,18 +156,10 @@ export default function Navigation({ items }: NavigationProps) {
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: index * 0.1 }}
                         >
-                          <Disclosure.Button
+                          <DisclosureButton
                             as={Link}
                             href={item.href}
                             prefetch={true}
-                            onClick={() => {
-                              setActiveHash(`#${item.target}`);
-                              isClickNavigating.current = true;
-                              if (clickTimeout.current) clearTimeout(clickTimeout.current);
-                              clickTimeout.current = setTimeout(() => {
-                                isClickNavigating.current = false;
-                              }, 1000);
-                            }}
                             className={cn(
                               'block px-3 py-2 rounded-md text-base font-medium transition-all duration-200',
                               isActive
@@ -269,13 +168,13 @@ export default function Navigation({ items }: NavigationProps) {
                             )}
                           >
                             {item.title}
-                          </Disclosure.Button>
+                          </DisclosureButton>
                         </motion.div>
                       );
                     })}
                   </div>
                 </motion.div>
-              </Disclosure.Panel>
+              </DisclosurePanel>
             )}
           </AnimatePresence>
         </>

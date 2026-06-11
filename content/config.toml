@@ -21,30 +21,6 @@ location_url = "https://maps.google.com/?q=Riverside,+CA"
 # href = "/"
 
 [[navigation]]
-title = "About Us"
-type = "section"
-target = "about-us"
-href = "/#about-us"
-
-[[navigation]]
-title = "Our Impact"
-type = "section"
-target = "our-impact"
-href = "/#our-impact"
-
-[[navigation]]
-title = "Initiatives"
-type = "section"
-target = "initiatives"
-href = "/#initiatives"
-
-[[navigation]]
-title = "Volunteer"
-type = "section"
-target = "volunteer"
-href = "/#volunteer"
-
-[[navigation]]
 title = "MS Collaboration"
 type = "page"
 target = "stem-ms"
