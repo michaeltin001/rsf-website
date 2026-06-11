@@ -141,7 +141,9 @@ export default function RUSDStem({ config }: RusdStemProps) {
     <div className="w-full">
       {/* 1. Hero Section */}
       <section className="relative w-full h-screen -mt-14 lg:-mt-16 overflow-hidden shadow-2xl flex items-center justify-center">
-
+        
+        {/* Subtle CSS Dot Matrix Background */}
+        <div className="absolute inset-0 z-0 pointer-events-none opacity-20 dark:opacity-[0.15] bg-[radial-gradient(#000_1.5px,transparent_1.5px)] dark:bg-[radial-gradient(#fff_1.5px,transparent_1.5px)] [background-size:24px_24px]" />
 
         <AnimatePresence>
           {!scrolled && (
@@ -199,7 +201,7 @@ export default function RUSDStem({ config }: RusdStemProps) {
               exit={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.5 }}
               onClick={scrollToContent}
-              className="absolute bottom-12 left-1/2 -translate-x-1/2 text-white/80 hover:text-white z-20 focus:outline-none transition-colors"
+              className="absolute bottom-12 left-1/2 -translate-x-1/2 text-neutral-500 hover:text-neutral-900 dark:text-white/80 dark:hover:text-white z-20 focus:outline-none transition-colors"
               aria-label="Scroll down to content"
             >
               <ChevronDownIcon className="h-10 w-10 animate-bounce drop-shadow-md" />
@@ -302,7 +304,7 @@ export default function RUSDStem({ config }: RusdStemProps) {
                   <div className={`w-16 h-16 ${themeColors[0].bgLight} rounded-2xl flex items-center justify-center mb-6`}>
                     <Icon className={`w-8 h-8 ${themeColors[0].text}`} />
                   </div>
-                  <h4 className={`text-2xl font-extrabold ${themeColors[1].text} mb-4 tracking-tight`}>{item.title}</h4>
+                  <h4 className={`text-2xl font-extrabold ${themeColors[0].text} mb-4 tracking-tight`}>{item.title}</h4>
                   <div className="space-y-3">
                     <p className="text-neutral-600 dark:text-neutral-300 text-lg"><strong className={`${theme.text} font-semibold`}>The Focus:</strong> {item.focus}</p>
                     <p className="text-neutral-600 dark:text-neutral-300 text-lg"><strong className={`${theme.text} font-semibold`}>The Resources:</strong> {item.resources}</p>
