@@ -8,6 +8,7 @@ export interface SiteConfig {
         description: string;
         favicon: string;
         last_updated?: string;
+        transparent_nav_paths?: string[];
     };
     author: {
         name: string;

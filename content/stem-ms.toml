@@ -2,9 +2,44 @@ type = "stem-ms"
 title = "RUSD STEM MS Collaboration"
 
 [header]
-headline = "Fostering STEM Education in Middle Schools"
-description = "Our collaboration with RUSD aims to bring hands-on..."
+headline = "RUSD STEM MS Collaboration"
+partnership_text = "In partnership with:"
+partners = ["Riverside STEM Foundation", "Delta SIFY", "Riverside STEM Academy"]
 
-[program_details]
-title = "Program Details"
-content = "Detailed information about the collaboration..."
+[our_program]
+title = "OUR PROGRAM"
+headline = "Empowering RUSD Middle Schools"
+content = "Our initiative is proudly open to all RUSD middle schools. Whether you are starting entirely new programs from scratch or building the capacity of existing ones, our collaboration is designed to support you. We provide the mentorship, resources, and structured pathways necessary to foster an engaging STEM ecosystem that inspires students and elevates education across the district."
+
+[programs]
+title = "2026-2027 PROGRAMS"
+
+[[programs.items]]
+title = "MATH COMPETITION CLUBS"
+description = "Competitive problem-solving, teamwork, preparation for contests"
+icon = "CalculatorIcon"
+
+[[programs.items]]
+title = "SCIENCE OLYMPIAD"
+description = "Hands-on engineering, lab skills, science exploration"
+icon = "BeakerIcon"
+
+[[programs.items]]
+title = "FIRST LEGO ROBOTICS"
+description = "Design, build, program, innovate; team competition"
+icon = "PuzzlePieceIcon"
+
+[[programs.items]]
+title = "SCIENCE FAIR"
+description = "Research skills, engineering design, presenting at competition"
+icon = "PresentationChartBarIcon"
+
+[involvement]
+title = "GET INVOLVED"
+headline = "CONNECT & INQUIRE: PARTNER WITH US TO BUILD YOUR STEM PROGRAM!"
+
+[contact]
+title = "CONTACT"
+text = "Contact JOSHUA ZONKER at jzonker@riversideunified.org to get started and learn more."
+email = "jzonker@riversideunified.org"
+name = "JOSHUA ZONKER"

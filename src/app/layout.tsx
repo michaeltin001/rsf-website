@@ -75,7 +75,10 @@ export default function RootLayout({
       </head>
       <body className={`font-sans antialiased overflow-x-hidden`} suppressHydrationWarning>
         <ThemeProvider>
-          <Navigation items={config.navigation} />
+          <Navigation 
+            items={config.navigation} 
+            transparentNavPaths={config.site.transparent_nav_paths}
+          />
           
           <main className="min-h-screen pt-14 lg:pt-16">
             {children}

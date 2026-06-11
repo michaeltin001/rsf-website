@@ -12,11 +12,12 @@ import { SiteConfig } from '@/lib/config';
 
 interface NavigationProps {
   items?: SiteConfig['navigation'];
+  transparentNavPaths?: string[];
 }
 
-export default function Navigation({ items }: NavigationProps) {
+export default function Navigation({ items, transparentNavPaths = [] }: NavigationProps) {
   const pathname = usePathname();
-  const isHome = pathname === '/';
+  const isTransparentNav = transparentNavPaths.includes(pathname) || pathname === '/';
   const [scrolled, setScrolled] = useState(false);
 
   const { scrollY } = useScroll();
@@ -51,7 +52,7 @@ export default function Navigation({ items }: NavigationProps) {
       {({ open }) => (
         <>
           <motion.div
-            style={{ y: isHome ? (scrolled ? 0 : navY) : 0 }}
+            style={{ y: isTransparentNav ? (scrolled ? 0 : navY) : 0 }}
             className="transition-all duration-300 ease-out pointer-events-auto relative"
           >
             <motion.div 

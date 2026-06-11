@@ -55,20 +55,48 @@ export interface HomePageConfig extends BasePageConfig {
 }
 
 // --- 2. RUSD STEM MS Collaboration Types ---
-export interface HeaderSection {
+export interface StemHeaderSection {
     headline: string;
-    description: string;
+    partnership_text: string;
+    partners: string[];
 }
 
-export interface ProgramDetailsSection {
+export interface StemOurProgramSection {
     title: string;
+    headline: string;
     content: string;
+}
+
+export interface StemProgramItem {
+    title: string;
+    description: string;
+    icon: string;
+}
+
+export interface StemProgramsSection {
+    title: string;
+    items: StemProgramItem[];
+}
+
+export interface StemInvolvementSection {
+    title: string;
+    headline: string;
+}
+
+export interface StemContactSection {
+    title: string;
+    text: string;
+    email: string;
+    name: string;
 }
 
 export interface RUSDStemPageConfig extends BasePageConfig {
     type: 'stem-ms';
-    header: HeaderSection;
-    program_details: ProgramDetailsSection;
+    header: StemHeaderSection;
+    our_program: StemOurProgramSection;
+    programs: StemProgramsSection;
+    involvement: StemInvolvementSection;
+    contact: StemContactSection;
 }
 
 // --- 3. Standard Fallback Types ---
