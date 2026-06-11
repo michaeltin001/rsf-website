@@ -130,8 +130,20 @@
 
 /* Dark mode styles */
 .dark {
-  --background: #0f172a;
-  --foreground: #f8fafc;
+  --background: #121212;
+  --foreground: #f5f5f5;
+  
+  /* Override neutral palette in dark mode to remove blue tint (using true neutral grays) */
+  --neutral-50: #fafafa;
+  --neutral-100: #f5f5f5;
+  --neutral-200: #e5e5e5;
+  --neutral-300: #d4d4d4;
+  --neutral-400: #a3a3a3;
+  --neutral-500: #737373;
+  --neutral-600: #525252;
+  --neutral-700: #404040;
+  --neutral-800: #262626;
+  --neutral-900: #171717;
   
   /* Adjust colors for dark mode - brighter for contrast */
   --primary: #60a5fa;
@@ -142,7 +154,7 @@
   --accent-dark: #10b981;
   
   /* Dark mode glass effect */
-  --glass-bg: rgba(15, 23, 42, 0.8);
+  --glass-bg: rgba(18, 18, 18, 0.8);
   --glass-border: rgba(255, 255, 255, 0.1);
   --glass-shadow: rgba(0, 0, 0, 0.5);
 }
@@ -223,7 +235,7 @@ body {
 }
 
 .dark .card-bg {
-  background-color: #1e293b;
+  background-color: var(--neutral-800);
   /* Soften card borders in dark mode only */
-  border-color: rgba(148, 163, 184, 0.24);
+  border-color: rgba(255, 255, 255, 0.1);
 }

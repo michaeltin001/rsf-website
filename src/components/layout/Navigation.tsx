@@ -17,7 +17,7 @@ interface NavigationProps {
 
 export default function Navigation({ items, transparentNavPaths = [] }: NavigationProps) {
   const pathname = usePathname();
-  const isTransparentNav = transparentNavPaths.includes(pathname) || pathname === '/';
+  const isTransparentNav = transparentNavPaths.includes(pathname);
   const [scrolled, setScrolled] = useState(false);
 
   const { scrollY } = useScroll();
@@ -48,19 +48,19 @@ export default function Navigation({ items, transparentNavPaths = [] }: Navigati
   };
 
   return (
-    <Disclosure as="nav" className="fixed top-0 left-0 right-0 z-50 pointer-events-none">
+    <Disclosure as="nav" className="fixed top-4 left-0 right-0 z-50 pointer-events-none px-4 sm:px-6 lg:px-8">
       {({ open }) => (
-        <>
+        <div className="max-w-7xl mx-auto w-full">
           <motion.div
             style={{ y: isTransparentNav ? (scrolled ? 0 : navY) : 0 }}
             className="transition-all duration-300 ease-out pointer-events-auto relative"
           >
             <motion.div 
-              style={{ opacity: navBackgroundOpacity }}
-              className="absolute inset-0 bg-background/90 backdrop-blur-xl border-b border-neutral-200 dark:border-neutral-800 shadow-sm"
+              style={{ opacity: isTransparentNav ? navBackgroundOpacity : 1 }}
+              className="absolute inset-0 bg-white/10 dark:bg-black/10 backdrop-blur-3xl backdrop-saturate-200 border border-neutral-200 dark:border-neutral-800 rounded-2xl"
             />
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="relative z-10 px-4 sm:px-6 lg:px-8">
               <div className="flex justify-between items-center h-14 lg:h-16">
                 <div className="flex-shrink-0 flex items-center">
                   <Link
@@ -141,14 +141,14 @@ export default function Navigation({ items, transparentNavPaths = [] }: Navigati
           </motion.div>
 
           <AnimatePresence>
-            {open && scrolled && (
-              <DisclosurePanel static className="pointer-events-auto">
+            {open && (
+              <DisclosurePanel static className="pointer-events-auto mt-2">
                 <motion.div
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
                   exit={{ opacity: 0, height: 0 }}
                   transition={{ duration: 0.3 }}
-                  className="lg:hidden bg-background/95 backdrop-blur-xl border-b border-neutral-200/50 shadow-lg"
+                  className="lg:hidden bg-white/10 dark:bg-black/10 backdrop-blur-3xl backdrop-saturate-200 border border-neutral-200 dark:border-neutral-800 rounded-2xl overflow-hidden"
                 >
                   <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                     {items?.map((item, index) => {
@@ -184,7 +184,7 @@ export default function Navigation({ items, transparentNavPaths = [] }: Navigati
               </DisclosurePanel>
             )}
           </AnimatePresence>
-        </>
+        </div>
       )}
     </Disclosure>
   );

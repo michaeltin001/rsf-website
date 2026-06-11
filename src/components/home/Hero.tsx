@@ -88,8 +88,7 @@ export default function Hero({ hero, about, impact, initiatives, volunteer }: He
       setScrolled(currentScrollY > 100);
 
       if (!isSnapping.current && contentRef.current) {
-        const navHeight = window.innerWidth >= 1024 ? 64 : 56;
-        const targetY = contentRef.current.offsetTop - navHeight;
+        const targetY = contentRef.current.offsetTop;
         if (currentScrollY > 25 && currentScrollY < targetY - 5 && currentScrollY > lastScrollY) {
           performSmoothScroll(targetY);
         }
@@ -108,8 +107,7 @@ export default function Hero({ hero, about, impact, initiatives, volunteer }: He
 
   const scrollToContent = () => {
     if (contentRef.current) {
-      const navHeight = window.innerWidth >= 1024 ? 64 : 56;
-      performSmoothScroll(contentRef.current.offsetTop - navHeight);
+      performSmoothScroll(contentRef.current.offsetTop);
     }
   };
 
