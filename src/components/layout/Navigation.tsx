@@ -16,6 +16,7 @@ interface NavigationProps {
 
 export default function Navigation({ items }: NavigationProps) {
   const pathname = usePathname();
+  const isHome = pathname === '/';
   const [scrolled, setScrolled] = useState(false);
 
   const { scrollY } = useScroll();
@@ -31,6 +32,11 @@ export default function Navigation({ items }: NavigationProps) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Ensure we scroll to the top on every route change
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [pathname]);
+
   const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (pathname !== '/') {
       return;
@@ -45,7 +51,7 @@ export default function Navigation({ items }: NavigationProps) {
       {({ open }) => (
         <>
           <motion.div
-            style={{ y: scrolled ? 0 : navY }}
+            style={{ y: isHome ? (scrolled ? 0 : navY) : 0 }}
             className="transition-all duration-300 ease-out pointer-events-auto relative"
           >
             <motion.div 
