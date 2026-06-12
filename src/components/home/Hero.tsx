@@ -107,7 +107,7 @@ export default function Hero({ hero, about, impact, initiatives, volunteer }: He
 
   const scrollToContent = () => {
     if (contentRef.current) {
-      performSmoothScroll(contentRef.current.offsetTop);
+      performSmoothScroll(contentRef.current.getBoundingClientRect().top + window.scrollY);
     }
   };
 
@@ -148,7 +148,7 @@ export default function Hero({ hero, about, impact, initiatives, volunteer }: He
               exit={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.5 }}
               onClick={scrollToContent}
-              className="absolute bottom-12 left-1/2 -translate-x-1/2 text-white/80 hover:text-white z-20 focus:outline-none transition-colors"
+              className="absolute bottom-12 left-1/2 -translate-x-1/2 text-white/80 hover:text-white z-20 focus:outline-none transition-colors cursor-pointer"
               aria-label="Scroll down to content"
             >
               <ChevronDownIcon className="h-10 w-10 animate-bounce drop-shadow-md" />
@@ -158,10 +158,10 @@ export default function Hero({ hero, about, impact, initiatives, volunteer }: He
       </section>
 
       {/* CONTENT WRAPPER */}
-      <div ref={contentRef} className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 overflow-hidden">
+      <div ref={contentRef} className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-[104px] md:pt-[120px] lg:pt-32 pb-8 md:pb-12 overflow-hidden">
 
         {/* 1. ABOUT SECTION (Split Layout: Zig-Zag Reversed) */}
-        <section id="about-us" className="py-8 md:py-16">
+        <section id="about-us" className="pt-0 pb-8 md:pb-16">
           <div className="flex flex-col lg:flex-row-reverse gap-12 lg:gap-16 items-center">
             
             <motion.div 
@@ -306,7 +306,7 @@ export default function Hero({ hero, about, impact, initiatives, volunteer }: He
             <div className="flex justify-center items-center gap-6 mt-4 md:mt-6">
               <button
                 onClick={prevSlide}
-                className="p-2 text-neutral-400 dark:text-neutral-500 opacity-50 hover:opacity-100 hover:text-accent dark:hover:text-accent hover:-translate-x-1 transition-all focus:outline-none flex-shrink-0"
+                className="p-2 text-neutral-400 dark:text-neutral-500 opacity-50 hover:opacity-100 hover:text-accent dark:hover:text-accent hover:-translate-x-1 transition-all focus:outline-none flex-shrink-0 cursor-pointer"
                 aria-label="Previous slide"
               >
                 <ChevronLeftIcon className="h-6 w-6 md:h-8 md:w-8" />
@@ -317,7 +317,7 @@ export default function Hero({ hero, about, impact, initiatives, volunteer }: He
                   <button
                     key={index}
                     onClick={() => setCurrentSlide(index)}
-                    className={`transition-all duration-300 rounded-full ${
+                    className={`transition-all duration-300 rounded-full cursor-pointer ${
                       currentSlide === index
                         ? 'w-8 h-2.5 bg-accent'
                         : 'w-2.5 h-2.5 bg-neutral-300 dark:bg-neutral-600 hover:bg-neutral-400 dark:hover:bg-neutral-500'
@@ -329,7 +329,7 @@ export default function Hero({ hero, about, impact, initiatives, volunteer }: He
 
               <button
                 onClick={nextSlide}
-                className="p-2 text-neutral-400 dark:text-neutral-500 opacity-50 hover:opacity-100 hover:text-accent dark:hover:text-accent hover:translate-x-1 transition-all focus:outline-none flex-shrink-0"
+                className="p-2 text-neutral-400 dark:text-neutral-500 opacity-50 hover:opacity-100 hover:text-accent dark:hover:text-accent hover:translate-x-1 transition-all focus:outline-none flex-shrink-0 cursor-pointer"
                 aria-label="Next slide"
               >
                 <ChevronRightIcon className="h-6 w-6 md:h-8 md:w-8" />
@@ -339,7 +339,7 @@ export default function Hero({ hero, about, impact, initiatives, volunteer }: He
         </section>
 
         {/* 4. VOLUNTEER / CTA SECTION */}
-        <section id="volunteer" className="py-8 md:py-16">
+        <section id="volunteer" className="pt-8 md:pt-16 pb-0">
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
             
             <motion.div 
@@ -361,10 +361,10 @@ export default function Hero({ hero, about, impact, initiatives, volunteer }: He
               />
               
               <div className="pt-4 flex flex-col sm:flex-row gap-4">
-                <button className="px-6 py-3 bg-accent text-white text-sm font-semibold rounded-lg hover:bg-accent-light shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5">
+                <button className="px-6 py-3 bg-accent text-white text-sm font-semibold rounded-lg hover:bg-accent-light shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 cursor-pointer">
                   {volunteer?.buttonPrimary}
                 </button>
-                <button className="px-6 py-3 bg-white dark:bg-neutral-800 text-primary dark:text-white text-sm font-semibold rounded-lg shadow-sm border border-neutral-200 dark:border-neutral-700 hover:border-accent dark:hover:border-accent transition-all hover:-translate-y-0.5">
+                <button className="px-6 py-3 bg-white dark:bg-neutral-800 text-primary dark:text-white text-sm font-semibold rounded-lg shadow-sm border border-neutral-200 dark:border-neutral-700 hover:border-accent dark:hover:border-accent transition-all hover:-translate-y-0.5 cursor-pointer">
                   {volunteer?.buttonSecondary}
                 </button>
               </div>

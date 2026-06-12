@@ -120,13 +120,13 @@ export default function RUSDStem({ config }: RusdStemProps) {
   const scrollToContact = () => {
     if (contactRef.current) {
       const navHeight = (window.innerWidth >= 1024 ? 64 : 56) + 16;
-      performSmoothScroll(contactRef.current.offsetTop - navHeight);
+      performSmoothScroll(contactRef.current.getBoundingClientRect().top + window.scrollY - navHeight);
     }
   };
 
   const scrollToContent = () => {
     if (contentRef.current) {
-      performSmoothScroll(contentRef.current.offsetTop);
+      performSmoothScroll(contentRef.current.getBoundingClientRect().top + window.scrollY);
     }
   };
 
@@ -218,7 +218,7 @@ export default function RUSDStem({ config }: RusdStemProps) {
                 </p>
                 <button
                   onClick={scrollToContact}
-                  className="px-8 py-4 bg-orange-500 hover:bg-orange-400 text-white text-lg font-bold rounded-full shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5"
+                  className="px-8 py-4 bg-orange-500 hover:bg-orange-400 text-white text-lg font-bold rounded-full shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5 cursor-pointer"
                 >
                   {hero.cta_button}
                 </button>
@@ -235,7 +235,7 @@ export default function RUSDStem({ config }: RusdStemProps) {
               exit={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.5 }}
               onClick={scrollToContent}
-              className="absolute bottom-12 left-1/2 -translate-x-1/2 text-neutral-500 hover:text-neutral-900 dark:text-white/80 dark:hover:text-white z-20 focus:outline-none transition-colors"
+              className="absolute bottom-12 left-1/2 -translate-x-1/2 text-neutral-500 hover:text-neutral-900 dark:text-white/80 dark:hover:text-white z-20 focus:outline-none transition-colors cursor-pointer"
               aria-label="Scroll down to content"
             >
               <ChevronDownIcon className="h-10 w-10 animate-bounce drop-shadow-md" />
@@ -245,10 +245,10 @@ export default function RUSDStem({ config }: RusdStemProps) {
       </section>
 
       {/* CONTENT WRAPPER */}
-      <div ref={contentRef} className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 overflow-clip">
+      <div ref={contentRef} className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-[104px] md:pt-[120px] lg:pt-32 pb-8 md:pb-12 overflow-clip">
 
         {/* 2. The Initiative (Value Proposition) */}
-        <section className="py-8 md:py-16 flex flex-col items-center space-y-12">
+        <section className="pt-0 pb-8 md:pb-16 flex flex-col items-center space-y-12">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -308,7 +308,7 @@ export default function RUSDStem({ config }: RusdStemProps) {
 
 
 
-        {/* 4. The Curriculum (Carousel & Grid) */}
+        {/* 3. Curriculum (Carousel) & Core Programs (Grid) */}
         <section className="py-8 md:py-16 space-y-12">
           {resources && (
             <>
@@ -364,7 +364,7 @@ export default function RUSDStem({ config }: RusdStemProps) {
                 <div className="flex justify-center items-center gap-6 mt-4 md:mt-6">
                   <button
                     onClick={prevSlide}
-                    className="p-2 text-neutral-400 dark:text-neutral-500 opacity-50 hover:opacity-100 hover:text-blue-500 dark:hover:text-blue-400 hover:-translate-x-1 transition-all focus:outline-none flex-shrink-0"
+                    className="p-2 text-neutral-400 dark:text-neutral-500 opacity-50 hover:opacity-100 hover:text-blue-500 dark:hover:text-blue-400 hover:-translate-x-1 transition-all focus:outline-none flex-shrink-0 cursor-pointer"
                     aria-label="Previous slide"
                   >
                     <ChevronLeftIcon className="h-6 w-6 md:h-8 md:w-8" />
@@ -375,7 +375,7 @@ export default function RUSDStem({ config }: RusdStemProps) {
                       <button
                         key={index}
                         onClick={() => setCurrentSlide(index)}
-                        className={`transition-all duration-300 rounded-full ${currentSlide === index
+                        className={`transition-all duration-300 rounded-full cursor-pointer ${currentSlide === index
                           ? 'w-8 h-2.5 bg-blue-500'
                           : 'w-2.5 h-2.5 bg-neutral-300 dark:bg-neutral-600 hover:bg-neutral-400 dark:hover:bg-neutral-500'
                           }`}
@@ -386,7 +386,7 @@ export default function RUSDStem({ config }: RusdStemProps) {
 
                   <button
                     onClick={nextSlide}
-                    className="p-2 text-neutral-400 dark:text-neutral-500 opacity-50 hover:opacity-100 hover:text-blue-500 dark:hover:text-blue-400 hover:translate-x-1 transition-all focus:outline-none flex-shrink-0"
+                    className="p-2 text-neutral-400 dark:text-neutral-500 opacity-50 hover:opacity-100 hover:text-blue-500 dark:hover:text-blue-400 hover:translate-x-1 transition-all focus:outline-none flex-shrink-0 cursor-pointer"
                     aria-label="Next slide"
                   >
                     <ChevronRightIcon className="h-6 w-6 md:h-8 md:w-8" />
@@ -396,7 +396,7 @@ export default function RUSDStem({ config }: RusdStemProps) {
             </>
           )}
 
-          {/* 3. Core Programs (The Grid) */}
+          {/* Core Programs (The Grid) */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -427,7 +427,7 @@ export default function RUSDStem({ config }: RusdStemProps) {
           </motion.div>
         </section>
 
-        {/* 5. Season at a Glance (Interactive Timeline) */}
+        {/* 4. Season at a Glance (Interactive Timeline) */}
         {timeline && (
           <section className="py-8 md:py-16 space-y-12">
             <motion.div
@@ -529,7 +529,7 @@ export default function RUSDStem({ config }: RusdStemProps) {
                     setActiveProgramIndex(idx);
                     setHasSwitchedTabs(true);
                   }}
-                  className={`px-6 py-3 rounded-full font-bold text-sm md:text-base transition-all duration-300 ${activeProgramIndex === idx
+                  className={`px-6 py-3 rounded-full font-bold text-sm md:text-base transition-all duration-300 cursor-pointer ${activeProgramIndex === idx
                     ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
                     : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700'
                     }`}
@@ -541,7 +541,7 @@ export default function RUSDStem({ config }: RusdStemProps) {
           </section>
         )}
 
-        {/* 6. Frequently Asked Questions */}
+        {/* 5. Frequently Asked Questions */}
         {faq && (
           <section className="py-8 md:py-16 max-w-7xl mx-auto px-4 space-y-12">
 
@@ -559,7 +559,7 @@ export default function RUSDStem({ config }: RusdStemProps) {
                   >
                     <button
                       onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
-                      className="w-full flex items-center justify-between p-6 text-left focus:outline-none"
+                      className="w-full flex items-center justify-between p-6 text-left focus:outline-none cursor-pointer"
                     >
                       <span className="text-lg md:text-xl font-bold text-neutral-900 dark:text-white pr-4">
                         {item.question}
@@ -590,8 +590,8 @@ export default function RUSDStem({ config }: RusdStemProps) {
           </section>
         )}
 
-        {/* 7. Next Steps & Contact (Bottom) */}
-        <section ref={contactRef} id="contact" className="py-8 md:py-16">
+        {/* 6. Next Steps & Contact (Bottom) */}
+        <section ref={contactRef} id="contact" className="pt-8 md:pt-16 pb-0">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
