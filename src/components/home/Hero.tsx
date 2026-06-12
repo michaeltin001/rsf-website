@@ -291,11 +291,17 @@ export default function Hero({ hero, about, impact, initiatives, volunteer }: He
                     </span>
                   </div>
 
-                  <div className="absolute bottom-4 md:bottom-6 left-4 right-4 md:left-1/2 md:-translate-x-1/2 md:w-11/12 max-w-4xl p-4 md:p-6 rounded-2xl backdrop-blur-md bg-white/75 dark:bg-black/60 border border-white/30 dark:border-white/10 shadow-lg text-center transition-all duration-300">
-                    <p className="text-sm md:text-base lg:text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed font-medium">
+                  <div className="hidden md:block absolute bottom-6 left-1/2 -translate-x-1/2 w-11/12 max-w-4xl p-6 rounded-2xl backdrop-blur-md bg-white/75 dark:bg-black/60 border border-white/30 dark:border-white/10 shadow-lg text-center transition-all duration-300">
+                    <p className="text-base lg:text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed font-medium">
                       {initiatives[currentSlide]?.content ?? ''}
                     </p>
                   </div>
+                </div>
+
+                <div className="md:hidden w-full mt-4 p-5 rounded-2xl bg-neutral-50 dark:bg-neutral-800/80 border border-neutral-200 dark:border-neutral-800 shadow-md flex items-center justify-center h-[100px] text-center">
+                  <p className="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed font-medium">
+                    {initiatives[currentSlide]?.content ?? ''}
+                  </p>
                 </div>
               </motion.div>
             </AnimatePresence>

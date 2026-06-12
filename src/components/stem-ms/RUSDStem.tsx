@@ -349,14 +349,23 @@ export default function RUSDStem({ config }: RusdStemProps) {
                         </span>
                       </div>
 
-                      <div className="absolute bottom-4 md:bottom-6 left-4 right-4 md:left-1/2 md:-translate-x-1/2 md:w-11/12 max-w-4xl p-4 md:p-6 rounded-2xl backdrop-blur-md bg-white/75 dark:bg-black/60 border border-white/30 dark:border-white/10 shadow-lg text-center transition-all duration-300">
+                      <div className="hidden md:block absolute bottom-6 left-1/2 -translate-x-1/2 w-11/12 max-w-4xl p-6 rounded-2xl backdrop-blur-md bg-white/75 dark:bg-black/60 border border-white/30 dark:border-white/10 shadow-lg text-center transition-all duration-300">
                         <h3 className="font-extrabold text-xl md:text-2xl text-green-500 dark:text-green-400 tracking-tight mb-1">
                           {resources.slides[currentSlide]?.title}
                         </h3>
-                        <p className="text-sm md:text-base lg:text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed font-medium">
+                        <p className="text-base lg:text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed font-medium">
                           {resources.slides[currentSlide]?.subtitle}
                         </p>
                       </div>
+                    </div>
+
+                    <div className="md:hidden w-full mt-4 p-5 rounded-2xl bg-neutral-50 dark:bg-neutral-800/80 border border-neutral-200 dark:border-neutral-800 shadow-md flex flex-col items-center justify-center h-[140px] text-center">
+                      <h3 className="font-extrabold text-lg text-green-500 dark:text-green-400 tracking-tight mb-1">
+                        {resources.slides[currentSlide]?.title}
+                      </h3>
+                      <p className="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed font-medium">
+                        {resources.slides[currentSlide]?.subtitle}
+                      </p>
                     </div>
                   </motion.div>
                 </AnimatePresence>
@@ -443,11 +452,11 @@ export default function RUSDStem({ config }: RusdStemProps) {
 
             <div className="relative max-w-4xl mx-auto px-4" ref={timelineRef}>
               {/* Background Gray Line */}
-              <div className="absolute left-[1.25rem] -translate-x-px md:left-1/2 md:-translate-x-1/2 top-0 h-full w-0.5 bg-neutral-200 dark:bg-neutral-800 z-0" />
+              <div className="absolute left-[2.25rem] -translate-x-px md:left-1/2 md:-translate-x-1/2 top-0 h-full w-0.5 bg-neutral-200 dark:bg-neutral-800 z-0" />
 
               {/* Animated Tracking Blue Line */}
               <motion.div
-                className="absolute left-[1.25rem] -translate-x-px md:left-1/2 md:-translate-x-1/2 top-0 w-0.5 bg-blue-500 z-0 origin-top"
+                className="absolute left-[2.25rem] -translate-x-px md:left-1/2 md:-translate-x-1/2 top-0 w-0.5 bg-blue-500 z-0 origin-top"
                 style={{ height: lineHeight }}
               />
 
@@ -473,7 +482,7 @@ export default function RUSDStem({ config }: RusdStemProps) {
                             initial="hidden"
                             animate={hasSwitchedTabs ? "visible" : undefined}
                             whileInView="visible"
-                            viewport={{ once: true, margin: "-20%" }}
+                            viewport={{ once: true, margin: "-30%" }}
                             variants={{
                               hidden: {},
                               visible: {}

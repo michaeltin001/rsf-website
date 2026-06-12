@@ -49,14 +49,14 @@ export default function ParticleNetwork() {
 
     const initParticles = () => {
       particles = [];
-      // Adjust density here (lower divisor = more particles)
-      const numParticles = Math.floor((width * height) / 12000); 
+      // Adjust density here (higher divisor = fewer particles)
+      const numParticles = Math.floor((width * height) / 18000); 
       for (let i = 0; i < numParticles; i++) {
         particles.push({
           x: Math.random() * width,
           y: Math.random() * height,
-          vx: (Math.random() - 0.5) * 0.5,
-          vy: (Math.random() - 0.5) * 0.5,
+          vx: (Math.random() - 0.5) * 0.15, // Slowed down from 0.5 to 0.15
+          vy: (Math.random() - 0.5) * 0.15, // Slowed down from 0.5 to 0.15
           radius: Math.random() * 1.5 + 1,
         });
       }
@@ -77,6 +77,8 @@ export default function ParticleNetwork() {
     window.addEventListener('mouseleave', handleMouseLeave);
 
     resize();
+
+    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
 
     const render = () => {
       ctx.clearRect(0, 0, width, height);
@@ -115,23 +117,25 @@ export default function ParticleNetwork() {
           }
         }
 
-        // Connect to mouse
-        const dxMouse = p.x - mouse.x;
-        const dyMouse = p.y - mouse.y;
-        const distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
-        if (distMouse < 180) {
-          ctx.beginPath();
-          ctx.moveTo(p.x, p.y);
-          ctx.lineTo(mouse.x, mouse.y);
-          const opacity = 0.2 - (distMouse / 900);
-          ctx.strokeStyle = `rgba(${lineColorBase}, ${opacity})`;
-          ctx.lineWidth = 1;
-          ctx.stroke();
-          
-          // Subtle repel effect when mouse is very close
-          if (distMouse < 80) {
-              p.x += dxMouse * 0.02;
-              p.y += dyMouse * 0.02;
+        // Connect to mouse (disabled on mobile)
+        if (!isTouchDevice) {
+          const dxMouse = p.x - mouse.x;
+          const dyMouse = p.y - mouse.y;
+          const distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
+          if (distMouse < 180) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(mouse.x, mouse.y);
+            const opacity = 0.2 - (distMouse / 900);
+            ctx.strokeStyle = `rgba(${lineColorBase}, ${opacity})`;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+            
+            // Subtle repel effect when mouse is very close
+            if (distMouse < 80) {
+                p.x += dxMouse * 0.02;
+                p.y += dyMouse * 0.02;
+            }
           }
         }
       });
