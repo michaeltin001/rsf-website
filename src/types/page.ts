@@ -98,11 +98,53 @@ export interface StemContactSection {
     info: StemContactInfo;
 }
 
+export interface StemResourceSlide {
+    title: string;
+    subtitle: string;
+    diagramText: string;
+}
+
+export interface StemResourceSection {
+    headline: string;
+    slides: StemResourceSlide[];
+}
+
+export interface StemTimelineItem {
+    period: string;
+    title: string;
+    description: string;
+}
+
+export interface StemTimelineProgram {
+    name: string;
+    items: StemTimelineItem[];
+}
+
+export interface StemTimelineSection {
+    headline: string;
+    sub_headline: string;
+    programs: StemTimelineProgram[];
+}
+
+export interface StemFaqItem {
+    question: string;
+    answer: string;
+}
+
+export interface StemFaqSection {
+    headline: string;
+    sub_headline: string;
+    items: StemFaqItem[];
+}
+
 export interface RUSDStemPageConfig extends BasePageConfig {
     type: 'stem-ms';
     hero: StemHeroSection;
     initiative: StemInitiativeSection;
     programs: StemProgramsSection;
+    resources: StemResourceSection;
+    timeline: StemTimelineSection;
+    faq: StemFaqSection;
     contact: StemContactSection;
 }
 

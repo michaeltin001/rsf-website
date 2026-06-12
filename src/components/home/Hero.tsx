@@ -251,13 +251,13 @@ export default function Hero({ hero, about, impact, initiatives, volunteer }: He
         </section>
 
         {/* 3. INITIATIVES CAROUSEL – now data‑driven */}
-        <section id="initiatives" className="py-8 md:py-16">
+        <section id="initiatives" className="py-8 md:py-16 space-y-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center max-w-7xl mx-auto mb-4 px-4"
+            className="text-center max-w-7xl mx-auto px-4"
           >
             <h2 className="text-sm font-bold tracking-widest text-accent uppercase">Initiatives</h2>
           </motion.div>

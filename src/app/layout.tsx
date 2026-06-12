@@ -38,7 +38,7 @@ export default function RootLayout({
   const config = getConfig();
 
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+    <html lang="en" className="scroll-smooth relative" data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
         <link rel="icon" href={config.site.favicon} type="image/png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -73,17 +73,17 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`font-sans antialiased overflow-x-hidden`} suppressHydrationWarning>
+      <body className={`relative font-sans antialiased overflow-x-hidden`} suppressHydrationWarning>
         <ThemeProvider>
-          <Navigation 
-            items={config.navigation} 
+          <Navigation
+            items={config.navigation}
             transparentNavPaths={config.site.transparent_nav_paths}
           />
-          
+
           <main className="min-h-screen pt-14 lg:pt-16">
             {children}
           </main>
-          
+
           <Footer />
         </ThemeProvider>
       </body>
