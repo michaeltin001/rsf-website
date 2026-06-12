@@ -2,18 +2,19 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  ChevronDownIcon, 
-  ChevronLeftIcon, 
+import CircuitBoard from '@/components/ui/CircuitBoard';
+import {
+  ChevronDownIcon,
+  ChevronLeftIcon,
   ChevronRightIcon,
-  BuildingLibraryIcon, 
-  UserGroupIcon, 
-  CpuChipIcon, 
+  BuildingLibraryIcon,
+  UserGroupIcon,
+  CpuChipIcon,
   SparklesIcon,
-  AcademicCapIcon, 
-  BeakerIcon,      
-  HeartIcon,       
-  BriefcaseIcon    
+  AcademicCapIcon,
+  BeakerIcon,
+  HeartIcon,
+  BriefcaseIcon
 } from '@heroicons/react/24/outline';
 import type { Initiative, HeroSection, AboutSection, ImpactSection, VolunteerSection } from '@/types/home';
 
@@ -23,9 +24,9 @@ const iconMap: Record<string, React.ElementType> = {
   CpuChipIcon,
   UserGroupIcon,
   SparklesIcon,
-  AcademicCapIcon, 
-  BeakerIcon,      
-  HeartIcon,       
+  AcademicCapIcon,
+  BeakerIcon,
+  HeartIcon,
   BriefcaseIcon
 };
 
@@ -64,14 +65,14 @@ export default function Hero({ hero, about, impact, initiatives, volunteer }: He
       if (Math.abs(currentY - targetPos) < 2) {
         clearInterval(checkIfScrollFinished);
         isSnapping.current = false;
-      } 
+      }
       else if (currentY === lastY) {
         idleTicks++;
         if (idleTicks >= 2) {
           clearInterval(checkIfScrollFinished);
           isSnapping.current = false;
         }
-      } 
+      }
       else {
         idleTicks = 0;
       }
@@ -88,7 +89,7 @@ export default function Hero({ hero, about, impact, initiatives, volunteer }: He
       setScrolled(currentScrollY > 100);
 
       if (!isSnapping.current && contentRef.current) {
-        const targetY = contentRef.current.offsetTop;
+        const targetY = contentRef.current.getBoundingClientRect().top + window.scrollY;
         if (currentScrollY > 25 && currentScrollY < targetY - 5 && currentScrollY > lastScrollY) {
           performSmoothScroll(targetY);
         }
@@ -96,7 +97,7 @@ export default function Hero({ hero, about, impact, initiatives, volunteer }: He
           performSmoothScroll(0);
         }
       }
-      
+
       lastScrollY = currentScrollY;
     };
 
@@ -113,27 +114,23 @@ export default function Hero({ hero, about, impact, initiatives, volunteer }: He
 
   return (
     <div className="w-full">
-      
+
       {/* HERO BANNER */}
-      <section 
-        className="relative w-full h-screen -mt-14 lg:-mt-16 overflow-hidden shadow-2xl flex items-center justify-center"
+      <section
+        className="relative w-full h-screen -mt-14 lg:-mt-16 overflow-hidden shadow-2xl flex items-center justify-center bg-neutral-100 dark:bg-neutral-900"
       >
-        <div 
-          className="absolute inset-0 bg-cover bg-center z-0"
-          style={{ backgroundImage: `url("${hero?.backgroundImage}")` }}
-        />
-        <div className="absolute inset-0 bg-black/40 z-10" />
+        <CircuitBoard />
 
         <AnimatePresence>
           {!scrolled && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -30, filter: "blur(4px)" }}
               transition={{ duration: 0.5 }}
-              className="relative z-20 text-center px-8 py-10 rounded-2xl backdrop-blur-md bg-white/10 border border-white/20 shadow-glass"
+              className="relative z-20 w-11/12 max-w-7xl mx-auto text-center px-6 md:px-12 py-10 rounded-2xl bg-white/10 dark:bg-black/10 backdrop-blur-3xl backdrop-saturate-200 border border-neutral-200 dark:border-white/10 shadow-2xl select-none pointer-events-none"
             >
-              <h1 className="text-4xl md:text-6xl font-bold text-white tracking-tight drop-shadow-lg">
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-neutral-900 dark:text-white tracking-tight drop-shadow-lg">
                 {hero?.title}
               </h1>
             </motion.div>
@@ -148,7 +145,7 @@ export default function Hero({ hero, about, impact, initiatives, volunteer }: He
               exit={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.5 }}
               onClick={scrollToContent}
-              className="absolute bottom-12 left-1/2 -translate-x-1/2 text-white/80 hover:text-white z-20 focus:outline-none transition-colors cursor-pointer"
+              className="absolute bottom-12 left-1/2 -translate-x-1/2 text-neutral-500 hover:text-neutral-900 dark:text-white/80 dark:hover:text-white z-20 focus:outline-none transition-colors cursor-pointer"
               aria-label="Scroll down to content"
             >
               <ChevronDownIcon className="h-10 w-10 animate-bounce drop-shadow-md" />
@@ -163,8 +160,8 @@ export default function Hero({ hero, about, impact, initiatives, volunteer }: He
         {/* 1. ABOUT SECTION (Split Layout: Zig-Zag Reversed) */}
         <section id="about-us" className="pt-0 pb-8 md:pb-16">
           <div className="flex flex-col lg:flex-row-reverse gap-12 lg:gap-16 items-center">
-            
-            <motion.div 
+
+            <motion.div
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -177,13 +174,13 @@ export default function Hero({ hero, about, impact, initiatives, volunteer }: He
               <div className="text-6xl md:text-7xl lg:text-8xl font-extrabold text-primary tracking-tighter">
                 {about?.headline}
               </div>
-              <p 
+              <p
                 className="text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed"
                 dangerouslySetInnerHTML={{ __html: about?.content ?? '' }}
               />
             </motion.div>
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -208,8 +205,8 @@ export default function Hero({ hero, about, impact, initiatives, volunteer }: He
         {/* 2. IMPACT SECTION (Split Layout: Metric + Category Grid) */}
         <section id="our-impact" className="py-8 md:py-16">
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
-            
-            <motion.div 
+
+            <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -222,13 +219,13 @@ export default function Hero({ hero, about, impact, initiatives, volunteer }: He
               <div className="text-6xl md:text-7xl lg:text-8xl font-extrabold text-primary tracking-tighter">
                 {impact?.headlinePrefix}<span className="text-accent">{impact?.headlineHighlight}</span>
               </div>
-              <p 
+              <p
                 className="text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed"
                 dangerouslySetInnerHTML={{ __html: impact?.content ?? '' }}
               />
             </motion.div>
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -317,11 +314,10 @@ export default function Hero({ hero, about, impact, initiatives, volunteer }: He
                   <button
                     key={index}
                     onClick={() => setCurrentSlide(index)}
-                    className={`transition-all duration-300 rounded-full cursor-pointer ${
-                      currentSlide === index
-                        ? 'w-8 h-2.5 bg-accent'
-                        : 'w-2.5 h-2.5 bg-neutral-300 dark:bg-neutral-600 hover:bg-neutral-400 dark:hover:bg-neutral-500'
-                    }`}
+                    className={`transition-all duration-300 rounded-full cursor-pointer ${currentSlide === index
+                      ? 'w-8 h-2.5 bg-accent'
+                      : 'w-2.5 h-2.5 bg-neutral-300 dark:bg-neutral-600 hover:bg-neutral-400 dark:hover:bg-neutral-500'
+                      }`}
                     aria-label={`Go to slide ${index + 1}`}
                   />
                 ))}
@@ -341,8 +337,8 @@ export default function Hero({ hero, about, impact, initiatives, volunteer }: He
         {/* 4. VOLUNTEER / CTA SECTION */}
         <section id="volunteer" className="pt-8 md:pt-16 pb-0">
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
-            
-            <motion.div 
+
+            <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -355,11 +351,11 @@ export default function Hero({ hero, about, impact, initiatives, volunteer }: He
               <div className="text-6xl md:text-7xl lg:text-8xl font-extrabold text-primary tracking-tighter leading-tight">
                 {volunteer?.headline}
               </div>
-              <p 
+              <p
                 className="text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed"
                 dangerouslySetInnerHTML={{ __html: volunteer?.content ?? '' }}
               />
-              
+
               <div className="pt-4 flex flex-col sm:flex-row gap-4">
                 <button className="px-6 py-3 bg-accent text-white text-sm font-semibold rounded-lg hover:bg-accent-light shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 cursor-pointer">
                   {volunteer?.buttonPrimary}
@@ -370,7 +366,7 @@ export default function Hero({ hero, about, impact, initiatives, volunteer }: He
               </div>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
