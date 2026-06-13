@@ -7,6 +7,9 @@ const CONTENT_DIR = path.join(process.cwd(), 'content');
 export function getMarkdownContent(filename: string): string {
     try {
         const filePath = path.join(CONTENT_DIR, filename);
+        if (!fs.existsSync(filePath)) {
+            return '';
+        }
         return fs.readFileSync(filePath, 'utf-8');
     } catch (error) {
         console.error(`Error loading markdown file ${filename}:`, error);
@@ -17,6 +20,9 @@ export function getMarkdownContent(filename: string): string {
 export function getBibtexContent(filename: string): string {
     try {
         const filePath = path.join(CONTENT_DIR, filename);
+        if (!fs.existsSync(filePath)) {
+            return '';
+        }
         return fs.readFileSync(filePath, 'utf-8');
     } catch (error) {
         console.error(`Error loading bibtex file ${filename}:`, error);
@@ -27,6 +33,9 @@ export function getBibtexContent(filename: string): string {
 export function getTomlContent<T>(filename: string): T | null {
     try {
         const filePath = path.join(CONTENT_DIR, filename);
+        if (!fs.existsSync(filePath)) {
+            return null;
+        }
         const fileContent = fs.readFileSync(filePath, 'utf-8');
         return parse(fileContent) as unknown as T;
     } catch (error) {

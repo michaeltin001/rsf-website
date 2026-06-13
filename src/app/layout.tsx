@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navigation from "@/components/layout/Navigation";
 import Footer from "@/components/layout/Footer";
+import ThemeScript from "@/components/ui/ThemeScript";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
 import { getConfig } from "@/lib/config";
 
@@ -52,6 +53,8 @@ export default function RootLayout({
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap"
         />
+        {/* Note: This raw script block was moved to the <ThemeScript /> component above
+            to prevent React hydration warnings during client-side navigation.
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -72,8 +75,10 @@ export default function RootLayout({
             `,
           }}
         />
+        */}
       </head>
       <body className={`relative font-sans antialiased overflow-x-hidden`} suppressHydrationWarning>
+        <ThemeScript />
         <ThemeProvider>
           <Navigation
             items={config.navigation}
