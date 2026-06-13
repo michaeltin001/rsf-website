@@ -1,5 +1,5 @@
 export interface BasePageConfig {
-    type: 'home' | 'stem-ms' | 'standard';
+    type: 'home' | 'stem-ms' | 'standard' | 'our-team';
     title?: string;
     description?: string;
 }
@@ -148,7 +148,20 @@ export interface RUSDStemPageConfig extends BasePageConfig {
     contact: StemContactSection;
 }
 
-// --- 3. Standard Fallback Types ---
+// --- 3. Our Team Page Types ---
+export interface TeamMember {
+    name: string;
+    title: string;
+    description: string;
+    image: string;
+}
+
+export interface OurTeamPageConfig extends BasePageConfig {
+    type: 'our-team';
+    team: TeamMember[];
+}
+
+// --- 4. Standard Fallback Types ---
 export interface StandardPageConfig extends BasePageConfig {
     type: 'standard';
     content: string;

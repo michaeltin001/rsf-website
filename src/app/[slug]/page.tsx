@@ -5,11 +5,13 @@ import { Metadata } from 'next';
 
 // Component Imports
 import RUSDStem from '@/components/stem-ms/RUSDStem';
+import OurTeam from '@/components/team/OurTeam';
 
 import {
     BasePageConfig,
     RUSDStemPageConfig,
-    StandardPageConfig
+    StandardPageConfig,
+    OurTeamPageConfig
 } from '@/types/page';
 
 export function generateStaticParams() {
@@ -58,6 +60,10 @@ export default async function DynamicPage({ params }: { params: Promise<{ slug: 
             
             {pageConfig.type === 'standard' && (
                 <StandardPageWrapper config={pageConfig as StandardPageConfig} />
+            )}
+
+            {pageConfig.type === 'our-team' && (
+                <OurTeam config={pageConfig as OurTeamPageConfig} />
             )}
             
             {/* Future modular pages can be added here simply by adding a new {pageConfig.type === '...'} condition */}

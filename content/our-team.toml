@@ -1,0 +1,75 @@
+type = "our-team"
+title = "Our Team"
+description = "Meet the dedicated individuals behind the Riverside STEM Foundation."
+
+[[team]]
+name = "Jane Doe"
+title = "Executive Director"
+description = "Jane has over 20 years of experience in STEM education and non-profit leadership. She is passionate about empowering the next generation of innovators."
+image = "Jane Doe"
+
+[[team]]
+name = "John Smith"
+title = "Board President"
+description = "John is a local tech entrepreneur who believes in giving back to the community by fostering early interest in science and technology."
+image = "John Smith"
+
+[[team]]
+name = "Emily Chen"
+title = "Program Coordinator"
+description = "Emily organizes our community outreach programs and coordinates with local schools to ensure our resources reach the students who need them most."
+image = "Emily Chen"
+
+[[team]]
+name = "Michael Johnson"
+title = "Community Partner"
+description = "Michael represents our local business partners, helping to bridge the gap between education and real-world industry experience."
+image = "Michael Johnson"
+
+[[team]]
+name = "Sarah Williams"
+title = "Marketing Director"
+description = "Sarah drives our online presence and community engagement, ensuring that parents and students know about upcoming STEM opportunities."
+image = "Sarah Williams"
+
+[[team]]
+name = "David Lee"
+title = "STEM Educator"
+description = "David creates hands-on curriculum modules and leads interactive weekend workshops for middle and high school students."
+image = "David Lee"
+
+[[team]]
+name = "Rachel Garcia"
+title = "Volunteer Coordinator"
+description = "Rachel recruits and trains our incredible network of community volunteers who make all of our events possible."
+image = "Rachel Garcia"
+
+[[team]]
+name = "Kevin Martinez"
+title = "Financial Officer"
+description = "Kevin manages our grant funding and budgets to ensure long-term sustainability for our outreach programs."
+image = "Kevin Martinez"
+
+[[team]]
+name = "Amanda Taylor"
+title = "Robotics Coach"
+description = "Amanda mentors local robotics teams and organizes our annual regional robotics competition for elementary schools."
+image = "Amanda Taylor"
+
+[[team]]
+name = "Chris Evans"
+title = "IT Specialist"
+description = "Chris maintains our digital infrastructure and provides technical support for our coding bootcamps and online resources."
+image = "Chris Evans"
+
+[[team]]
+name = "Jessica Kim"
+title = "Events Manager"
+description = "Jessica coordinates the logistics for our large-scale science fairs and community STEM nights."
+image = "Jessica Kim"
+
+[[team]]
+name = "Brian Davis"
+title = "Curriculum Developer"
+description = "Brian researches the latest trends in STEM to keep our educational materials engaging, relevant, and fun."
+image = "Brian Davis"

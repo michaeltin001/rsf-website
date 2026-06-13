@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
@@ -19,6 +19,34 @@ export default function Navigation({ items, transparentNavPaths = [] }: Navigati
   const pathname = usePathname();
   const isTransparentNav = transparentNavPaths.includes(pathname);
   const [scrolled, setScrolled] = useState(false);
+  const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0, opacity: 0 });
+  const navRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const activeIndex = items?.findIndex(item => item.href === '/' ? pathname === '/' : pathname.startsWith(item.href));
+      if (activeIndex !== undefined && activeIndex >= 0 && navRefs.current[activeIndex]) {
+        const el = navRefs.current[activeIndex];
+        if (el) {
+          setIndicatorStyle({
+            left: el.offsetLeft,
+            width: el.offsetWidth,
+            opacity: 1
+          });
+        }
+      } else {
+        setIndicatorStyle(prev => ({ ...prev, opacity: 0 }));
+      }
+    };
+
+    // Delay calculation to ensure DOM is fully painted
+    const timeoutId = setTimeout(handleResize, 50);
+    window.addEventListener('resize', handleResize);
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [pathname, items]);
 
   const { scrollY } = useScroll();
   const navBackgroundOpacity = useTransform(scrollY, [0, 100], [0, 1]);
@@ -52,6 +80,7 @@ export default function Navigation({ items, transparentNavPaths = [] }: Navigati
       {({ open }) => (
         <div className="max-w-7xl mx-auto w-full">
           <motion.div
+            layoutRoot
             style={{ y: isTransparentNav ? (scrolled ? 0 : navY) : 0 }}
             className="transition-all duration-300 ease-out pointer-events-auto relative"
           >
@@ -85,8 +114,18 @@ export default function Navigation({ items, transparentNavPaths = [] }: Navigati
 
                 <div className="hidden lg:block">
                   <div className="ml-10 flex items-center space-x-8">
-                    <div className="flex items-baseline space-x-8">
-                      {items?.map((item) => {
+                    <div className="relative flex items-baseline space-x-8">
+                      <motion.div
+                        className="absolute inset-y-0 bg-accent/20 rounded-lg pointer-events-none"
+                        initial={false}
+                        animate={{
+                          left: indicatorStyle.left,
+                          width: indicatorStyle.width,
+                          opacity: indicatorStyle.opacity
+                        }}
+                        transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+                      />
+                      {items?.map((item, index) => {
                         const isActive = item.href === '/' 
                           ? pathname === '/' 
                           : pathname.startsWith(item.href);
@@ -95,6 +134,9 @@ export default function Navigation({ items, transparentNavPaths = [] }: Navigati
                           <Link
                             key={item.title}
                             href={item.href}
+                            ref={(el) => {
+                              navRefs.current[index] = el;
+                            }}
                             prefetch={true}
                             className={cn(
                               'relative px-3 py-2 text-base font-medium transition-all duration-200 rounded hover:bg-accent/20 hover:shadow-sm',
@@ -104,14 +146,6 @@ export default function Navigation({ items, transparentNavPaths = [] }: Navigati
                             )}
                           >
                             <span className="relative z-10">{item.title}</span>
-                            {isActive && (
-                              <motion.div
-                                layoutId="activeTab"
-                                className="absolute inset-0 bg-accent/20 rounded-lg"
-                                initial={false}
-                                transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-                              />
-                            )}
                           </Link>
                         );
                       })}
