@@ -1,5 +1,5 @@
 export interface BasePageConfig {
-    type: 'home' | 'stem-ms' | 'standard' | 'our-team';
+    type: 'home' | 'stem-partner' | 'standard' | 'our-team';
     title?: string;
     description?: string;
 }
@@ -76,8 +76,7 @@ export interface StemInitiativeSection {
 
 export interface StemProgramItem {
     title: string;
-    focus: string;
-    resources: string;
+    description: string;
     icon: string;
 }
 
@@ -137,8 +136,8 @@ export interface StemFaqSection {
     items: StemFaqItem[];
 }
 
-export interface RUSDStemPageConfig extends BasePageConfig {
-    type: 'stem-ms';
+export interface StemPartnerPageConfig extends BasePageConfig {
+    type: 'stem-partner';
     hero: StemHeroSection;
     initiative: StemInitiativeSection;
     programs: StemProgramsSection;

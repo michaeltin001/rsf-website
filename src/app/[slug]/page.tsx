@@ -4,12 +4,12 @@ import { getConfig } from '@/lib/config';
 import { Metadata } from 'next';
 
 // Component Imports
-import RUSDStem from '@/components/stem-ms/RUSDStem';
+import StemPartner from '@/components/stem-partner/StemPartner';
 import OurTeam from '@/components/team/OurTeam';
 
 import {
     BasePageConfig,
-    RUSDStemPageConfig,
+    StemPartnerPageConfig,
     StandardPageConfig,
     OurTeamPageConfig
 } from '@/types/page';
@@ -54,8 +54,8 @@ export default async function DynamicPage({ params }: { params: Promise<{ slug: 
 
     return (
         <div className="w-full">
-            {pageConfig.type === 'stem-ms' && (
-                <RUSDStem config={pageConfig as RUSDStemPageConfig} />
+            {pageConfig.type === 'stem-partner' && (
+                <StemPartner config={pageConfig as StemPartnerPageConfig} />
             )}
             
             {pageConfig.type === 'standard' && (

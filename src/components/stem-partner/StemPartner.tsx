@@ -11,7 +11,7 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon
 } from '@heroicons/react/24/outline';
-import type { RUSDStemPageConfig } from '@/types/page';
+import type { StemPartnerPageConfig } from '@/types/page';
 
 const iconMap: Record<string, React.ElementType> = {
   CalculatorIcon,
@@ -20,11 +20,11 @@ const iconMap: Record<string, React.ElementType> = {
   PresentationChartBarIcon,
 };
 
-interface RusdStemProps {
-  config: RUSDStemPageConfig;
+interface StemPartnerProps {
+  config: StemPartnerPageConfig;
 }
 
-export default function RUSDStem({ config }: RusdStemProps) {
+export default function StemPartner({ config }: StemPartnerProps) {
   const { hero, initiative, programs, resources, timeline, faq, contact } = config;
 
   const [scrolled, setScrolled] = useState(false);
@@ -158,13 +158,13 @@ export default function RUSDStem({ config }: RusdStemProps) {
   ];
 
   const renderHeadline = (text: string) => {
-    if (text === 'RUSD STEM MS Collaboration') {
+    if (text === 'Riverside STEM Partner Program') {
       return (
         <>
-          <span className={`${themeColors[0].text}`}>RUSD </span>
+          <span className={`${themeColors[0].text}`}>Riverside </span>
           <span className={`${themeColors[1].text}`}>STEM </span>
-          <span className={`${themeColors[2].text}`}>MS </span>
-          <span className="text-neutral-900 dark:text-white block mt-2">Collaboration</span>
+          <span className={`${themeColors[2].text}`}>Partner </span>
+          <span className="text-neutral-900 dark:text-white block mt-2">Program</span>
         </>
       );
     }
@@ -427,8 +427,7 @@ export default function RUSDStem({ config }: RusdStemProps) {
                   </div>
                   <h4 className={`text-2xl font-extrabold ${themeColors[0].text} mb-4 tracking-tight`}>{item.title}</h4>
                   <div className="space-y-3">
-                    <p className="text-neutral-600 dark:text-neutral-300 text-lg"><strong className={`${theme.text} font-semibold`}>The Focus:</strong> {item.focus}</p>
-                    <p className="text-neutral-600 dark:text-neutral-300 text-lg"><strong className={`${theme.text} font-semibold`}>The Resources:</strong> {item.resources}</p>
+                    <p className="text-neutral-600 dark:text-neutral-300 text-lg">{item.description}</p>
                   </div>
                 </div>
               );
