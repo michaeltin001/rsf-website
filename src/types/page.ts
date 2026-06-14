@@ -1,5 +1,5 @@
 export interface BasePageConfig {
-    type: 'home' | 'stem-partner' | 'standard' | 'our-team';
+    type: 'home' | 'stem-partner' | 'standard' | 'our-team' | 'tally';
     title?: string;
     description?: string;
 }
@@ -156,3 +156,9 @@ export interface StandardPageConfig extends BasePageConfig {
     type: 'standard';
     content: string;
 }
+
+// --- 5. Tally Page Types ---
+export interface TallyPageConfig extends BasePageConfig {
+    type: 'tally';
+}
+

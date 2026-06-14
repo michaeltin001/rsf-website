@@ -32,3 +32,9 @@ title = "STEM Partner Program"
 type = "page"
 target = "stem-partner"
 href = "/stem-partner"
+
+[[navigation]]
+title = "Tally"
+type = "page"
+target = "tally"
+href = "/tally"

@@ -6,12 +6,14 @@ import { Metadata } from 'next';
 // Component Imports
 import StemPartner from '@/components/stem-partner/StemPartner';
 import OurTeam from '@/components/team/OurTeam';
+import Tally from '@/components/tally/Tally';
 
 import {
     BasePageConfig,
     StemPartnerPageConfig,
     StandardPageConfig,
-    OurTeamPageConfig
+    OurTeamPageConfig,
+    TallyPageConfig
 } from '@/types/page';
 
 export function generateStaticParams() {
@@ -64,6 +66,10 @@ export default async function DynamicPage({ params }: { params: Promise<{ slug: 
 
             {pageConfig.type === 'our-team' && (
                 <OurTeam config={pageConfig as OurTeamPageConfig} />
+            )}
+            
+            {pageConfig.type === 'tally' && (
+                <Tally config={pageConfig as TallyPageConfig} />
             )}
             
             {/* Future modular pages can be added here simply by adding a new {pageConfig.type === '...'} condition */}

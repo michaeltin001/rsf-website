@@ -9,7 +9,7 @@ interface OurTeamProps {
 
 export default function OurTeam({ config }: OurTeamProps) {
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8 md:pt-16 md:pb-12">
 
       {/* Header Section */}
       <div className="text-center mb-16 md:mb-24 space-y-4">
