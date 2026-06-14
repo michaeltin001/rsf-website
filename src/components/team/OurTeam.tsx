@@ -29,7 +29,7 @@ export default function OurTeam({ config }: OurTeamProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg md:text-xl text-neutral-600 dark:text-neutral-300 max-w-3xl mx-auto"
+            className="text-lg md:text-xl text-neutral-600 dark:text-neutral-300"
           >
             {config.description}
           </motion.p>

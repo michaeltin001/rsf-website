@@ -40,6 +40,28 @@
   --glass-bg: rgba(255, 255, 255, 0.1);
   --glass-border: rgba(255, 255, 255, 0.2);
   --glass-shadow: rgba(0, 0, 0, 0.1);
+
+  /* Team Hues - 64 Unique Hues */
+  --hue-0: 0; --hue-1: 45; --hue-2: 90; --hue-3: 135; --hue-4: 180; 
+  --hue-5: 225; --hue-6: 270; --hue-7: 315; --hue-8: 5.625; --hue-9: 50.625; 
+  --hue-10: 95.625; --hue-11: 140.625; --hue-12: 185.625; --hue-13: 230.625; --hue-14: 275.625; 
+  --hue-15: 320.625; --hue-16: 11.25; --hue-17: 56.25; --hue-18: 101.25; --hue-19: 146.25; 
+  --hue-20: 191.25; --hue-21: 236.25; --hue-22: 281.25; --hue-23: 326.25; --hue-24: 16.875; 
+  --hue-25: 61.875; --hue-26: 106.875; --hue-27: 151.875; --hue-28: 196.875; --hue-29: 241.875; 
+  --hue-30: 286.875; --hue-31: 331.875; --hue-32: 22.5; --hue-33: 67.5; --hue-34: 112.5; 
+  --hue-35: 157.5; --hue-36: 202.5; --hue-37: 247.5; --hue-38: 292.5; --hue-39: 337.5; 
+  --hue-40: 28.125; --hue-41: 73.125; --hue-42: 118.125; --hue-43: 163.125; --hue-44: 208.125; 
+  --hue-45: 253.125; --hue-46: 298.125; --hue-47: 343.125; --hue-48: 33.75; --hue-49: 78.75; 
+  --hue-50: 123.75; --hue-51: 168.75; --hue-52: 213.75; --hue-53: 258.75; --hue-54: 303.75; 
+  --hue-55: 348.75; --hue-56: 39.375; --hue-57: 84.375; --hue-58: 129.375; --hue-59: 174.375; 
+  --hue-60: 219.375; --hue-61: 264.375; --hue-62: 309.375; --hue-63: 354.375; 
+
+  /* Light Mode Settings for Teams */
+  --bg-lightness: 92%;
+  --text-lightness: 25%;
+  --border-lightness: 65%;
+  --badge-bg-lightness: 82%;
+  --bg-alpha: 1;
 }
 
 @theme inline {
@@ -157,6 +179,13 @@
   --glass-bg: rgba(18, 18, 18, 0.8);
   --glass-border: rgba(255, 255, 255, 0.1);
   --glass-shadow: rgba(0, 0, 0, 0.5);
+
+  /* Dark Mode Settings for Teams */
+  --bg-lightness: 20%;
+  --text-lightness: 85%;
+  --border-lightness: 50%;
+  --badge-bg-lightness: 30%;
+  --bg-alpha: 0.3;
 }
 
 
@@ -238,4 +267,24 @@ body {
   background-color: var(--neutral-800);
   /* Soften card borders in dark mode only */
   border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Base Team Styling Classes */
+.team-pill {
+  background-color: hsla(var(--team-hue), 80%, var(--bg-lightness), var(--bg-alpha));
+  color: hsl(var(--team-hue), 80%, var(--text-lightness));
+  border-color: hsla(var(--team-hue), 80%, var(--border-lightness), var(--bg-alpha));
+}
+
+.team-border {
+  border-color: hsla(var(--team-hue), 80%, var(--border-lightness), 0.7);
+}
+
+.team-bg {
+  background-color: hsla(var(--team-hue), 70%, 50%, 0.1);
+}
+
+.team-badge {
+  background-color: hsla(var(--team-hue), 80%, var(--badge-bg-lightness), var(--bg-alpha));
+  color: hsl(var(--team-hue), 80%, var(--text-lightness));
 }

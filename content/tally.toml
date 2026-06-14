@@ -1,3 +1,30 @@
 type = "tally"
 title = "Tally"
 description = "Tally is an app for FIRST LEGO League (FLL) that efficiently tracks tournament schedules."
+
+[labels]
+current_time = "Current Time:"
+date = "Date:"
+delay = "Current Delay:"
+button_pits = "Pits"
+button_filter = "Filter"
+button_setup = "Setup"
+button_reset = "Reset"
+syncing = "Syncing Schedule..."
+
+[empty_state]
+title = "No Schedule Connected"
+subtitle = "Connect your Google Sheet schedule to view live match data, team pit locations, and real-time updates."
+button_configure = "Configure Settings"
+
+[sections.happening_now]
+title = "Happening Now"
+empty_text = "No events currently active."
+
+[sections.on_deck]
+title = "On Deck"
+empty_text = "No events currently on deck."
+
+[sections.schedule]
+title = "Tournament Schedule"
+empty_text = "No events found for the selected filters."

@@ -160,5 +160,34 @@ export interface StandardPageConfig extends BasePageConfig {
 // --- 5. Tally Page Types ---
 export interface TallyPageConfig extends BasePageConfig {
     type: 'tally';
+    labels: {
+        current_time: string;
+        date: string;
+        delay: string;
+        button_pits: string;
+        button_filter: string;
+        button_setup: string;
+        button_reset: string;
+        syncing: string;
+    };
+    empty_state: {
+        title: string;
+        subtitle: string;
+        button_configure: string;
+    };
+    sections: {
+        happening_now: {
+            title: string;
+            empty_text: string;
+        };
+        on_deck: {
+            title: string;
+            empty_text: string;
+        };
+        schedule: {
+            title: string;
+            empty_text: string;
+        };
+    };
 }
 
