@@ -3,7 +3,7 @@ title = "Riverside STEM Partner Program"
 
 [hero]
 headline = "Riverside STEM Partner Program"
-sub_headline = "A new resource-sharing partnership for RUSD educators."
+sub_headline = "Helping schools launch, grow, and sustain rigorous STEM opportunities"
 cta_button = "Learn More"
 bg_image = "https://images.unsplash.com/photo-1564069114553-7215e1ff1890?q=80&w=2000&auto=format&fit=crop"
 
@@ -11,24 +11,11 @@ bg_image = "https://images.unsplash.com/photo-1564069114553-7215e1ff1890?q=80&w=
 title = "The Initiative"
 headline = "Empowering Middle School STEM"
 paragraphs = [
-  "Building a STEM program from scratch—or expanding an existing one—takes time and resources. In partnership with the Riverside STEM Foundation, Delta SIFY, and the Riverside STEM Academy, we are offering a comprehensive resource-sharing initiative designed to kickstart STEM clubs at your middle school.",
-  "Designed specifically as professional development for educators, our goal is to provide you with the curriculum, practice materials, and structural support you need. There are no mandatory commitments, no rigid deadlines, and no hidden expectations. Use what works for your classroom."
+  "The Riverside STEM Partner Program is a flexible support model for schools interested in starting or strengthening rigorous STEM opportunities. The goal is to lower the activation energy for teachers and administrators by sharing guidance, planning materials, coaching resources and collaborative support."
 ]
 
-[[initiative.partners]]
-name = "Riverside STEM Foundation"
-short_name = "RSF"
-
-[[initiative.partners]]
-name = "Delta SIFY"
-short_name = "DS"
-
-[[initiative.partners]]
-name = "Riverside STEM Academy"
-short_name = "RSA"
-
 [programs]
-title = "Program Areas"
+title = "The Program"
 headline = "Available Resources"
 
 [[programs.items]]
@@ -51,144 +38,64 @@ title = "Science & Engineering Fair"
 description = "Project timelines, research question development, judging preparation, presentation practice, and pathways to advanced opportunities."
 icon = "PresentationChartBarIcon"
 
-[resources]
-headline = "Resources for new and existing programs."
-
-[[resources.slides]]
-title = "Week 1: Fundamentals"
-subtitle = "Robotics PDF Guide & Presentation"
-diagramText = "Interactive Build Diagram Area"
-
-[[resources.slides]]
-title = "Practice Set #4: Geometry"
-subtitle = "MATHCOUNTS Preparation"
-diagramText = "Interactive Geometry Tool"
-
-[[resources.slides]]
-title = "Anatomy & Physiology"
-subtitle = "Science Olympiad Syllabus"
-diagramText = "3D Organ System Viewer"
-
-[[resources.slides]]
-title = "Experiment Design Rubric"
-subtitle = "Science Fair Judging Criteria"
-diagramText = "Data Visualization Example"
+[support]
+title = "Our Support"
+items = [
+  "Start-up guidance and planning conversations",
+  "Sample agendas, calendars, coaching materials, and student resources",
+  "Collaboration with experienced program leads",
+  "Support identifying realistic first-year goals",
+  "Guidance for recruitment and family communication",
+  "Competition preparation models and judging practice structures",
+  "Connections with other schools building similar programs",
+  "Possible mentor support from partner organizations"
+]
 
 [timeline]
 headline = "The Roadmap"
-sub_headline = "See a sample timeline for the school year."
+sub_headline = "Four Levels of Development"
 
-[[timeline.programs]]
-name = "Math Clubs"
+[[timeline.levels]]
+level = "1"
+title = "Offering"
+text = "Create an initial opportunity for interested students."
 
-[[timeline.programs.items]]
-period = "August – September"
-title = "Program Kickoff"
-description = "Access the math portal, recruit students, and introduce basic competition formats and problem-solving strategies."
+[[timeline.levels]]
+level = "2"
+title = "Structured Support"
+text = "Build consistency with planning tools, guidance, and shared resources."
 
-[[timeline.programs.items]]
-period = "October – December"
-title = "Skill Building"
-description = "Hold weekly sessions using our provided MATHCOUNTS and Math Olympiad practice sets to build speed and accuracy."
+[[timeline.levels]]
+level = "3"
+title = "Access for Broader Participation"
+text = "Expand access through recruitment, communication, and beginner-friendly entry points."
 
-[[timeline.programs.items]]
-period = "January – February"
-title = "MATHCOUNTS Season"
-description = "Participate in school-level and chapter-level MATHCOUNTS competitions. Review advanced concepts."
+[[timeline.levels]]
+level = "4"
+title = "Building High-Level Program Capacity"
+text = "Grow long-term excellence through coaching, leadership, volunteer networks, and year-to-year continuity."
 
-[[timeline.programs.items]]
-period = "March – May"
-title = "Math Olympiad & Wrap-up"
-description = "Complete the final Math Olympiad exams, celebrate student growth, and review the year's progress."
+[grant_callout]
+title = "TAiSE Grant Support"
+body = "Riverside STEM Foundation may be able to provide TAiSE grants (Teacher Appreciation in STEM Education) as school-site matching grants while funding lasts. These grants may help support substitute time or hourly pay for teachers working to launch or strengthen STEM programs."
+disclaimer = "Funding availability and award amounts depend on available funds, site readiness, and alignment with program goals."
 
-[[timeline.programs]]
-name = "Science Olympiad"
+[target_audience]
+title = "Who this is for"
 
-[[timeline.programs.items]]
-period = "August – September"
-title = "Team Formation"
-description = "Recruit students, review the event rulebooks, and assign students to specific study and build events."
+[[target_audience.items]]
+title = "Teachers interested in starting or growing a STEM club, team, or competition program"
+icon = "UserIcon"
 
-[[timeline.programs.items]]
-period = "October – December"
-title = "Study & Build Phase"
-description = "Utilize our structured syllabus, weekly lectures, and practice exams to prepare for individual events."
+[[target_audience.items]]
+title = "Administrators looking to expand rigorous STEM opportunities"
+icon = "BuildingOfficeIcon"
 
-[[timeline.programs.items]]
-period = "January – February"
-title = "Invitational Practice"
-description = "Participate in local invitational tournaments to test builds and take practice exams under competition conditions."
+[[target_audience.items]]
+title = "Schools that want to begin small and build sustainable programs over time"
+icon = "UserGroupIcon"
 
-[[timeline.programs.items]]
-period = "March"
-title = "Regional Competition"
-description = "Compete in the official Inland Empire Regional Science Olympiad tournament."
 
-[[timeline.programs]]
-name = "Robotics"
-
-[[timeline.programs.items]]
-period = "August – September"
-title = "Kit Setup & Basics"
-description = "Unbox the FIRST LEGO kits, install software, and use our interactive curriculum to teach basic programming."
-
-[[timeline.programs.items]]
-period = "October – November"
-title = "Mission Strategy"
-description = "Analyze the season's challenge mat, brainstorm robot designs, and begin coding solutions for specific missions."
-
-[[timeline.programs.items]]
-period = "December – January"
-title = "Refinement & Practice"
-description = "Troubleshoot code, rebuild mechanisms for reliability, and run timed 2.5-minute practice matches."
-
-[[timeline.programs.items]]
-period = "February – March"
-title = "FLL Tournaments"
-description = "Present the team's innovation project and compete in the robot game at local FIRST LEGO League qualifiers."
-
-[[timeline.programs]]
-name = "Science Fair"
-
-[[timeline.programs.items]]
-period = "August – September"
-title = "Topic Selection"
-description = "Guide students through brainstorming, selecting a testable question, and beginning background research."
-
-[[timeline.programs.items]]
-period = "October – November"
-title = "Experimentation"
-description = "Students finalize their experimental design, gather materials, and conduct their actual experiments/data collection."
-
-[[timeline.programs.items]]
-period = "December – January"
-title = "Analysis & Boards"
-description = "Analyze the collected data, write conclusions, and design the physical presentation boards."
-
-[[timeline.programs.items]]
-period = "February"
-title = "RUSD District Fair"
-description = "Students present their projects to judges at the official RUSD District Science and Engineering Fair."
-
-[faq]
-headline = "Common Questions"
-sub_headline = "Everything you need to know before getting started."
-
-[[faq.items]]
-question = "Do I need a background in STEM to advise a club?"
-answer = "Not at all! Our curriculum is highly beginner-friendly and designed to guide both you and your students step-by-step."
-
-[[faq.items]]
-question = "Is there any financial cost to my school?"
-answer = "The curriculum, practice exams, and structural resources provided through this collaboration are 100% free to RUSD educators."
-
-[[faq.items]]
-question = "How much time per week will this require from me?"
-answer = "The resources are modular. Most teachers run a 1-hour club meeting once a week, and our 'ready-to-go' materials keep prep time minimal."
-
-[[faq.items]]
-question = "Can I use the resources but skip the actual competitions?"
-answer = "Absolutely. There are no mandatory commitments. Use the modules that work for your classroom, even if that just means exploring concepts."
 
 [contact]
 headline = "Ready to bring these resources to your school?"

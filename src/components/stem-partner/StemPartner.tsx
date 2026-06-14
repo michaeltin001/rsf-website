@@ -9,7 +9,11 @@ import {
   CpuChipIcon,
   PresentationChartBarIcon,
   ChevronLeftIcon,
-  ChevronRightIcon
+  ChevronRightIcon,
+  CheckCircleIcon,
+  UserIcon,
+  BuildingOfficeIcon,
+  UserGroupIcon
 } from '@heroicons/react/24/outline';
 import type { StemPartnerPageConfig } from '@/types/page';
 
@@ -18,6 +22,9 @@ const iconMap: Record<string, React.ElementType> = {
   BeakerIcon,
   CpuChipIcon,
   PresentationChartBarIcon,
+  UserIcon,
+  BuildingOfficeIcon,
+  UserGroupIcon
 };
 
 interface StemPartnerProps {
@@ -25,26 +32,12 @@ interface StemPartnerProps {
 }
 
 export default function StemPartner({ config }: StemPartnerProps) {
-  const { hero, initiative, programs, resources, timeline, faq, contact } = config;
+  const { hero, initiative, programs, support, timeline, grant_callout, target_audience, contact } = config;
 
   const [scrolled, setScrolled] = useState(false);
   const isSnapping = useRef(false);
   const contactRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const nextSlide = () => {
-    if (!resources?.slides) return;
-    setCurrentSlide((prev) => (prev === resources.slides.length - 1 ? 0 : prev + 1));
-  };
-  const prevSlide = () => {
-    if (!resources?.slides) return;
-    setCurrentSlide((prev) => (prev === 0 ? resources.slides.length - 1 : prev - 1));
-  };
-
-  const [activeProgramIndex, setActiveProgramIndex] = useState(0);
-  const [hasSwitchedTabs, setHasSwitchedTabs] = useState(false);
-  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
 
   const timelineRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress: timelineScrollProgress } = useScroll({
@@ -278,39 +271,25 @@ export default function StemPartner({ config }: StemPartnerProps) {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="w-full grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8"
           >
-            {initiative.partners.map((partner, idx) => {
-              // Use Blue theme for all partner cards
-              const theme = themeColors[0];
+            {target_audience.items.map((item, idx) => {
+              const Icon = iconMap[item.icon] || UserGroupIcon;
               return (
-                <a
-                  href="#contact"
-                  key={idx}
-                  className="group cursor-pointer flex flex-col h-full bg-neutral-50 dark:bg-neutral-800/50 rounded-3xl overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-2 border border-neutral-200 dark:border-neutral-800 transition-all duration-300"
-                >
-                  <div className="relative w-full aspect-[4/3] bg-neutral-200 dark:bg-neutral-800 overflow-hidden shrink-0">
-                    <div className={`absolute inset-0 bg-gradient-to-br ${theme.gradient} flex flex-col items-center justify-center text-neutral-500 transition-transform duration-500 group-hover:scale-105`}>
-                      <svg className={`w-12 h-12 mb-3 opacity-50 ${theme.hoverText} transition-colors duration-300`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                      </svg>
-                      <span className="font-medium tracking-wide uppercase text-sm">
-                        {partner.short_name} Image
-                      </span>
-                    </div>
+                <div key={idx} className="bg-white dark:bg-neutral-800/50 p-8 rounded-3xl shadow-md border border-neutral-200 dark:border-neutral-800 flex flex-col items-center text-center group hover:shadow-xl transition-all">
+                  <div className={`w-16 h-16 rounded-full ${themeColors[idx % 3].bgLight} ${themeColors[idx % 3].text} flex items-center justify-center mb-6`}>
+                    <Icon className="w-8 h-8" />
                   </div>
-                  <div className={`p-6 flex-grow flex items-center justify-center text-center bg-white dark:bg-neutral-900 ${theme.hoverBgLight} transition-colors duration-300`}>
-                    <h3 className={`font-bold ${themeColors[1].text} transition-colors duration-300 text-lg`}>{partner.name}</h3>
-                  </div>
-                </a>
+                  <p className="text-lg text-neutral-700 dark:text-neutral-300 font-medium leading-relaxed">
+                    {item.title}
+                  </p>
+                </div>
               );
             })}
           </motion.div>
         </section>
 
-
-
-        {/* 3. Curriculum (Carousel) & Core Programs (Grid) */}
+        {/* 4. Core Programs (Grid) */}
         <section className="py-8 md:py-16 space-y-12">
-          {resources && (
+          {programs && (
             <>
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
@@ -319,100 +298,17 @@ export default function StemPartner({ config }: StemPartnerProps) {
                 transition={{ duration: 0.6 }}
                 className="w-full text-center px-4"
               >
-                <h2 className="text-sm font-bold tracking-widest text-orange-500 dark:text-orange-400 uppercase mb-4">The Curriculum</h2>
-                <h3 className="text-4xl md:text-6xl font-extrabold text-blue-500 dark:text-blue-400 tracking-tighter">{resources.headline}</h3>
+                <h2 className="text-sm font-bold tracking-widest text-orange-500 dark:text-orange-400 uppercase mb-4">{programs.title}</h2>
+                <h3 className="text-4xl md:text-6xl font-extrabold text-blue-500 dark:text-blue-400 tracking-tighter">{programs.headline}</h3>
               </motion.div>
 
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="relative max-w-7xl mx-auto"
+                transition={{ duration: 0.6 }}
+                className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-7xl mx-auto px-4"
               >
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={currentSlide}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    transition={{ duration: 0.3 }}
-                    className="flex flex-col items-center"
-                  >
-                    <div className="w-full aspect-video md:aspect-[24/9] rounded-3xl relative group overflow-hidden shadow-xl border border-neutral-200 dark:border-neutral-800">
-                      <div className={`absolute inset-0 bg-neutral-200 dark:bg-neutral-800 bg-gradient-to-br ${themeColors[0].gradient} flex flex-col items-center justify-center text-neutral-500 transition-transform duration-700 group-hover:scale-105`}>
-                        <svg className="w-12 h-12 md:w-16 md:h-16 mb-4 opacity-50 text-blue-500 dark:text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                        <span className="font-medium tracking-wide uppercase text-sm md:text-base pb-12">
-                          {resources.slides[currentSlide]?.diagramText}
-                        </span>
-                      </div>
-
-                      <div className="hidden md:block absolute bottom-6 left-1/2 -translate-x-1/2 w-11/12 max-w-4xl p-6 rounded-2xl backdrop-blur-md bg-white/75 dark:bg-black/60 border border-white/30 dark:border-white/10 shadow-lg text-center transition-all duration-300">
-                        <h3 className="font-extrabold text-xl md:text-2xl text-green-500 dark:text-green-400 tracking-tight mb-1">
-                          {resources.slides[currentSlide]?.title}
-                        </h3>
-                        <p className="text-base lg:text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed font-medium">
-                          {resources.slides[currentSlide]?.subtitle}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="md:hidden w-full mt-4 p-5 rounded-2xl bg-neutral-50 dark:bg-neutral-800/80 border border-neutral-200 dark:border-neutral-800 shadow-md flex flex-col items-center justify-center h-[140px] text-center">
-                      <h3 className="font-extrabold text-lg text-green-500 dark:text-green-400 tracking-tight mb-1">
-                        {resources.slides[currentSlide]?.title}
-                      </h3>
-                      <p className="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed font-medium">
-                        {resources.slides[currentSlide]?.subtitle}
-                      </p>
-                    </div>
-                  </motion.div>
-                </AnimatePresence>
-
-                <div className="flex justify-center items-center gap-6 mt-4 md:mt-6">
-                  <button
-                    onClick={prevSlide}
-                    className="p-2 text-neutral-400 dark:text-neutral-500 opacity-50 hover:opacity-100 hover:text-blue-500 dark:hover:text-blue-400 hover:-translate-x-1 transition-all focus:outline-none flex-shrink-0 cursor-pointer"
-                    aria-label="Previous slide"
-                  >
-                    <ChevronLeftIcon className="h-6 w-6 md:h-8 md:w-8" />
-                  </button>
-
-                  <div className="flex justify-center items-center space-x-3">
-                    {resources.slides.map((_, index) => (
-                      <button
-                        key={index}
-                        onClick={() => setCurrentSlide(index)}
-                        className={`transition-all duration-300 rounded-full cursor-pointer ${currentSlide === index
-                          ? 'w-8 h-2.5 bg-blue-500'
-                          : 'w-2.5 h-2.5 bg-neutral-300 dark:bg-neutral-600 hover:bg-neutral-400 dark:hover:bg-neutral-500'
-                          }`}
-                        aria-label={`Go to slide ${index + 1}`}
-                      />
-                    ))}
-                  </div>
-
-                  <button
-                    onClick={nextSlide}
-                    className="p-2 text-neutral-400 dark:text-neutral-500 opacity-50 hover:opacity-100 hover:text-blue-500 dark:hover:text-blue-400 hover:translate-x-1 transition-all focus:outline-none flex-shrink-0 cursor-pointer"
-                    aria-label="Next slide"
-                  >
-                    <ChevronRightIcon className="h-6 w-6 md:h-8 md:w-8" />
-                  </button>
-                </div>
-              </motion.div>
-            </>
-          )}
-
-          {/* Core Programs (The Grid) */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-8"
-          >
             {programs.items.map((item, idx) => {
               const Icon = iconMap[item.icon] || CalculatorIcon;
               // Use Green theme for all cards as requested
@@ -425,17 +321,20 @@ export default function StemPartner({ config }: StemPartnerProps) {
                   <div className={`w-16 h-16 ${themeColors[0].bgLight} rounded-2xl flex items-center justify-center mb-6`}>
                     <Icon className={`w-8 h-8 ${themeColors[0].text}`} />
                   </div>
-                  <h4 className={`text-2xl font-extrabold ${themeColors[0].text} mb-4 tracking-tight`}>{item.title}</h4>
+                  <h4 className={`text-2xl font-extrabold ${theme.text} mb-4 tracking-tight`}>{item.title}</h4>
                   <div className="space-y-3">
                     <p className="text-neutral-600 dark:text-neutral-300 text-lg">{item.description}</p>
                   </div>
                 </div>
               );
             })}
+
           </motion.div>
+            </>
+          )}
         </section>
 
-        {/* 4. Season at a Glance (Interactive Timeline) */}
+        {/* 5. Season at a Glance (Interactive Timeline) */}
         {timeline && (
           <section className="py-8 md:py-16 space-y-12">
             <motion.div
@@ -459,146 +358,104 @@ export default function StemPartner({ config }: StemPartnerProps) {
                 style={{ height: lineHeight }}
               />
 
-              <div className="relative z-10 grid">
-                {timeline.programs.map((program, pIdx) => {
-                  const isActive = activeProgramIndex === pIdx;
-                  return (
+              <div className="relative z-10">
+                <div className="space-y-0 relative z-10">
+                  {timeline.levels.map((level, idx) => (
                     <motion.div
-                      key={pIdx}
-                      initial={false}
-                      animate={{
-                        opacity: isActive ? 1 : 0,
-                        y: isActive ? 0 : 15,
-                        zIndex: isActive ? 10 : 0
+                      key={idx}
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={{ once: true, margin: "-30%" }}
+                      variants={{
+                        hidden: {},
+                        visible: {}
                       }}
-                      transition={{ duration: 0.4, ease: "easeOut" }}
-                      className={`col-start-1 row-start-1 ${isActive ? 'pointer-events-auto' : 'pointer-events-none'}`}
+                      className="relative flex items-start justify-between md:justify-normal md:odd:flex-row-reverse group py-8"
                     >
-                      <div className="space-y-0 relative z-10">
-                        {program.items.map((item, idx) => (
-                          <motion.div
-                            key={idx}
-                            initial="hidden"
-                            animate={hasSwitchedTabs ? "visible" : undefined}
-                            whileInView="visible"
-                            viewport={{ once: true, margin: "-30%" }}
-                            variants={{
-                              hidden: {},
-                              visible: {}
-                            }}
-                            className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group py-8"
-                          >
-                            {/* Dot */}
-                            <div className="relative flex items-center justify-center w-10 h-10 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
-                              <div className="absolute inset-0 rounded-full border-4 border-neutral-200 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800 shadow" />
-                              <motion.div
-                                variants={{
-                                  hidden: { opacity: 0 },
-                                  visible: { opacity: 1, transition: { duration: 0.3 } }
-                                }}
-                                className="absolute inset-0 rounded-full border-4 border-white dark:border-black bg-blue-500 flex items-center justify-center"
-                              >
-                                <div className="w-2 h-2 bg-white rounded-full"></div>
-                              </motion.div>
-                            </div>
-
-                            {/* Card */}
-                            <motion.div
-                              variants={{
-                                hidden: { opacity: 0, y: 20 },
-                                visible: { opacity: 1, y: 0, transition: { duration: 0.4, delay: 0.1 } }
-                              }}
-                              className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-neutral-50 dark:bg-neutral-800/50 p-6 rounded-3xl shadow-xl border border-neutral-200 dark:border-neutral-800"
-                            >
-                              <span className="font-bold text-blue-500 dark:text-blue-400 text-sm tracking-wide uppercase">{item.period}</span>
-                              <h4 className="text-xl font-bold text-green-500 dark:text-green-400 mt-2 mb-2">{item.title}</h4>
-                              <p className="text-neutral-600 dark:text-neutral-300 leading-relaxed">{item.description}</p>
-                            </motion.div>
-                          </motion.div>
-                        ))}
+                      {/* Dot */}
+                      <div className="relative flex items-center justify-center w-10 h-10 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 mt-6">
+                        <div className="absolute inset-0 rounded-full border-4 border-neutral-200 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800 shadow" />
+                        <motion.div
+                          variants={{
+                            hidden: { opacity: 0 },
+                            visible: { opacity: 1, transition: { duration: 0.3 } }
+                          }}
+                          className="absolute inset-0 rounded-full border-4 border-white dark:border-black bg-blue-500 flex items-center justify-center text-white text-xs font-black"
+                        >
+                          {level.level}
+                        </motion.div>
                       </div>
+
+                      {/* Card */}
+                      <motion.div
+                        variants={{
+                          hidden: { opacity: 0, y: 20 },
+                          visible: { opacity: 1, y: 0, transition: { duration: 0.4, delay: 0.1 } }
+                        }}
+                        className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-neutral-50 dark:bg-neutral-800/50 p-6 rounded-3xl shadow-xl border border-neutral-200 dark:border-neutral-800"
+                      >
+                        <span className="font-bold text-blue-500 dark:text-blue-400 text-sm tracking-wide uppercase">Level {level.level}</span>
+                        <h4 className="text-xl font-bold text-green-500 dark:text-green-400 mt-2 mb-2">{level.title}</h4>
+                        <p className="text-neutral-600 dark:text-neutral-300 leading-relaxed">{level.text}</p>
+                      </motion.div>
                     </motion.div>
-                  );
-                })}
+                  ))}
+                </div>
               </div>
             </div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="flex flex-wrap justify-center gap-4 px-4 pt-4"
-            >
-              {timeline.programs.map((prog, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => {
-                    setActiveProgramIndex(idx);
-                    setHasSwitchedTabs(true);
-                  }}
-                  className={`px-6 py-3 rounded-full font-bold text-sm md:text-base transition-all duration-300 cursor-pointer ${activeProgramIndex === idx
-                    ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
-                    : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700'
-                    }`}
-                >
-                  {prog.name}
-                </button>
-              ))}
-            </motion.div>
           </section>
         )}
 
-        {/* 5. Frequently Asked Questions */}
-        {faq && (
-          <section className="py-8 md:py-16 max-w-7xl mx-auto px-4 space-y-12">
-
-            <div className="space-y-4">
-              {faq.items.map((item, idx) => {
-                const isOpen = openFaqIndex === idx;
-                return (
-                  <motion.div
-                    key={idx}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: idx * 0.1 }}
-                    className="bg-neutral-50 dark:bg-neutral-800/50 rounded-3xl shadow-md border border-neutral-200 dark:border-neutral-800 overflow-hidden"
-                  >
-                    <button
-                      onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
-                      className="w-full flex items-center justify-between p-6 text-left focus:outline-none cursor-pointer"
-                    >
-                      <span className="text-lg md:text-xl font-bold text-neutral-900 dark:text-white pr-4">
-                        {item.question}
-                      </span>
-                      <div className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 ease-in-out ${isOpen ? 'bg-orange-500 text-white rotate-180' : 'bg-neutral-200 dark:bg-neutral-700 text-neutral-500 dark:text-neutral-400'}`}>
-                        <ChevronDownIcon className="w-5 h-5" />
+        {/* Support & Grant Callout */}
+        {(support || grant_callout) && (
+          <section className="py-8 md:py-16 max-w-7xl mx-auto px-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+              {/* Left Pane: Our Support */}
+              {support && (
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                  className="bg-neutral-50 dark:bg-neutral-800/50 rounded-3xl p-8 md:p-12 shadow-xl border border-neutral-200 dark:border-neutral-800 flex flex-col h-full"
+                >
+                  <h3 className="text-2xl md:text-3xl font-extrabold text-neutral-800 dark:text-white mb-8">{support.title}</h3>
+                  <div className="flex flex-col space-y-4">
+                    {support.items.map((item, idx) => (
+                      <div key={idx} className="flex items-start space-x-3">
+                        <CheckCircleIcon className="w-6 h-6 text-green-500 shrink-0 mt-0.5" />
+                        <span className="text-neutral-700 dark:text-neutral-300 text-base md:text-lg">{item}</span>
                       </div>
-                    </button>
-                    <AnimatePresence>
-                      {isOpen && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: 'auto', opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.25, ease: "easeOut" }}
-                          className="overflow-hidden"
-                        >
-                          <div className="px-6 pb-6 text-neutral-600 dark:text-neutral-300 text-lg leading-relaxed">
-                            {item.answer}
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </motion.div>
-                );
-              })}
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+
+              {/* Right Pane: TAiSE Grant Callout */}
+              {grant_callout && (
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="bg-neutral-50 dark:bg-neutral-800/50 rounded-3xl p-8 md:p-12 shadow-xl border border-neutral-200 dark:border-neutral-800 flex flex-col h-full relative overflow-hidden"
+                >
+                  <div className="relative z-10">
+                    <h3 className="text-3xl font-extrabold text-neutral-800 dark:text-white mb-4">{grant_callout.title}</h3>
+                    <p className="text-lg text-neutral-600 dark:text-neutral-300 mb-6 leading-relaxed font-medium">
+                      {grant_callout.body}
+                    </p>
+                    <div className="bg-neutral-200/50 dark:bg-neutral-700/50 rounded-2xl p-4 text-sm text-neutral-800 dark:text-neutral-200 italic font-medium">
+                      {grant_callout.disclaimer}
+                    </div>
+                  </div>
+                </motion.div>
+              )}
             </div>
           </section>
         )}
 
-        {/* 6. Next Steps & Contact (Bottom) */}
+        {/* 9. Next Steps & Contact (Bottom) */}
         <section ref={contactRef} id="contact" className="pt-8 md:pt-16 pb-0">
           <motion.div
             initial={{ opacity: 0, y: 30 }}

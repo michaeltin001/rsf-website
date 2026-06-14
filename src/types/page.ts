@@ -62,16 +62,10 @@ export interface StemHeroSection {
     bg_image: string;
 }
 
-export interface StemPartner {
-    name: string;
-    short_name: string;
-}
-
 export interface StemInitiativeSection {
     title: string;
     headline: string;
     paragraphs: string[];
-    partners: StemPartner[];
 }
 
 export interface StemProgramItem {
@@ -97,43 +91,38 @@ export interface StemContactSection {
     info: StemContactInfo;
 }
 
-export interface StemResourceSlide {
-    title: string;
-    subtitle: string;
-    diagramText: string;
-}
-
-export interface StemResourceSection {
-    headline: string;
-    slides: StemResourceSlide[];
-}
-
-export interface StemTimelineItem {
-    period: string;
-    title: string;
-    description: string;
-}
-
-export interface StemTimelineProgram {
-    name: string;
-    items: StemTimelineItem[];
-}
-
 export interface StemTimelineSection {
     headline: string;
     sub_headline: string;
-    programs: StemTimelineProgram[];
+    levels: StemDevelopmentLevel[];
 }
 
-export interface StemFaqItem {
-    question: string;
-    answer: string;
+
+export interface StemDevelopmentLevel {
+    level: string;
+    title: string;
+    text: string;
 }
 
-export interface StemFaqSection {
-    headline: string;
-    sub_headline: string;
-    items: StemFaqItem[];
+export interface StemSupportSection {
+    title: string;
+    items: string[];
+}
+
+export interface StemTargetAudienceItem {
+    title: string;
+    icon: string;
+}
+
+export interface StemTargetAudience {
+    title: string;
+    items: StemTargetAudienceItem[];
+}
+
+export interface StemGrantCallout {
+    title: string;
+    body: string;
+    disclaimer: string;
 }
 
 export interface StemPartnerPageConfig extends BasePageConfig {
@@ -141,9 +130,11 @@ export interface StemPartnerPageConfig extends BasePageConfig {
     hero: StemHeroSection;
     initiative: StemInitiativeSection;
     programs: StemProgramsSection;
-    resources: StemResourceSection;
+    support: StemSupportSection;
+
     timeline: StemTimelineSection;
-    faq: StemFaqSection;
+    grant_callout: StemGrantCallout;
+    target_audience: StemTargetAudience;
     contact: StemContactSection;
 }
 
