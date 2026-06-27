@@ -17,7 +17,7 @@
   --accent: #10b981;
   --accent-light: #34d399;
   --accent-dark: #059669;
-  
+
   /* Neutral colors - green-gray (no blue tint) */
   --neutral-50: #f8fafc;
   --neutral-100: #f1f5f9;
@@ -29,32 +29,83 @@
   --neutral-700: #334155;
   --neutral-800: #1e293b;
   --neutral-900: #0f172a;
-  
+
   /* Semantic colors */
   --success: #10b981;
   --warning: #f59e0b;
   --error: #ef4444;
   --info: #3b82f6;
-  
+
   /* Glass effect */
   --glass-bg: rgba(255, 255, 255, 0.1);
   --glass-border: rgba(255, 255, 255, 0.2);
   --glass-shadow: rgba(0, 0, 0, 0.1);
 
   /* Team Hues - 64 Unique Hues */
-  --hue-0: 0; --hue-1: 45; --hue-2: 90; --hue-3: 135; --hue-4: 180; 
-  --hue-5: 225; --hue-6: 270; --hue-7: 315; --hue-8: 5.625; --hue-9: 50.625; 
-  --hue-10: 95.625; --hue-11: 140.625; --hue-12: 185.625; --hue-13: 230.625; --hue-14: 275.625; 
-  --hue-15: 320.625; --hue-16: 11.25; --hue-17: 56.25; --hue-18: 101.25; --hue-19: 146.25; 
-  --hue-20: 191.25; --hue-21: 236.25; --hue-22: 281.25; --hue-23: 326.25; --hue-24: 16.875; 
-  --hue-25: 61.875; --hue-26: 106.875; --hue-27: 151.875; --hue-28: 196.875; --hue-29: 241.875; 
-  --hue-30: 286.875; --hue-31: 331.875; --hue-32: 22.5; --hue-33: 67.5; --hue-34: 112.5; 
-  --hue-35: 157.5; --hue-36: 202.5; --hue-37: 247.5; --hue-38: 292.5; --hue-39: 337.5; 
-  --hue-40: 28.125; --hue-41: 73.125; --hue-42: 118.125; --hue-43: 163.125; --hue-44: 208.125; 
-  --hue-45: 253.125; --hue-46: 298.125; --hue-47: 343.125; --hue-48: 33.75; --hue-49: 78.75; 
-  --hue-50: 123.75; --hue-51: 168.75; --hue-52: 213.75; --hue-53: 258.75; --hue-54: 303.75; 
-  --hue-55: 348.75; --hue-56: 39.375; --hue-57: 84.375; --hue-58: 129.375; --hue-59: 174.375; 
-  --hue-60: 219.375; --hue-61: 264.375; --hue-62: 309.375; --hue-63: 354.375; 
+  --hue-0: 0;
+  --hue-1: 45;
+  --hue-2: 90;
+  --hue-3: 135;
+  --hue-4: 180;
+  --hue-5: 225;
+  --hue-6: 270;
+  --hue-7: 315;
+  --hue-8: 5.625;
+  --hue-9: 50.625;
+  --hue-10: 95.625;
+  --hue-11: 140.625;
+  --hue-12: 185.625;
+  --hue-13: 230.625;
+  --hue-14: 275.625;
+  --hue-15: 320.625;
+  --hue-16: 11.25;
+  --hue-17: 56.25;
+  --hue-18: 101.25;
+  --hue-19: 146.25;
+  --hue-20: 191.25;
+  --hue-21: 236.25;
+  --hue-22: 281.25;
+  --hue-23: 326.25;
+  --hue-24: 16.875;
+  --hue-25: 61.875;
+  --hue-26: 106.875;
+  --hue-27: 151.875;
+  --hue-28: 196.875;
+  --hue-29: 241.875;
+  --hue-30: 286.875;
+  --hue-31: 331.875;
+  --hue-32: 22.5;
+  --hue-33: 67.5;
+  --hue-34: 112.5;
+  --hue-35: 157.5;
+  --hue-36: 202.5;
+  --hue-37: 247.5;
+  --hue-38: 292.5;
+  --hue-39: 337.5;
+  --hue-40: 28.125;
+  --hue-41: 73.125;
+  --hue-42: 118.125;
+  --hue-43: 163.125;
+  --hue-44: 208.125;
+  --hue-45: 253.125;
+  --hue-46: 298.125;
+  --hue-47: 343.125;
+  --hue-48: 33.75;
+  --hue-49: 78.75;
+  --hue-50: 123.75;
+  --hue-51: 168.75;
+  --hue-52: 213.75;
+  --hue-53: 258.75;
+  --hue-54: 303.75;
+  --hue-55: 348.75;
+  --hue-56: 39.375;
+  --hue-57: 84.375;
+  --hue-58: 129.375;
+  --hue-59: 174.375;
+  --hue-60: 219.375;
+  --hue-61: 264.375;
+  --hue-62: 309.375;
+  --hue-63: 354.375;
 
   /* Light Mode Settings for Teams */
   --bg-lightness: 92%;
@@ -74,7 +125,7 @@
   --color-accent: var(--accent);
   --color-accent-light: var(--accent-light);
   --color-accent-dark: var(--accent-dark);
-  
+
   /* Neutral palette */
   --color-neutral-50: var(--neutral-50);
   --color-neutral-100: var(--neutral-100);
@@ -86,23 +137,23 @@
   --color-neutral-700: var(--neutral-700);
   --color-neutral-800: var(--neutral-800);
   --color-neutral-900: var(--neutral-900);
-  
+
   /* Semantic colors */
   --color-success: var(--success);
   --color-warning: var(--warning);
   --color-error: var(--error);
   --color-info: var(--info);
-  
+
   /* Glass effect */
   --color-glass-bg: var(--glass-bg);
   --color-glass-border: var(--glass-border);
   --color-glass-shadow: var(--glass-shadow);
-  
+
   /* Typography */
   --font-sans: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
   --font-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
-  
+
   /* Font sizes */
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
@@ -117,7 +168,7 @@
   --font-size-7xl: 4.5rem;
   --font-size-8xl: 6rem;
   --font-size-9xl: 8rem;
-  
+
   /* Letter spacing */
   --letter-spacing-tighter: -0.05em;
   --letter-spacing-tight: -0.025em;
@@ -125,7 +176,7 @@
   --letter-spacing-wide: 0.025em;
   --letter-spacing-wider: 0.05em;
   --letter-spacing-widest: 0.1em;
-  
+
   /* Line heights */
   --line-height-none: 1;
   --line-height-tight: 1.25;
@@ -133,7 +184,7 @@
   --line-height-normal: 1.5;
   --line-height-relaxed: 1.625;
   --line-height-loose: 2;
-  
+
   /* Shadows */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
@@ -143,7 +194,7 @@
   --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
   --shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  
+
   /* Gradients */
   --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
   --gradient-accent: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
@@ -154,7 +205,7 @@
 .dark {
   --background: #121212;
   --foreground: #f5f5f5;
-  
+
   /* Override neutral palette in dark mode to remove blue tint (using true neutral grays) */
   --neutral-50: #fafafa;
   --neutral-100: #f5f5f5;
@@ -166,7 +217,7 @@
   --neutral-700: #404040;
   --neutral-800: #262626;
   --neutral-900: #171717;
-  
+
   /* Adjust colors for dark mode - brighter for contrast */
   --primary: #60a5fa;
   --primary-light: #93c5fd;
@@ -174,7 +225,7 @@
   --accent: #34d399;
   --accent-light: #6ee7b7;
   --accent-dark: #10b981;
-  
+
   /* Dark mode glass effect */
   --glass-bg: rgba(18, 18, 18, 0.8);
   --glass-border: rgba(255, 255, 255, 0.1);
@@ -230,6 +281,7 @@ body {
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -245,6 +297,10 @@ body {
   background: var(--neutral-400);
 }
 
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
 /* Dark mode scrollbar */
 .dark ::-webkit-scrollbar-track {
   background: var(--neutral-800);
@@ -256,6 +312,10 @@ body {
 
 .dark ::-webkit-scrollbar-thumb:hover {
   background: var(--neutral-500);
+}
+
+.dark ::-webkit-scrollbar-corner {
+  background: transparent;
 }
 
 /* Card background utility */

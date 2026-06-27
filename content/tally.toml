@@ -28,3 +28,130 @@ empty_text = "No events currently on deck."
 [sections.schedule]
 title = "Tournament Schedule"
 empty_text = "No events found for the selected filters."
+
+[schedule_modal]
+title = "Tournament Schedule Generator"
+
+[schedule_modal.labels]
+tournament_name = "Tournament Name"
+tournament_date = "Tournament Date"
+base_period = "Tournament Match Period (min)"
+judging_multiplier = "Tournament Judging Period (Multiplier)"
+num_fields = "# Fields"
+num_judging = "# Judging Areas"
+num_rounds = "# Rounds"
+volunteers_arrive = "Volunteers Arrive"
+team_check_in = "Team Check-In"
+opening_ceremonies = "Opening Ceremonies"
+start_time = "Tournament Start"
+end_time = "Tournament End"
+lunch_option = "Tournament Lunch"
+lunch_start = "Start"
+lunch_end = "End"
+lunch_duration = "Duration (min)"
+team_list = "Team List (ID, Name)"
+
+[schedule_modal.buttons]
+go_back = "Go Back"
+grid_view = "Grid View"
+list_view = "List View"
+export = "Export"
+export_xlsx = "Export to XLSX"
+export_pdf = "Export to PDF"
+export_png = "Export to PNG"
+generate = "Generate Schedule"
+
+[schedule_modal.lunch_options]
+no_lunch = "No Lunch"
+specific_time = "Specific Time"
+after_round_1 = "After Round 1"
+after_round_2 = "After Round 2"
+
+[schedule_modal.defaults]
+tournament_name = "FLL Tournament"
+base_period = 10
+judging_multiplier = 3
+num_fields = 6
+num_judging = 6
+num_rounds = 4
+start_time = "09:00"
+end_time = "16:00"
+lunch_option = "after_round_1"
+lunch_duration = 60
+lunch_start = "12:00"
+lunch_end = "13:00"
+volunteers_arrive = "07:30"
+team_check_in = "08:00"
+opening_ceremonies = "08:30"
+team_list = """
+#101,RoboWarriors
+#102,Block Builders
+#103,Circuit Breakers
+#104,Gear Gurus
+#105,Tech Titans
+#106,Mindstorms Mechanics
+#107,Byte Me
+#108,NXT Level
+#109,The Programmers
+#110,Brick Bosses
+#111,Coded Chaos
+#112,Bot Busters
+#113,RoboRaptors
+#114,CyberKnights
+#115,Pixel Pioneers
+#116,Logic Legends
+#117,Data Dragons
+#118,Syntax Squad
+#119,Code Crafters
+#120,Future Forge
+#121,Quantum Quirks
+#122,Neon Ninjas
+#123,Silicon Surfers
+#124,Mech Masters
+#125,Widget Wizards
+#126,Iron Innovators
+#127,Apex Automata
+#128,Gizmo Geniuses
+#129,Digital Dynamos
+#130,Alpha Bots"""
+
+[schedule_modal.messages]
+generation_failed = "Generation Failed"
+no_schedule_title = "No Schedule Generated"
+no_schedule_subtitle = "Adjust parameters and click Generate to see a preview."
+export_failed_png = "Failed to export PNG: "
+export_failed_pdf = "Failed to export PDF: "
+export_failed_xlsx = "Failed to export XLSX: "
+
+[settings_modal]
+title = "Settings"
+
+[settings_modal.tabs]
+data_source = "Data Source"
+filter_teams = "Filter Teams"
+pit_information = "Pit Information"
+data_source_mobile = "Data"
+filter_teams_mobile = "Filter"
+pit_information_mobile = "Pits"
+
+[settings_modal.labels]
+google_sheet_id = "Google Sheet ID"
+sheet_id_placeholder = "Paste your Sheet ID here"
+find_this_in_url = "Find this in your Google Sheet URL:"
+url_example = "docs.google.com/spreadsheets/d/YOUR_ID_HERE/edit"
+reset_all_settings = "Reset All Settings"
+reset_warning = "Resetting will clear the current Google Sheet ID and reset all applied team filters. This cannot be undone."
+select_all = "Select All"
+deselect_all = "Deselect All"
+pit = "Pit"
+
+[settings_modal.buttons]
+save = "Save"
+
+[settings_modal.messages]
+no_teams_available = "No teams available."
+no_teams_selected = "No teams currently selected."
+
+[settings_modal.errors]
+empty_sheet_id = "Sheet ID cannot be empty."
+invalid_sheet_id = "Invalid Sheet ID. It should be a long string of letters, numbers, hyphens, and underscores."

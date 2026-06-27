@@ -189,5 +189,106 @@ export interface TallyPageConfig extends BasePageConfig {
             empty_text: string;
         };
     };
+    schedule_modal: ScheduleModalConfig;
+    settings_modal: SettingsModalConfig;
+}
+
+export interface ScheduleModalConfig {
+    title: string;
+    labels: {
+        tournament_name: string;
+        tournament_date: string;
+        base_period: string;
+        judging_multiplier: string;
+        num_fields: string;
+        num_judging: string;
+        num_rounds: string;
+        volunteers_arrive: string;
+        team_check_in: string;
+        opening_ceremonies: string;
+        start_time: string;
+        end_time: string;
+        lunch_option: string;
+        lunch_start: string;
+        lunch_end: string;
+        lunch_duration: string;
+        team_list: string;
+    };
+    buttons: {
+        go_back: string;
+        grid_view: string;
+        list_view: string;
+        export: string;
+        export_xlsx: string;
+        export_pdf: string;
+        export_png: string;
+        generate: string;
+    };
+    lunch_options: {
+        no_lunch: string;
+        specific_time: string;
+        after_round_1: string;
+        after_round_2: string;
+    };
+    defaults: {
+        tournament_name: string;
+        base_period: number;
+        judging_multiplier: number;
+        num_fields: number;
+        num_judging: number;
+        num_rounds: number;
+        start_time: string;
+        end_time: string;
+        lunch_option: 'none' | 'time' | 'after_round_1' | 'after_round_2';
+        lunch_duration: number;
+        lunch_start: string;
+        lunch_end: string;
+        volunteers_arrive: string;
+        team_check_in: string;
+        opening_ceremonies: string;
+        team_list: string;
+    };
+    messages: {
+        generation_failed: string;
+        no_schedule_title: string;
+        no_schedule_subtitle: string;
+        export_failed_png: string;
+        export_failed_pdf: string;
+        export_failed_xlsx: string;
+    };
+}
+
+export interface SettingsModalConfig {
+    title: string;
+    tabs: {
+        data_source: string;
+        filter_teams: string;
+        pit_information: string;
+        data_source_mobile: string;
+        filter_teams_mobile: string;
+        pit_information_mobile: string;
+    };
+    labels: {
+        google_sheet_id: string;
+        sheet_id_placeholder: string;
+        find_this_in_url: string;
+        url_example: string;
+        reset_all_settings: string;
+        reset_warning: string;
+        select_all: string;
+        deselect_all: string;
+        pit: string;
+    };
+    buttons: {
+        save: string;
+    };
+    messages: {
+        no_teams_available: string;
+        no_teams_selected: string;
+    };
+    errors: {
+        empty_sheet_id: string;
+        invalid_sheet_id: string;
+    };
 }
 
