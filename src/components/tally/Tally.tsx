@@ -2,11 +2,12 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Cog6ToothIcon, FunnelIcon, InformationCircleIcon, MapPinIcon, ClockIcon, ArrowPathIcon, DocumentPlusIcon } from '@heroicons/react/24/outline';
+import { Cog6ToothIcon, FunnelIcon, InformationCircleIcon, MapPinIcon, ClockIcon, ArrowPathIcon, DocumentPlusIcon, CalendarDaysIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 import type { TallyPageConfig } from '@/types/page';
 
 import SettingsModal from './SettingsModal';
 import ScheduleModal from './ScheduleModal';
+import SchedulePreviewFromSheet from './SchedulePreviewFromSheet';
 
 interface TallyProps {
   config: TallyPageConfig;
@@ -35,13 +36,16 @@ export default function Tally({ config }: TallyProps) {
   const [tournamentOnDeckTime, setTournamentOnDeckTime] = useState(10);
   const [tournamentDate, setTournamentDate] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   // Modal States
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [isScheduleModalOpen, setIsScheduleModalOpen] = useState(false);
+  const [isSchedulePreviewFromSheetOpen, setIsSchedulePreviewFromSheetOpen] = useState(false);
 
   const [sheetId, setSheetId] = useState('');
   const [filter, setFilter] = useState<string[]>(['All']);
+  const [rawSheetData, setRawSheetData] = useState<{ settings: any[], teams: any[], judging: any[], rounds: any[] } | null>(null);
 
 
 
@@ -67,37 +71,57 @@ export default function Tally({ config }: TallyProps) {
   useEffect(() => {
     if (!mounted) return;
 
-    localStorage.setItem('app-sheet-id', sheetId);
-
     if (!sheetId) {
+      localStorage.setItem('app-sheet-id', '');
       setScheduleData([]);
       setTournamentName('Tally');
       setTournamentDelay(0);
       setTournamentOnDeckTime(10);
       setTournamentDate('');
       setIsLoading(false);
+      setRawSheetData(null);
       return;
     }
 
     const fetchSpreadsheetData = async () => {
       setIsLoading(true);
+      setError(null);
       try {
         const fetchSheet = async (sheetName: string) => {
           const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&headers=1&sheet=${sheetName}`;
-          const res = await fetch(url);
-          const text = await res.text();
-          const match = text.match(/google\.visualization\.Query\.setResponse\(([\s\S\w]+)\);/);
-          if (match && match[1]) {
-            const json = JSON.parse(match[1]);
-            const headers = json.table.cols.map((c: any) => c.label);
-            return json.table.rows.map((r: any) => {
-              return headers.reduce((obj: any, header: string, i: number) => {
-                obj[header] = r.c[i] ? r.c[i].v : null;
-                return obj;
-              }, {});
-            });
+          try {
+            const res = await fetch(url);
+            const text = await res.text();
+            const match = text.match(/google\.visualization\.Query\.setResponse\(([\s\S\w]+)\);/);
+            
+            if (match && match[1]) {
+              const json = JSON.parse(match[1]);
+              
+              if (json.status === 'error') {
+                console.error(`Google Sheets API returned an error for sheet "${sheetName}":`, json.errors);
+                throw new Error(json.errors?.[0]?.message || 'Google Sheets API error');
+              }
+              
+              if (!json.table || !json.table.cols) {
+                console.warn(`Warning: Unexpected data format received for sheet "${sheetName}".`);
+                return [];
+              }
+
+              const headers = json.table.cols.map((c: any) => c.label);
+              return json.table.rows.map((r: any) => {
+                return headers.reduce((obj: any, header: string, i: number) => {
+                  obj[header] = r.c[i] ? r.c[i].v : null;
+                  return obj;
+                }, {});
+              });
+            }
+            
+            console.warn(`Warning: Could not parse response for sheet "${sheetName}". It may be empty, deleted, or not publicly accessible.`);
+            return [];
+          } catch (err) {
+            console.error(`Failed to fetch or parse sheet "${sheetName}":`, err);
+            throw err;
           }
-          return [];
         };
 
         const [settingsRaw, teamsRaw, judgingRaw, roundsRaw] = await Promise.all([
@@ -106,6 +130,8 @@ export default function Tally({ config }: TallyProps) {
           fetchSheet('Judging'),
           fetchSheet('Rounds')
         ]);
+
+        setRawSheetData({ settings: settingsRaw, teams: teamsRaw, judging: judgingRaw, rounds: roundsRaw });
 
         const nameSetting = settingsRaw.find((s: any) => s.Key === 'TournamentName');
         if (nameSetting) setTournamentName(nameSetting.Value);
@@ -175,10 +201,20 @@ export default function Tally({ config }: TallyProps) {
         });
 
         setScheduleData(mergedEvents);
+        
+        if (settingsRaw.length === 0 && teamsRaw.length === 0) {
+          throw new Error("No valid data was found in the Google Sheet. Make sure the sheet ID is correct and the document is shared publicly.");
+        }
+        
+        localStorage.setItem('app-sheet-id', sheetId);
+        console.log(`Successfully fetched and parsed data from Google Sheet ID: ${sheetId}`);
+        console.log(`Loaded ${teamsRaw.length} teams, ${processedJudging.length} judging events, and ${processedRounds.length} match rounds.`);
+        
         setIsLoading(false);
-      } catch (error) {
-        console.error("Error fetching Google Sheets data:", error);
-        setTournamentName("Error Loading Data");
+        setIsSettingsModalOpen(false);
+      } catch (err: any) {
+        console.error("Error fetching Google Sheets data. This might be due to invalid permissions, an incorrect Sheet ID, or network issues.", err);
+        setError(err.message || "Failed to fetch Google Sheets data. Please check permissions and the Sheet ID.");
         setIsLoading(false);
       }
     };
@@ -198,6 +234,9 @@ export default function Tally({ config }: TallyProps) {
       if (e.key === 'Escape') {
         setIsSettingsModalOpen(false);
         setIsScheduleModalOpen(false);
+        setIsSchedulePreviewFromSheetOpen(false);
+        setSheetId(localStorage.getItem('app-sheet-id') || '');
+        setError(null);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -303,6 +342,16 @@ export default function Tally({ config }: TallyProps) {
 
         <div className="flex items-center gap-3">
 
+          {sheetId && (
+            <button
+              onClick={() => setIsSchedulePreviewFromSheetOpen(true)}
+              disabled={!rawSheetData || isLoading}
+              className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl shadow-sm hover:border-accent dark:hover:border-accent text-neutral-700 dark:text-neutral-200 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:border-neutral-200 dark:disabled:hover:border-neutral-700"
+            >
+              <CalendarDaysIcon className="w-5 h-5 text-accent" />
+              <span className="hidden sm:inline font-medium text-sm">View Schedule</span>
+            </button>
+          )}
 
           <button
             onClick={() => setIsSettingsModalOpen(true)}
@@ -311,7 +360,6 @@ export default function Tally({ config }: TallyProps) {
             <Cog6ToothIcon className="w-5 h-5 text-accent" />
             <span className="hidden sm:inline font-medium text-sm">Settings</span>
           </button>
-
 
         </div>
       </motion.div>
@@ -471,7 +519,11 @@ export default function Tally({ config }: TallyProps) {
         {isSettingsModalOpen && (
           <SettingsModal
             isOpen={isSettingsModalOpen}
-            onClose={() => setIsSettingsModalOpen(false)}
+            onClose={() => {
+              setIsSettingsModalOpen(false);
+              setSheetId(localStorage.getItem('app-sheet-id') || '');
+              setError(null);
+            }}
             sheetId={sheetId}
             setSheetId={setSheetId}
             teams={teamsList}
@@ -479,12 +531,22 @@ export default function Tally({ config }: TallyProps) {
             setFilter={setFilter}
             pitInfo={uniquePits}
             config={config.settings_modal}
+            sheetFetchError={error}
+            clearError={() => setError(null)}
           />
         )}
         {isScheduleModalOpen && (
           <ScheduleModal
             isOpen={isScheduleModalOpen}
             onClose={() => setIsScheduleModalOpen(false)}
+            config={config.schedule_modal}
+          />
+        )}
+        {isSchedulePreviewFromSheetOpen && (
+          <SchedulePreviewFromSheet
+            isOpen={isSchedulePreviewFromSheetOpen}
+            onClose={() => setIsSchedulePreviewFromSheetOpen(false)}
+            rawSheetData={rawSheetData}
             config={config.schedule_modal}
           />
         )}

@@ -173,15 +173,9 @@ export default function ScheduleModal({
                     )
                   }
                   className="text-xs font-semibold bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-200 px-2 sm:px-3 py-1.5 rounded-lg shadow-sm hover:border-accent dark:hover:border-accent transition-all cursor-pointer whitespace-nowrap"
-                  title={
-                    viewMode === "horizontal"
-                      ? config.buttons.list_view
-                      : config.buttons.grid_view
-                  }
+                  title="Switch View"
                 >
-                  {viewMode === "horizontal"
-                    ? config.buttons.grid_view
-                    : config.buttons.list_view}
+                  Switch View
                 </button>
                 <Menu as="div" className="relative inline-block text-left">
                   <Menu.Button

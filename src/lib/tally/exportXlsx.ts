@@ -5,13 +5,21 @@ export function exportToXLSX(params: GeneratorParams, schedule: Slot[]) {
     const wb = XLSX.utils.book_new();
 
     // 1. Settings Sheet
-    const settingsData = [
-        ["Key", "Value"],
-        ["TournamentName", params.tournamentName || "FLL Tournament"],
-        ["TournamentDelay", "0"],
-        ["TournamentOnDeckTime", "10"],
-        ["TournamentDate", params.tournamentDate || ""]
+    const settingsData: string[][] = [
+        ["Key", "Value"]
     ];
+
+    Object.entries(params).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+            settingsData.push([key, value.toString()]);
+        }
+    });
+
+    // Add backwards compatible keys for older Tally implementations
+    settingsData.push(["TournamentName", params.tournamentName || "FLL Tournament"]);
+    settingsData.push(["TournamentDelay", "0"]);
+    settingsData.push(["TournamentOnDeckTime", "10"]);
+    settingsData.push(["TournamentDate", params.tournamentDate || ""]);
     const wsSettings = XLSX.utils.aoa_to_sheet(settingsData);
     
     for (let i = 0; i < settingsData.length; i++) {

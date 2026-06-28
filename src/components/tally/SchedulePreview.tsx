@@ -349,18 +349,18 @@ const SchedulePreview = forwardRef<HTMLDivElement, SchedulePreviewProps>(
                                 ) : (
                                   Array.from({ length: params.numFields }).map((_, f) => {
                                     const team = slot.fields[f + 1];
-                                    if (!team) return null;
+                                    if (!team) return <div key={`f-${f}`} className="h-[34px] border border-transparent"></div>;
                                     return (
                                       <div
                                         key={`f-${f}`}
                                         style={{ "--team-hue": `var(--hue-${team.teamId % 64})` } as any}
-                                        className="flex items-center text-xs border border-neutral-200 dark:border-neutral-700 rounded overflow-hidden team-bg"
+                                        className="flex items-stretch h-[34px] text-xs border border-neutral-200 dark:border-neutral-700 rounded overflow-hidden team-bg"
                                       >
-                                        <div className="team-badge font-bold px-2 py-1.5 w-10 text-center flex-shrink-0 !rounded-none !border-0">
+                                        <div className="team-badge font-bold px-2 w-10 flex items-center justify-center flex-shrink-0 !rounded-none !border-0">
                                           {team.code}
                                         </div>
-                                        <div className="px-2 py-1.5 flex-1 flex justify-between items-center">
-                                          <span className="font-semibold text-neutral-800 dark:text-neutral-200 truncate" title={`Pit ${team.pitNumber} | ${team.title}`}>
+                                        <div className="px-2 flex-1 flex justify-between items-center">
+                                          <span className="font-semibold text-neutral-800 dark:text-neutral-200 truncate flex items-center" title={`Pit ${team.pitNumber} | ${team.title}`}>
                                             <span className="team-pill px-1 py-0.5 rounded mr-1.5 text-[10px]">{team.id}</span>
                                             {team.name}
                                           </span>
@@ -380,11 +380,11 @@ const SchedulePreview = forwardRef<HTMLDivElement, SchedulePreviewProps>(
                                 ) : (
                                   Array.from({ length: params.numJudging }).map((_, j) => {
                                     const team = slot.judging[j + 1];
-                                    if (!team) return null;
+                                    if (!team) return <div key={`j-${j}`} className="h-[34px] border border-transparent"></div>;
                                     if (!team.isStart)
                                       return (
-                                        <div key={`j-${j}`} className="flex items-center text-xs border border-transparent rounded bg-transparent overflow-hidden opacity-60 ml-8 border-l-2 border-l-success/50">
-                                          <div className="px-2 py-1 flex-1 italic text-neutral-500 flex items-center">
+                                        <div key={`j-${j}`} className="flex items-center h-[34px] text-xs border border-transparent rounded bg-transparent overflow-hidden opacity-60 ml-8 border-l-2 border-l-success/50">
+                                          <div className="px-2 flex-1 italic text-neutral-500 flex items-center">
                                             <svg className="w-3 h-3 mr-1 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
                                             </svg>
@@ -396,13 +396,13 @@ const SchedulePreview = forwardRef<HTMLDivElement, SchedulePreviewProps>(
                                       <div
                                         key={`j-${j}`}
                                         style={{ "--team-hue": `var(--hue-${team.teamId % 64})` } as any}
-                                        className="flex items-center text-xs border border-neutral-200 dark:border-neutral-700 rounded overflow-hidden team-bg"
+                                        className="flex items-stretch h-[34px] text-xs border border-neutral-200 dark:border-neutral-700 rounded overflow-hidden team-bg"
                                       >
-                                        <div className="team-badge font-bold px-2 py-1.5 w-20 text-center flex-shrink-0 truncate !rounded-none !border-0" title={team.title}>
+                                        <div className="team-badge font-bold px-2 w-20 flex items-center justify-center flex-shrink-0 truncate !rounded-none !border-0" title={team.title}>
                                           {team.code}
                                         </div>
-                                        <div className="px-2 py-1.5 flex-1">
-                                          <span className="font-semibold text-neutral-800 dark:text-neutral-200 truncate" title={`Pit ${team.pitNumber}`}>
+                                        <div className="px-2 flex-1 flex items-center">
+                                          <span className="font-semibold text-neutral-800 dark:text-neutral-200 truncate flex items-center" title={`Pit ${team.pitNumber}`}>
                                             <span className="team-pill px-1 py-0.5 rounded mr-1.5 text-[10px]">{team.id}</span>
                                             {team.name}
                                           </span>
@@ -412,6 +412,7 @@ const SchedulePreview = forwardRef<HTMLDivElement, SchedulePreviewProps>(
                                   })
                                 )}
                               </div>
+
                             </div>
                           </div>
                         </div>

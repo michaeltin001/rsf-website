@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { Listbox, Transition } from "@headlessui/react";
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import { ChevronDownIcon, ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { GeneratorParams } from "@/lib/tally/scheduler";
 
 interface ScheduleInputProps {
@@ -15,10 +15,10 @@ interface ScheduleInputProps {
 function ScheduleInput({ label, name, type = "text", value, errorFields, onChange }: ScheduleInputProps) {
   const isError = errorFields.includes(name);
   const baseClass =
-    "w-full px-4 py-2.5 bg-white dark:bg-neutral-800 border rounded-xl shadow-sm text-sm text-neutral-900 dark:text-white dark:[color-scheme:dark] transition-all duration-200 outline-none";
+    "w-full p-3 bg-white dark:bg-neutral-800 rounded-xl shadow-inner text-sm text-neutral-900 dark:text-white dark:[color-scheme:dark] transition-all outline-none";
   const inputClass = isError
-    ? `${baseClass} border-error ring-2 ring-error/50 focus:border-error focus:ring-4 focus:ring-error/20`
-    : `${baseClass} border-neutral-200 dark:border-neutral-700 hover:border-accent dark:hover:border-accent focus:border-accent focus:ring-4 focus:ring-accent/10`;
+    ? `${baseClass} ring-1 ring-error focus:ring-2 focus:ring-error`
+    : `${baseClass} focus:ring-2 focus:ring-accent`;
 
   return (
     <div>
@@ -56,9 +56,16 @@ export default function ScheduleForm({
   handleGenerate,
 }: ScheduleFormProps) {
   return (
-    <div className="w-full flex-1 min-h-0 bg-white dark:bg-neutral-800 p-4 md:p-6 flex flex-col">
+    <div className="w-full flex-1 min-h-0 bg-neutral-50 dark:bg-neutral-900 p-4 md:p-6 flex flex-col">
       <div className="w-full flex-1 overflow-y-auto custom-scrollbar pr-2 flex flex-col items-center">
         <div className="w-full max-w-4xl flex flex-col gap-4 md:gap-6">
+          <div className="bg-warning/10 border border-warning/20 text-warning px-4 py-3 rounded-xl flex items-start gap-3 shadow-sm dark:text-warning/90">
+            <ExclamationTriangleIcon className="w-5 h-5 flex-shrink-0 mt-0.5" />
+            <p className="text-xs leading-relaxed font-medium">
+              We strongly recommend that <strong>Number of Fields</strong> = <strong>Number of Judging Areas</strong> for best results.
+            </p>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <ScheduleInput
               label={config.labels.tournament_name}
@@ -182,11 +189,11 @@ export default function ScheduleForm({
               >
                 {({ open }) => (
                   <div className="relative">
-                    <Listbox.Button
-                      className={`w-full flex items-center justify-between px-4 py-2.5 bg-white dark:bg-neutral-800 border rounded-xl shadow-sm hover:border-accent dark:hover:border-accent focus:outline-none focus-visible:border-accent focus-visible:ring-4 focus-visible:ring-accent/10 text-sm text-neutral-900 dark:text-white dark:[color-scheme:dark] transition-all duration-200 text-left ${
-                        open ? "border-accent ring-4 ring-accent/10" : "border-neutral-200 dark:border-neutral-700"
-                      }`}
-                    >
+                      <Listbox.Button
+                        className={`w-full flex items-center justify-between p-3 bg-white dark:bg-neutral-800 rounded-xl shadow-inner focus:outline-none focus-visible:ring-2 focus-visible:ring-accent text-sm text-neutral-900 dark:text-white dark:[color-scheme:dark] transition-all text-left ${
+                          open ? "ring-2 ring-accent" : ""
+                        }`}
+                      >
                       <span className="block truncate">
                         {params.lunchOption === "none"
                           ? config.lunch_options.no_lunch
@@ -302,10 +309,10 @@ export default function ScheduleForm({
               value={params.teamList}
               onChange={handleChange}
               spellCheck="false"
-              className={`flex-1 w-full px-3 py-2 border rounded-lg focus:ring-2 text-sm bg-neutral-50 dark:bg-neutral-900 text-neutral-900 dark:text-white font-mono whitespace-pre resize-none ${
+              className={`flex-1 w-full p-3 rounded-xl shadow-inner text-sm bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white font-mono whitespace-pre resize-none outline-none transition-all ${
                 errorFields.includes("teamList")
-                  ? "border-error focus:border-error focus:ring-error ring-2 ring-error/50"
-                  : "border-neutral-300 dark:border-neutral-600 focus:ring-primary focus:border-primary"
+                  ? "ring-1 ring-error focus:ring-2 focus:ring-error"
+                  : "focus:ring-2 focus:ring-accent"
               }`}
             />
           </div>
