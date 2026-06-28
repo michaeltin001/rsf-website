@@ -11,11 +11,24 @@ button_filter = "Filter"
 button_setup = "Setup"
 button_reset = "Reset"
 syncing = "Syncing Schedule..."
+button_view_schedule = "View Schedule"
+button_settings = "Settings"
+minutes = "minutes"
+team_prefix = "Team"
 
 [empty_state]
 title = "No Schedule Connected"
 subtitle = "Connect your Google Sheet schedule to view live match data, team pit locations, and real-time updates."
 button_configure = "Configure Settings"
+organizing_prefix = "If you are organizing a tournament, you can use our "
+generator_link = "Tournament Schedule Generator"
+organizing_suffix = " to get started."
+
+[messages]
+fetch_no_data = "No valid data was found in the Google Sheet. Make sure the sheet ID is correct and the document is shared publicly."
+fetch_network_error = "Error fetching Google Sheets data. This might be due to invalid permissions, an incorrect Sheet ID, or network issues."
+fetch_fallback_error = "Failed to fetch Google Sheets data. Please check permissions and the Sheet ID."
+unknown_team = "Unknown"
 
 [sections.happening_now]
 title = "Happening Now"
@@ -50,6 +63,13 @@ lunch_start = "Start"
 lunch_end = "End"
 lunch_duration = "Duration (min)"
 team_list = "Team List (ID, Name)"
+team_table_header = "Team"
+lunch_break = "Lunch Break"
+matches = "Matches"
+judging = "Judging"
+session_continued = "Session Continued"
+session_cont_short = "Cont."
+view_schedule_title = "View Schedule"
 
 [schedule_modal.buttons]
 go_back = "Go Back"
@@ -60,6 +80,10 @@ export_xlsx = "Export to XLSX"
 export_pdf = "Export to PDF"
 export_png = "Export to PNG"
 generate = "Generate Schedule"
+switch_view = "Switch View"
+exporting = "Exporting..."
+go_back_title = "Go back to edit settings"
+switch_view_title = "Switch View"
 
 [schedule_modal.lunch_options]
 no_lunch = "No Lunch"
@@ -122,6 +146,16 @@ no_schedule_subtitle = "Adjust parameters and click Generate to see a preview."
 export_failed_png = "Failed to export PNG: "
 export_failed_pdf = "Failed to export PDF: "
 export_failed_xlsx = "Failed to export XLSX: "
+no_matches = "No matches scheduled"
+no_judging = "No active judging sessions"
+error_loading = "Error loading schedule"
+no_data_found = "No data found to parse."
+failed_parse = "Failed to parse schedule data from Google Sheets."
+recommendation_prefix = "We strongly recommend that "
+recommendation_fields = "Number of Fields"
+recommendation_equals = " = "
+recommendation_judging = "Number of Judging Areas"
+recommendation_suffix = " for best results."
 
 [settings_modal]
 title = "Settings"
@@ -151,6 +185,11 @@ save = "Save"
 [settings_modal.messages]
 no_teams_available = "No teams available."
 no_teams_selected = "No teams currently selected."
+warning_prefix = "Tally only supports native Google Sheets. If you are uploading an exported "
+warning_code = ".xlsx"
+warning_middle = " file to Google Drive, you must open it and click "
+warning_strong = "File > Save as Google Sheets"
+warning_suffix = ", then use the link of the new file."
 
 [settings_modal.errors]
 empty_sheet_id = "Sheet ID cannot be empty."

@@ -44,7 +44,7 @@ const SchedulePreview = forwardRef<HTMLDivElement, SchedulePreviewProps>(
                     <thead className="sticky top-0 z-20">
                       <tr className="bg-neutral-100 dark:bg-neutral-800 shadow-[0_2px_0_0_#d1d5db] dark:shadow-[0_2px_0_0_#525252]">
                         <th className="p-3 sticky left-0 top-0 bg-neutral-100 dark:bg-neutral-800 z-30 border-r border-neutral-300 dark:border-neutral-600 shadow-[1px_0_0_0_#d1d5db] dark:shadow-[1px_0_0_0_#525252]">
-                          Team
+                          {config.labels.team_table_header}
                         </th>
                         {preambleEvents.map((event, idx) => {
                           if (!event.time) return null;
@@ -97,7 +97,7 @@ const SchedulePreview = forwardRef<HTMLDivElement, SchedulePreviewProps>(
                                 <React.Fragment>
                                   <th
                                     className="p-2 border-r border-neutral-200 dark:border-neutral-700 bg-neutral-200 dark:bg-neutral-700 text-center text-neutral-500 min-w-[40px]"
-                                    title="Lunch Break"
+                                    title={config.labels.lunch_break}
                                   >
                                     <div
                                       style={{
@@ -106,7 +106,7 @@ const SchedulePreview = forwardRef<HTMLDivElement, SchedulePreviewProps>(
                                       }}
                                       className="text-[10px] font-bold uppercase tracking-widest mx-auto whitespace-nowrap"
                                     >
-                                      Lunch Break
+                                      {config.labels.lunch_break}
                                     </div>
                                   </th>
                                   {Array.from({ length: lunchBlocks }).map((_, bIdx) => (
@@ -265,7 +265,7 @@ const SchedulePreview = forwardRef<HTMLDivElement, SchedulePreviewProps>(
                                             d="M19 14l-7 7m0 0l-7-7m7 7V3"
                                           ></path>
                                         </svg>{" "}
-                                        Cont.
+                                        {config.labels.session_cont_short}
                                       </div>
                                     ))}
                                 </td>
@@ -321,7 +321,7 @@ const SchedulePreview = forwardRef<HTMLDivElement, SchedulePreviewProps>(
                               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                               </svg>
-                              <span>Lunch Break</span>
+                              <span>{config.labels.lunch_break}</span>
                             </div>
                             <div className="font-bold text-sm bg-neutral-300 dark:bg-neutral-600 px-3 py-1 rounded-full">
                               {formatTime(schedule[idx - 1].time + params.basePeriod)} - {formatTime(slot.time)}
@@ -342,10 +342,10 @@ const SchedulePreview = forwardRef<HTMLDivElement, SchedulePreviewProps>(
                           </div>
                           <div className="p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                              <h4 className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider mb-2">Matches</h4>
+                              <h4 className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider mb-2">{config.labels.matches}</h4>
                               <div className="space-y-2">
                                 {Object.keys(slot.fields).length === 0 ? (
-                                  <p className="text-sm text-neutral-400 italic">No matches scheduled</p>
+                                  <p className="text-sm text-neutral-400 italic">{config.messages.no_matches}</p>
                                 ) : (
                                   Array.from({ length: params.numFields }).map((_, f) => {
                                     const team = slot.fields[f + 1];
@@ -373,10 +373,10 @@ const SchedulePreview = forwardRef<HTMLDivElement, SchedulePreviewProps>(
                               </div>
                             </div>
                             <div>
-                              <h4 className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider mb-2">Judging</h4>
+                              <h4 className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider mb-2">{config.labels.judging}</h4>
                               <div className="space-y-2">
                                 {Object.keys(slot.judging).length === 0 ? (
-                                  <p className="text-sm text-neutral-400 italic">No active judging sessions</p>
+                                  <p className="text-sm text-neutral-400 italic">{config.messages.no_judging}</p>
                                 ) : (
                                   Array.from({ length: params.numJudging }).map((_, j) => {
                                     const team = slot.judging[j + 1];
@@ -388,7 +388,7 @@ const SchedulePreview = forwardRef<HTMLDivElement, SchedulePreviewProps>(
                                             <svg className="w-3 h-3 mr-1 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
                                             </svg>
-                                            Session Continued
+                                            {config.labels.session_continued}
                                           </div>
                                         </div>
                                       );

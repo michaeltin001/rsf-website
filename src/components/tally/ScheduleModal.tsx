@@ -162,7 +162,7 @@ export default function ScheduleModal({
                 <button
                   onClick={() => setActiveView("form")}
                   className="text-xs font-semibold bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-200 px-2 sm:px-3 py-1.5 rounded-lg shadow-sm hover:border-accent dark:hover:border-accent transition-all cursor-pointer whitespace-nowrap"
-                  title="Go back to edit settings"
+                  title={config.buttons.go_back_title}
                 >
                   {config.buttons.go_back}
                 </button>
@@ -173,16 +173,16 @@ export default function ScheduleModal({
                     )
                   }
                   className="text-xs font-semibold bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-200 px-2 sm:px-3 py-1.5 rounded-lg shadow-sm hover:border-accent dark:hover:border-accent transition-all cursor-pointer whitespace-nowrap"
-                  title="Switch View"
+                  title={config.buttons.switch_view_title}
                 >
-                  Switch View
+                  {config.buttons.switch_view}
                 </button>
                 <Menu as="div" className="relative inline-block text-left">
                   <Menu.Button
                     disabled={isExporting}
                     className="text-xs font-semibold bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-200 px-2 sm:px-3 py-1.5 rounded-lg shadow-sm hover:border-accent dark:hover:border-accent transition-all cursor-pointer flex items-center gap-1 disabled:opacity-50 whitespace-nowrap"
                   >
-                    {isExporting ? "Exporting..." : config.buttons.export}
+                    {isExporting ? config.buttons.exporting : config.buttons.export}
                     <ChevronDownIcon className="w-3 h-3 ml-0.5 stroke-[3]" />
                   </Menu.Button>
                   <Transition

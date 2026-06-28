@@ -62,7 +62,7 @@ export default function ScheduleForm({
           <div className="bg-warning/10 border border-warning/20 text-warning px-4 py-3 rounded-xl flex items-start gap-3 shadow-sm dark:text-warning/90">
             <ExclamationTriangleIcon className="w-5 h-5 flex-shrink-0 mt-0.5" />
             <p className="text-xs leading-relaxed font-medium">
-              We strongly recommend that <strong>Number of Fields</strong> = <strong>Number of Judging Areas</strong> for best results.
+              {config.messages.recommendation_prefix}<strong>{config.messages.recommendation_fields}</strong>{config.messages.recommendation_equals}<strong>{config.messages.recommendation_judging}</strong>{config.messages.recommendation_suffix}
             </p>
           </div>
 

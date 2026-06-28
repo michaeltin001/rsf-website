@@ -31,7 +31,7 @@ export default function Tally({ config }: TallyProps) {
 
   // Dynamic State for Google Sheets Data
   const [scheduleData, setScheduleData] = useState<EventData[]>([]);
-  const [tournamentName, setTournamentName] = useState('Tally');
+  const [tournamentName, setTournamentName] = useState(config.title || 'Tally');
   const [tournamentDelay, setTournamentDelay] = useState(0);
   const [tournamentOnDeckTime, setTournamentOnDeckTime] = useState(10);
   const [tournamentDate, setTournamentDate] = useState('');
@@ -74,7 +74,7 @@ export default function Tally({ config }: TallyProps) {
     if (!sheetId) {
       localStorage.setItem('app-sheet-id', '');
       setScheduleData([]);
-      setTournamentName('Tally');
+      setTournamentName(config.title || 'Tally');
       setTournamentDelay(0);
       setTournamentOnDeckTime(10);
       setTournamentDate('');
@@ -186,7 +186,7 @@ export default function Tally({ config }: TallyProps) {
         };
 
         const mergedEvents: EventData[] = [...processedJudging, ...processedRounds].map(event => {
-          const teamInfo = teamsMap[event.TeamID?.toString()] || { teamName: 'Unknown', teamNumber: '000', pitNumber: '0' };
+          const teamInfo = teamsMap[event.TeamID?.toString()] || { teamName: config.messages.unknown_team, teamNumber: '000', pitNumber: '0' };
           return {
             uniqueId: event.uniqueId,
             teamId: parseInt(event.TeamID, 10) || 0,
@@ -203,7 +203,7 @@ export default function Tally({ config }: TallyProps) {
         setScheduleData(mergedEvents);
         
         if (settingsRaw.length === 0 && teamsRaw.length === 0) {
-          throw new Error("No valid data was found in the Google Sheet. Make sure the sheet ID is correct and the document is shared publicly.");
+          throw new Error(config.messages.fetch_no_data);
         }
         
         localStorage.setItem('app-sheet-id', sheetId);
@@ -213,8 +213,8 @@ export default function Tally({ config }: TallyProps) {
         setIsLoading(false);
         setIsSettingsModalOpen(false);
       } catch (err: any) {
-        console.error("Error fetching Google Sheets data. This might be due to invalid permissions, an incorrect Sheet ID, or network issues.", err);
-        setError(err.message || "Failed to fetch Google Sheets data. Please check permissions and the Sheet ID.");
+        console.error(config.messages.fetch_network_error, err);
+        setError(err.message || config.messages.fetch_fallback_error);
         setIsLoading(false);
       }
     };
@@ -335,7 +335,7 @@ export default function Tally({ config }: TallyProps) {
           {tournamentDelay > 0 && (
             <div className="text-warning font-semibold mt-1 flex items-center">
               <InformationCircleIcon className="w-4 h-4 inline-block mr-1" />
-              Delay: {tournamentDelay} minutes
+              {config.labels.delay} {tournamentDelay} {config.labels.minutes}
             </div>
           )}
         </div>
@@ -349,7 +349,7 @@ export default function Tally({ config }: TallyProps) {
               className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl shadow-sm hover:border-accent dark:hover:border-accent text-neutral-700 dark:text-neutral-200 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:border-neutral-200 dark:disabled:hover:border-neutral-700"
             >
               <CalendarDaysIcon className="w-5 h-5 text-accent" />
-              <span className="hidden sm:inline font-medium text-sm">View Schedule</span>
+              <span className="hidden sm:inline font-medium text-sm">{config.labels.button_view_schedule}</span>
             </button>
           )}
 
@@ -358,7 +358,7 @@ export default function Tally({ config }: TallyProps) {
             className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl shadow-sm hover:border-accent dark:hover:border-accent text-neutral-700 dark:text-neutral-200 transition-all cursor-pointer"
           >
             <Cog6ToothIcon className="w-5 h-5 text-accent" />
-            <span className="hidden sm:inline font-medium text-sm">Settings</span>
+            <span className="hidden sm:inline font-medium text-sm">{config.labels.button_settings}</span>
           </button>
 
         </div>
@@ -372,8 +372,11 @@ export default function Tally({ config }: TallyProps) {
           className="p-12 rounded-3xl bg-neutral-50 dark:bg-neutral-800/30 border border-neutral-200 dark:border-neutral-800 text-center shadow-inner"
         >
           <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-3">{config.empty_state.title}</h2>
+          <p className="text-neutral-600 dark:text-neutral-400 max-w-md mx-auto mb-4">
+            {config.empty_state.subtitle}
+          </p>
           <p className="text-neutral-600 dark:text-neutral-400 max-w-md mx-auto">
-            If you are organizing a tournament, you can use our <button onClick={() => setIsScheduleModalOpen(true)} className="text-success hover:underline font-semibold focus:outline-none cursor-pointer">Tournament Schedule Generator</button> to get started.
+            {config.empty_state.organizing_prefix}<button onClick={() => setIsScheduleModalOpen(true)} className="text-success hover:underline font-semibold focus:outline-none cursor-pointer">{config.empty_state.generator_link}</button>{config.empty_state.organizing_suffix}
           </p>
         </motion.div>
       ) : isLoading ? (
@@ -445,7 +448,7 @@ export default function Tally({ config }: TallyProps) {
                         <h3 className="text-xl font-bold text-neutral-900 dark:text-white group-hover:text-warning transition-colors">{event.title}</h3>
                         <p className="text-sm text-neutral-600 dark:text-neutral-300 font-medium mt-2 flex items-center flex-wrap gap-2">
                           <span style={{ '--team-hue': `var(--hue-${event.teamId % 64})` } as any} className="px-2.5 py-1 rounded-md border text-xs font-bold team-pill">{event.team}</span>
-                          <span>(Team #{event.teamNumber})</span>
+                          <span>({config.labels.team_prefix} #{event.teamNumber})</span>
                         </p>
                       </div>
                       <span className="inline-block px-3 py-1 rounded-full text-xs font-bold tracking-wide bg-warning text-white shadow-sm">

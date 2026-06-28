@@ -169,11 +169,18 @@ export interface TallyPageConfig extends BasePageConfig {
         button_setup: string;
         button_reset: string;
         syncing: string;
+        button_view_schedule: string;
+        button_settings: string;
+        minutes: string;
+        team_prefix: string;
     };
     empty_state: {
         title: string;
         subtitle: string;
         button_configure: string;
+        organizing_prefix: string;
+        generator_link: string;
+        organizing_suffix: string;
     };
     sections: {
         happening_now: {
@@ -188,6 +195,12 @@ export interface TallyPageConfig extends BasePageConfig {
             title: string;
             empty_text: string;
         };
+    };
+    messages: {
+        fetch_no_data: string;
+        fetch_network_error: string;
+        fetch_fallback_error: string;
+        unknown_team: string;
     };
     schedule_modal: ScheduleModalConfig;
     settings_modal: SettingsModalConfig;
@@ -213,6 +226,13 @@ export interface ScheduleModalConfig {
         lunch_end: string;
         lunch_duration: string;
         team_list: string;
+        team_table_header: string;
+        lunch_break: string;
+        matches: string;
+        judging: string;
+        session_continued: string;
+        session_cont_short: string;
+        view_schedule_title: string;
     };
     buttons: {
         go_back: string;
@@ -223,6 +243,10 @@ export interface ScheduleModalConfig {
         export_pdf: string;
         export_png: string;
         generate: string;
+        switch_view: string;
+        exporting: string;
+        go_back_title: string;
+        switch_view_title: string;
     };
     lunch_options: {
         no_lunch: string;
@@ -255,6 +279,16 @@ export interface ScheduleModalConfig {
         export_failed_png: string;
         export_failed_pdf: string;
         export_failed_xlsx: string;
+        no_matches: string;
+        no_judging: string;
+        error_loading: string;
+        no_data_found: string;
+        failed_parse: string;
+        recommendation_prefix: string;
+        recommendation_fields: string;
+        recommendation_equals: string;
+        recommendation_judging: string;
+        recommendation_suffix: string;
     };
 }
 
@@ -285,6 +319,11 @@ export interface SettingsModalConfig {
     messages: {
         no_teams_available: string;
         no_teams_selected: string;
+        warning_prefix: string;
+        warning_code: string;
+        warning_middle: string;
+        warning_strong: string;
+        warning_suffix: string;
     };
     errors: {
         empty_sheet_id: string;

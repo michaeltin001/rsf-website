@@ -42,10 +42,10 @@ export default function SchedulePreviewFromSheet({
           setSchedule(parsed.schedule);
           setError(null);
         } else {
-          setError("No data found to parse.");
+          setError(config.messages?.no_data_found || "No data found to parse.");
         }
       } catch (err: any) {
-        setError(err.message || "Failed to parse schedule data from Google Sheets.");
+        setError(err.message || config.messages?.failed_parse || "Failed to parse schedule data from Google Sheets.");
       }
     } else {
       document.body.style.overflow = "unset";
@@ -77,7 +77,7 @@ export default function SchedulePreviewFromSheet({
           <div className="flex items-center gap-3 text-success min-w-0 pr-4">
             <CalendarDaysIcon className="w-6 h-6 flex-shrink-0" />
             <h2 className="hidden sm:block text-xl font-bold text-neutral-900 dark:text-white leading-none truncate">
-              View Schedule
+              {config.labels?.view_schedule_title || "View Schedule"}
             </h2>
           </div>
           <div className="flex items-center gap-4 flex-shrink-0">
@@ -90,9 +90,9 @@ export default function SchedulePreviewFromSheet({
                     )
                   }
                   className="text-xs font-semibold bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-200 px-2 sm:px-3 py-1.5 rounded-lg shadow-sm hover:border-accent dark:hover:border-accent transition-all cursor-pointer whitespace-nowrap"
-                  title="Switch View"
+                  title={config.buttons?.switch_view_title || "Switch View"}
                 >
-                  Switch View
+                  {config.buttons?.switch_view || "Switch View"}
                 </button>
               </div>
             )}
@@ -115,7 +115,7 @@ export default function SchedulePreviewFromSheet({
                 <ExclamationTriangleIcon className="w-5 h-5 flex-shrink-0 mt-0.5" />
                 <div className="text-sm">
                   <p className="font-bold">
-                    {config.messages?.generation_failed || "Error loading schedule"}
+                    {config.messages?.error_loading || "Error loading schedule"}
                   </p>
                   <p>{error}</p>
                 </div>
