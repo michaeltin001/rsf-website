@@ -7,13 +7,15 @@ import { Metadata } from 'next';
 import StemPartner from '@/components/stem-partner/StemPartner';
 import OurTeam from '@/components/team/OurTeam';
 import Tally from '@/components/tally/Tally';
+import SciolyResources from '@/components/scioly-resources/SciolyResources';
 
 import {
     BasePageConfig,
     StemPartnerPageConfig,
     StandardPageConfig,
     OurTeamPageConfig,
-    TallyPageConfig
+    TallyPageConfig,
+    SciolyResourcesPageConfig
 } from '@/types/page';
 
 export function generateStaticParams() {
@@ -70,6 +72,10 @@ export default async function DynamicPage({ params }: { params: Promise<{ slug: 
             
             {pageConfig.type === 'tally' && (
                 <Tally config={pageConfig as TallyPageConfig} />
+            )}
+            
+            {pageConfig.type === 'scioly-resources' && (
+                <SciolyResources config={pageConfig as SciolyResourcesPageConfig} />
             )}
             
             {/* Future modular pages can be added here simply by adding a new {pageConfig.type === '...'} condition */}

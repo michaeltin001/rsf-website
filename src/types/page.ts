@@ -1,5 +1,5 @@
 export interface BasePageConfig {
-    type: 'home' | 'stem-partner' | 'standard' | 'our-team' | 'tally';
+    type: 'home' | 'stem-partner' | 'standard' | 'our-team' | 'tally' | 'scioly-resources';
     title?: string;
     description?: string;
 }
@@ -155,6 +155,12 @@ export interface OurTeamPageConfig extends BasePageConfig {
 export interface StandardPageConfig extends BasePageConfig {
     type: 'standard';
     content: string;
+}
+
+// --- Scioly Resources Types ---
+export interface SciolyResourcesPageConfig extends BasePageConfig {
+    type: 'scioly-resources';
+    paragraphs?: string[];
 }
 
 // --- 5. Tally Page Types ---
