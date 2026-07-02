@@ -25,3 +25,10 @@ export function generateSlug(text: string): string {
     .replace(/[\s_-]+/g, '-')
     .replace(/^-+|-+$/g, '');
 }
+
+export function parseMarkdown(text: string): string {
+  if (!text) return '';
+  return text
+    .replace(/\*\*(.*?)\*\*/g, '<strong class="text-accent font-semibold">$1</strong>')
+    .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-accent hover:underline font-semibold">$1</a>');
+}

@@ -8,6 +8,7 @@ import {
   XMarkIcon
 } from '@heroicons/react/24/outline';
 import type { SciolyResourcesPageConfig } from '@/types/page';
+import { parseMarkdown } from '@/lib/utils';
 
 interface SciolyResourcesProps {
   config: SciolyResourcesPageConfig;
@@ -42,16 +43,27 @@ const categoryThemes: Record<number, { text: string, hoverText: string, bgLight:
 
 export default function SciolyResources({ config }: SciolyResourcesProps) {
   const [searchQuery, setSearchQuery] = useState('');
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearchQuery(searchQuery);
+    }, 300);
+
+    return () => clearTimeout(handler);
+  }, [searchQuery]);
   
   const gridRef = useRef<HTMLDivElement>(null);
   const [gridMinHeight, setGridMinHeight] = useState<number | undefined>(undefined);
 
   useEffect(() => {
     const calculateHeight = () => {
-      if (gridRef.current && searchQuery === '' && selectedCategory === null) {
+      if (gridRef.current && debouncedSearchQuery === '' && selectedCategory === null) {
+        const oldMin = gridRef.current.style.minHeight;
         gridRef.current.style.minHeight = '0px';
         const height = gridRef.current.offsetHeight;
+        gridRef.current.style.minHeight = oldMin;
         setGridMinHeight(height);
       }
     };
@@ -59,16 +71,17 @@ export default function SciolyResources({ config }: SciolyResourcesProps) {
     calculateHeight();
     window.addEventListener('resize', calculateHeight);
     return () => window.removeEventListener('resize', calculateHeight);
-  }, [searchQuery, selectedCategory]);
+  }, [debouncedSearchQuery, selectedCategory]);
 
   const filteredEvents = useMemo(() => {
     if (!config.events) return [];
+    const query = debouncedSearchQuery.toLowerCase();
     return config.events.filter((event) => {
-      const matchesSearch = event.title.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesSearch = event.title.toLowerCase().includes(query);
       const matchesCategory = selectedCategory === null || event.category === selectedCategory;
       return matchesSearch && matchesCategory;
     });
-  }, [config.events, searchQuery, selectedCategory]);
+  }, [config.events, debouncedSearchQuery, selectedCategory]);
 
   return (
     <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8 md:pt-16 md:pb-12">
@@ -95,7 +108,7 @@ export default function SciolyResources({ config }: SciolyResourcesProps) {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 + idx * 0.1 }}
                 className="text-lg md:text-xl text-neutral-600 dark:text-neutral-300"
-                dangerouslySetInnerHTML={{ __html: paragraph }}
+                dangerouslySetInnerHTML={{ __html: parseMarkdown(paragraph) }}
               />
             ))}
           </div>
@@ -116,7 +129,7 @@ export default function SciolyResources({ config }: SciolyResourcesProps) {
             placeholder="Search events..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-full px-6 py-3.5 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm transition-all"
+            className="w-full bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-full px-6 py-3.5 text-lg focus:outline-none focus:ring-2 focus:ring-accent shadow-sm transition-all"
           />
           {searchQuery.length > 0 ? (
             <XMarkIcon 

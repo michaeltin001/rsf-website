@@ -16,6 +16,7 @@ import {
   UserGroupIcon
 } from '@heroicons/react/24/outline';
 import type { StemPartnerPageConfig } from '@/types/page';
+import { parseMarkdown } from '@/lib/utils';
 
 const iconMap: Record<string, React.ElementType> = {
   CalculatorIcon,
@@ -254,13 +255,11 @@ export default function StemPartner({ config }: StemPartnerProps) {
               {initiative.headline}
             </div>
             {initiative.paragraphs.map((p, idx) => (
-              <p key={idx} className="text-lg md:text-xl text-neutral-600 dark:text-neutral-300 leading-relaxed">
-                {p.includes('There are no mandatory commitments') ? (
-                  <span dangerouslySetInnerHTML={{ __html: p.replace('There are no mandatory commitments, no rigid deadlines, and no hidden expectations.', '<strong class="text-green-500 dark:text-green-400 font-semibold">There are no mandatory commitments, no rigid deadlines, and no hidden expectations.</strong>') }} />
-                ) : (
-                  p
-                )}
-              </p>
+              <p 
+                key={idx} 
+                className="text-lg md:text-xl text-neutral-600 dark:text-neutral-300 leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: parseMarkdown(p) }}
+              />
             ))}
           </motion.div>
 

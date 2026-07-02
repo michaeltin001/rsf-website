@@ -5,7 +5,7 @@ backgroundImage = "https://images.unsplash.com/vector-1769320708315-bb087339e19f
 [about]
 title = "About Us"
 headline = "Est. 2016"
-content = "The Riverside STEM Foundation (RSF) is a registered <span class=\"text-accent font-semibold\">501(c)(3) non-profit</span> corporation dedicated to supporting STEM education across the Inland Empire region.<br/><br/>Our Board of Directors is a diverse coalition united by a single goal: empowering the next generation of innovators."
+content = "The Riverside STEM Foundation (RSF) is a registered **501(c)(3) non-profit** corporation dedicated to supporting STEM education across the Inland Empire region.<br/><br/>Our Board of Directors is a diverse coalition united by a single goal: empowering the next generation of innovators."
 imagePlaceholder = "[Board of Directors Image]"
 
 [impact]
@@ -57,7 +57,7 @@ content = "Providing resources for campus Green Teams to promote sustainable sol
 [volunteer]
 title = "Volunteer"
 headline = "Get Involved"
-content = "We welcome your creative ideas for grant proposals, symposium speakers, and <span class=\"text-accent font-semibold\">community partnerships</span>. If you have expertise in fundraising, grant writing, or non-profit work that you'd like to share, we would greatly appreciate it. Additionally, if you're interested in making a <span class=\"text-accent font-semibold\">tax-deductible donation</span> to support RSF's mission, please reach out!"
+content = "We welcome your creative ideas for grant proposals, symposium speakers, and **community partnerships**. If you have expertise in fundraising, grant writing, or non-profit work that you'd like to share, we would greatly appreciate it. Additionally, if you're interested in making a **tax-deductible donation** to support RSF's mission, please reach out!"
 buttonPrimary = "Contact Us"
 buttonSecondary = "Donate Now"
 imagePlaceholder = "[Community Partnership Image]"

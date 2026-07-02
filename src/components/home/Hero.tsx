@@ -17,6 +17,7 @@ import {
   BriefcaseIcon
 } from '@heroicons/react/24/outline';
 import type { Initiative, HeroSection, AboutSection, ImpactSection, VolunteerSection } from '@/types/home';
+import { parseMarkdown } from '@/lib/utils';
 
 // Icon Map for dynamic icon rendering
 const iconMap: Record<string, React.ElementType> = {
@@ -176,7 +177,7 @@ export default function Hero({ hero, about, impact, initiatives, volunteer }: He
               </div>
               <p
                 className="text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed"
-                dangerouslySetInnerHTML={{ __html: about?.content ?? '' }}
+                dangerouslySetInnerHTML={{ __html: parseMarkdown(about?.content ?? '') }}
               />
             </motion.div>
 
@@ -221,7 +222,7 @@ export default function Hero({ hero, about, impact, initiatives, volunteer }: He
               </div>
               <p
                 className="text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed"
-                dangerouslySetInnerHTML={{ __html: impact?.content ?? '' }}
+                dangerouslySetInnerHTML={{ __html: parseMarkdown(impact?.content ?? '') }}
               />
             </motion.div>
 
@@ -359,7 +360,7 @@ export default function Hero({ hero, about, impact, initiatives, volunteer }: He
               </div>
               <p
                 className="text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed"
-                dangerouslySetInnerHTML={{ __html: volunteer?.content ?? '' }}
+                dangerouslySetInnerHTML={{ __html: parseMarkdown(volunteer?.content ?? '') }}
               />
 
               <div className="pt-4 flex flex-col sm:flex-row gap-4">
