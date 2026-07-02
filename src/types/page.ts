@@ -158,9 +158,18 @@ export interface StandardPageConfig extends BasePageConfig {
 }
 
 // --- Scioly Resources Types ---
+export interface SciolyEventItem {
+    title: string;
+    description?: string;
+    link: string;
+    category: number;
+    sheet_id?: string;
+}
+
 export interface SciolyResourcesPageConfig extends BasePageConfig {
     type: 'scioly-resources';
     paragraphs?: string[];
+    events?: SciolyEventItem[];
 }
 
 // --- 5. Tally Page Types ---
