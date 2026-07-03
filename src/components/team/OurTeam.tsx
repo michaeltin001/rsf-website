@@ -48,10 +48,10 @@ export default function OurTeam({ config }: OurTeamProps) {
             className="relative h-full flex flex-col items-center p-6 bg-white/10 dark:bg-black/10 backdrop-blur-3xl border border-neutral-200 dark:border-white/10 shadow-xl rounded-3xl group overflow-hidden transition-all hover:shadow-2xl"
           >
             {/* Image Placeholder */}
-            <div className="w-40 h-40 md:w-48 md:h-48 rounded-full bg-neutral-200 dark:bg-neutral-800 mb-6 overflow-hidden border-4 border-neutral-100 dark:border-neutral-900 shadow-inner group-hover:scale-105 transition-transform duration-500 relative flex items-center justify-center">
-              <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div className="group/pic w-40 h-40 md:w-48 md:h-48 rounded-full bg-neutral-200 dark:bg-neutral-800 mb-6 overflow-hidden border-4 border-neutral-100 dark:border-neutral-900 shadow-inner hover:scale-105 transition-transform duration-500 relative flex items-center justify-center">
+              <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover/pic:opacity-100 transition-opacity duration-500"></div>
               {/* Initials Placeholder */}
-              <span className="text-4xl font-extrabold text-neutral-400 dark:text-neutral-600 group-hover:text-accent transition-colors duration-500 uppercase tracking-widest">
+              <span className="text-4xl font-extrabold text-neutral-400 dark:text-neutral-600 group-hover/pic:text-primary transition-colors duration-500 uppercase tracking-widest">
                 {member.name.split(' ').map(n => n[0]).join('')}
               </span>
             </div>
