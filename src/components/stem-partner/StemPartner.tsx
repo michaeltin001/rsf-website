@@ -124,6 +124,8 @@ export default function StemPartner({ config }: StemPartnerProps) {
     }
   };
 
+  // NOTE: This array is currently not being used in favor of the global theme colors. It is kept here for future reference.
+  /*
   const themeColors = [
     {
       text: "text-blue-500 dark:text-blue-400",
@@ -150,14 +152,15 @@ export default function StemPartner({ config }: StemPartnerProps) {
       glowBg: "bg-orange-500"
     }
   ];
+  */
 
   const renderHeadline = (text: string) => {
     if (text === 'Riverside STEM Partner Program') {
       return (
         <>
-          <span className={`${themeColors[0].text}`}>Riverside </span>
-          <span className={`${themeColors[1].text}`}>STEM </span>
-          <span className={`${themeColors[2].text}`}>Partner </span>
+          <span className="text-neutral-900 dark:text-white">Riverside </span>
+          <span className="text-neutral-900 dark:text-white">STEM </span>
+          <span className="text-neutral-900 dark:text-white">Partner </span>
           <span className="text-neutral-900 dark:text-white block mt-2">Program</span>
         </>
       );
@@ -185,7 +188,7 @@ export default function StemPartner({ config }: StemPartnerProps) {
               {/* 1. The Synced Glowing Hue (Blurred and positioned behind) */}
               <div className="absolute inset-0 rounded-2xl blur-2xl opacity-50 dark:opacity-40 -z-10 pointer-events-none">
                 <div className="absolute inset-0 rounded-2xl overflow-hidden">
-                  <div className="absolute top-1/2 left-1/2 w-[300%] aspect-square -translate-x-1/2 -translate-y-1/2 animate-[spin_5s_linear_infinite] bg-[conic-gradient(from_0deg,#3b82f6,#22c55e,#f97316,#3b82f6)]" />
+                  <div className="absolute top-1/2 left-1/2 w-[300%] aspect-square -translate-x-1/2 -translate-y-1/2 animate-[spin_5s_linear_infinite] bg-[conic-gradient(from_0deg,var(--accent),var(--primary),var(--accent))]" />
                 </div>
               </div>
 
@@ -199,7 +202,7 @@ export default function StemPartner({ config }: StemPartnerProps) {
                   maskComposite: 'exclude',
                 }}
               >
-                <div className="absolute top-1/2 left-1/2 w-[300%] aspect-square -translate-x-1/2 -translate-y-1/2 animate-[spin_5s_linear_infinite] bg-[conic-gradient(from_0deg,#3b82f6,#22c55e,#f97316,#3b82f6)] opacity-100" />
+                <div className="absolute top-1/2 left-1/2 w-[300%] aspect-square -translate-x-1/2 -translate-y-1/2 animate-[spin_5s_linear_infinite] bg-[conic-gradient(from_0deg,var(--accent),var(--primary),var(--accent))] opacity-100" />
               </div>
 
               {/* 3. Inner Content Wrapper */}
@@ -212,7 +215,7 @@ export default function StemPartner({ config }: StemPartnerProps) {
                 </p>
                 <button
                   onClick={scrollToContact}
-                  className="px-8 py-4 bg-orange-500 hover:bg-orange-400 text-white text-lg font-bold rounded-full shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5 cursor-pointer"
+                  className="px-8 py-4 bg-primary hover:bg-primary-light text-white text-lg font-bold rounded-full shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5 cursor-pointer"
                 >
                   {hero.cta_button}
                 </button>
@@ -250,8 +253,8 @@ export default function StemPartner({ config }: StemPartnerProps) {
             transition={{ duration: 0.6 }}
             className="w-full text-center space-y-6"
           >
-            <h2 className="text-sm font-bold tracking-widest text-orange-500 dark:text-orange-400 uppercase">{initiative.title}</h2>
-            <div className="text-4xl md:text-6xl font-extrabold text-blue-500 dark:text-blue-400 tracking-tighter">
+            <h2 className="text-sm font-bold tracking-widest text-accent uppercase">{initiative.title}</h2>
+            <div className="text-4xl md:text-6xl font-extrabold text-primary tracking-tighter">
               {initiative.headline}
             </div>
             {initiative.paragraphs.map((p, idx) => (
@@ -274,7 +277,7 @@ export default function StemPartner({ config }: StemPartnerProps) {
               const Icon = iconMap[item.icon] || UserGroupIcon;
               return (
                 <div key={idx} className="bg-white dark:bg-neutral-800/50 p-8 rounded-3xl shadow-md border border-neutral-200 dark:border-neutral-800 flex flex-col items-center text-center group hover:shadow-xl transition-all">
-                  <div className={`w-16 h-16 rounded-full ${themeColors[idx % 3].bgLight} ${themeColors[idx % 3].text} flex items-center justify-center mb-6`}>
+                  <div className="w-16 h-16 rounded-full bg-accent/10 text-accent flex items-center justify-center mb-6">
                     <Icon className="w-8 h-8" />
                   </div>
                   <p className="text-lg text-neutral-700 dark:text-neutral-300 font-medium leading-relaxed">
@@ -297,8 +300,8 @@ export default function StemPartner({ config }: StemPartnerProps) {
                 transition={{ duration: 0.6 }}
                 className="w-full text-center px-4"
               >
-                <h2 className="text-sm font-bold tracking-widest text-orange-500 dark:text-orange-400 uppercase mb-4">{programs.title}</h2>
-                <h3 className="text-4xl md:text-6xl font-extrabold text-blue-500 dark:text-blue-400 tracking-tighter">{programs.headline}</h3>
+                <h2 className="text-sm font-bold tracking-widest text-accent uppercase mb-4">{programs.title}</h2>
+                <h3 className="text-4xl md:text-6xl font-extrabold text-primary tracking-tighter">{programs.headline}</h3>
               </motion.div>
 
               <motion.div
@@ -310,17 +313,15 @@ export default function StemPartner({ config }: StemPartnerProps) {
               >
             {programs.items.map((item, idx) => {
               const Icon = iconMap[item.icon] || CalculatorIcon;
-              // Use Green theme for all cards as requested
-              const theme = themeColors[1];
               return (
                 <div
                   key={idx}
                   className="bg-neutral-50 dark:bg-neutral-800/50 p-8 md:p-10 rounded-3xl shadow-xl border border-neutral-200 dark:border-neutral-800"
                 >
-                  <div className={`w-16 h-16 ${themeColors[0].bgLight} rounded-2xl flex items-center justify-center mb-6`}>
-                    <Icon className={`w-8 h-8 ${themeColors[0].text}`} />
+                  <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mb-6">
+                    <Icon className="w-8 h-8 text-accent" />
                   </div>
-                  <h4 className={`text-2xl font-extrabold ${theme.text} mb-4 tracking-tight`}>{item.title}</h4>
+                  <h4 className="text-2xl font-extrabold text-primary mb-4 tracking-tight">{item.title}</h4>
                   <div className="space-y-3">
                     <p className="text-neutral-600 dark:text-neutral-300 text-lg">{item.description}</p>
                   </div>
@@ -343,8 +344,8 @@ export default function StemPartner({ config }: StemPartnerProps) {
               transition={{ duration: 0.6 }}
               className="w-full text-center px-4"
             >
-              <h2 className="text-sm font-bold tracking-widest text-orange-500 dark:text-orange-400 uppercase mb-4">{timeline.headline}</h2>
-              <h3 className="text-4xl md:text-6xl font-extrabold text-blue-500 dark:text-blue-400 tracking-tighter">{timeline.sub_headline}</h3>
+              <h2 className="text-sm font-bold tracking-widest text-accent uppercase mb-4">{timeline.headline}</h2>
+              <h3 className="text-4xl md:text-6xl font-extrabold text-primary tracking-tighter">{timeline.sub_headline}</h3>
             </motion.div>
 
             <div className="relative max-w-4xl mx-auto px-4" ref={timelineRef}>
@@ -353,7 +354,7 @@ export default function StemPartner({ config }: StemPartnerProps) {
 
               {/* Animated Tracking Blue Line */}
               <motion.div
-                className="absolute left-[2.25rem] -translate-x-px md:left-1/2 md:-translate-x-1/2 top-0 w-0.5 bg-blue-500 z-0 origin-top"
+                className="absolute left-[2.25rem] -translate-x-px md:left-1/2 md:-translate-x-1/2 top-0 w-0.5 bg-accent z-0 origin-top"
                 style={{ height: lineHeight }}
               />
 
@@ -379,7 +380,7 @@ export default function StemPartner({ config }: StemPartnerProps) {
                             hidden: { opacity: 0 },
                             visible: { opacity: 1, transition: { duration: 0.3 } }
                           }}
-                          className="absolute inset-0 rounded-full border-4 border-white dark:border-black bg-blue-500 flex items-center justify-center text-white text-xs font-black"
+                          className="absolute inset-0 rounded-full border-4 border-white dark:border-black bg-accent flex items-center justify-center text-white text-xs font-black"
                         >
                           {level.level}
                         </motion.div>
@@ -393,8 +394,8 @@ export default function StemPartner({ config }: StemPartnerProps) {
                         }}
                         className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-neutral-50 dark:bg-neutral-800/50 p-6 rounded-3xl shadow-xl border border-neutral-200 dark:border-neutral-800"
                       >
-                        <span className="font-bold text-blue-500 dark:text-blue-400 text-sm tracking-wide uppercase">Level {level.level}</span>
-                        <h4 className="text-xl font-bold text-green-500 dark:text-green-400 mt-2 mb-2">{level.title}</h4>
+                        <span className="font-bold text-accent text-sm tracking-wide uppercase">Level {level.level}</span>
+                        <h4 className="text-xl font-bold text-primary mt-2 mb-2">{level.title}</h4>
                         <p className="text-neutral-600 dark:text-neutral-300 leading-relaxed">{level.text}</p>
                       </motion.div>
                     </motion.div>
@@ -422,7 +423,7 @@ export default function StemPartner({ config }: StemPartnerProps) {
                   <div className="flex flex-col space-y-4">
                     {support.items.map((item, idx) => (
                       <div key={idx} className="flex items-start space-x-3">
-                        <CheckCircleIcon className="w-6 h-6 text-green-500 shrink-0 mt-0.5" />
+                        <CheckCircleIcon className="w-6 h-6 text-accent shrink-0 mt-0.5" />
                         <span className="text-neutral-700 dark:text-neutral-300 text-base md:text-lg">{item}</span>
                       </div>
                     ))}
@@ -464,9 +465,9 @@ export default function StemPartner({ config }: StemPartnerProps) {
             className="bg-neutral-900 dark:bg-black text-white rounded-[3rem] p-10 md:p-16 lg:p-20 shadow-2xl relative overflow-hidden text-center mx-auto"
           >
             {/* Background Decorations */}
-            <div className={`absolute top-0 right-0 w-96 h-96 ${themeColors[0].glowBg} opacity-20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4`}></div>
-            <div className={`absolute bottom-0 left-0 w-96 h-96 ${themeColors[1].glowBg} opacity-20 rounded-full blur-3xl translate-y-1/4 -translate-x-1/4`}></div>
-            <div className={`absolute top-1/2 left-1/2 w-96 h-96 ${themeColors[2].glowBg} opacity-10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2`}></div>
+            <div className="absolute top-0 right-0 w-96 h-96 bg-accent opacity-20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4"></div>
+            <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary opacity-20 rounded-full blur-3xl translate-y-1/4 -translate-x-1/4"></div>
+            <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-[linear-gradient(to_right,var(--primary),var(--accent))] opacity-10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
 
             <div className="relative z-10 space-y-8 max-w-4xl mx-auto">
               <h2 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight">
@@ -477,14 +478,14 @@ export default function StemPartner({ config }: StemPartnerProps) {
               </p>
 
               <div className="flex justify-center space-x-2 my-8">
-                <div className={`w-10 h-1 ${themeColors[0].glowBg} rounded-full opacity-50`}></div>
-                <div className={`w-10 h-1 ${themeColors[1].glowBg} rounded-full opacity-50`}></div>
-                <div className={`w-10 h-1 ${themeColors[2].glowBg} rounded-full opacity-50`}></div>
+                <div className="w-10 h-1 bg-primary rounded-full opacity-50"></div>
+                <div className="w-10 h-1 bg-primary rounded-full opacity-50"></div>
+                <div className="w-10 h-1 bg-primary rounded-full opacity-50"></div>
               </div>
 
               <div className="pt-4 text-xl md:text-2xl font-medium tracking-wide">
-                Contact <span className={`font-bold ${themeColors[1].text}`}>{contact.info.name}</span> at <br className="md:hidden" />
-                <span className={`font-bold ${themeColors[1].text}`}>
+                Contact <span className="font-bold text-primary">{contact.info.name}</span> at <br className="md:hidden" />
+                <span className="font-bold text-primary">
                   {contact.info.email}
                 </span>
                 <br className="md:hidden" /> to inquire and get started.
