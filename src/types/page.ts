@@ -170,6 +170,27 @@ export interface SciolyResourcesPageConfig extends BasePageConfig {
     type: 'scioly-resources';
     paragraphs?: string[];
     events?: SciolyEventItem[];
+    labels?: {
+        search_placeholder: string;
+        filter_all: string;
+        expand_all: string;
+        collapse_all: string;
+    };
+    messages?: {
+        no_events: string;
+        no_syllabus: string;
+        google_sheets_error: string;
+        no_data: string;
+    };
+    syllabus_headers?: {
+        agenda: string;
+        today_tasks: string;
+        homework: string;
+    };
+    categories?: {
+        id: number;
+        label: string;
+    }[];
 }
 
 // --- 5. Tally Page Types ---

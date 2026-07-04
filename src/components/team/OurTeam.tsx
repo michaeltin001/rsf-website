@@ -37,14 +37,16 @@ export default function OurTeam({ config }: OurTeamProps) {
       </div>
 
       {/* Team Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 auto-rows-fr gap-8 md:gap-10">
+      <motion.div 
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.4 }}
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 auto-rows-fr gap-8 md:gap-10"
+      >
         {config.team?.map((member, idx) => (
-          <motion.div
+          <div
             key={idx}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
             className="relative h-full flex flex-col items-center p-6 bg-white/10 dark:bg-black/10 backdrop-blur-3xl border border-neutral-200 dark:border-white/10 shadow-xl rounded-3xl group overflow-hidden transition-all hover:shadow-2xl"
           >
             {/* Image Placeholder */}
@@ -68,9 +70,9 @@ export default function OurTeam({ config }: OurTeamProps) {
             <p className="text-neutral-600 dark:text-neutral-300 text-center text-sm leading-relaxed">
               {member.description}
             </p>
-          </motion.div>
+          </div>
         ))}
-      </div>
+      </motion.div>
 
     </div>
   );

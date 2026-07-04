@@ -28,7 +28,22 @@ export function generateSlug(text: string): string {
 
 export function parseMarkdown(text: string): string {
   if (!text) return '';
-  return text
+  let parsed = text
     .replace(/\*\*(.*?)\*\*/g, '<strong class="text-accent font-semibold">$1</strong>')
-    .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-accent hover:underline font-semibold">$1</a>');
+    .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-accent hover:underline font-semibold">$1</a>')
+    .replace(/^[ \t]*[-*+][ \t]+(.*)$/gm, '<li>$1</li>');
+
+  parsed = parsed.replace(/(<li>.*?<\/li>(?:\n<li>.*?<\/li>)*)/g, '<ul class="list-disc pl-5 my-2 space-y-1">$1</ul>');
+  return parsed;
+}
+
+export function parseMarkdownWithColor(text: string, colorClass: string): string {
+  if (!text) return '';
+  let parsed = text
+    .replace(/\*\*(.*?)\*\*/g, `<strong class="${colorClass} font-semibold">$1</strong>`)
+    .replace(/\[(.*?)\]\((.*?)\)/g, `<a href="$2" target="_blank" rel="noopener noreferrer" class="${colorClass} hover:underline font-semibold">$1</a>`)
+    .replace(/^[ \t]*[-*+][ \t]+(.*)$/gm, '<li>$1</li>');
+
+  parsed = parsed.replace(/(<li>.*?<\/li>(?:\n<li>.*?<\/li>)*)/g, '<ul class="list-disc pl-5 my-2 space-y-1">$1</ul>');
+  return parsed;
 }

@@ -94,7 +94,7 @@ sheet_id = "PLACEHOLDER_SHEET_ID"
 title = "Codebusters"
 link = "/scioly-resources/codebusters"
 category = 4
-sheet_id = "PLACEHOLDER_SHEET_ID"
+sheet_id = "1DNwdvHpios7ZozJs3tK3eQW-8Sb-gWlA3V6VAeSEsqE"
 
 [[events]]
 title = "Experimental Design"
@@ -107,3 +107,36 @@ title = "Write It, Do It"
 link = "/scioly-resources/write-it-do-it"
 category = 4
 sheet_id = "PLACEHOLDER_SHEET_ID"
+
+[labels]
+search_placeholder = "Search events..."
+filter_all = "All"
+expand_all = "Expand All"
+collapse_all = "Collapse All"
+
+[messages]
+no_events = "No events found matching your search."
+no_syllabus = "No Syllabus Connected"
+google_sheets_error = "Google Sheets API error"
+no_data = "No Data"
+
+[syllabus_headers]
+agenda = "Agenda"
+today_tasks = "Today's Tasks"
+homework = "Homework Tasks"
+
+[[categories]]
+id = 1
+label = "Life"
+
+[[categories]]
+id = 2
+label = "Earth"
+
+[[categories]]
+id = 3
+label = "Physical"
+
+[[categories]]
+id = 4
+label = "Inquiry"
