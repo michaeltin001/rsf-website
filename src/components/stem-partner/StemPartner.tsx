@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform, useMotionValue } from 'framer-motion';
 import {
   ChevronDownIcon,
@@ -13,8 +13,13 @@ import {
   CheckCircleIcon,
   UserIcon,
   BuildingOfficeIcon,
-  UserGroupIcon
+  UserGroupIcon,
+  BriefcaseIcon,
+  AcademicCapIcon,
+  SparklesIcon,
+  ArrowRightIcon
 } from '@heroicons/react/24/outline';
+import Link from 'next/link';
 import type { StemPartnerPageConfig } from '@/types/page';
 import { parseMarkdown } from '@/lib/utils';
 
@@ -25,7 +30,10 @@ const iconMap: Record<string, React.ElementType> = {
   PresentationChartBarIcon,
   UserIcon,
   BuildingOfficeIcon,
-  UserGroupIcon
+  UserGroupIcon,
+  BriefcaseIcon,
+  AcademicCapIcon,
+  SparklesIcon
 };
 
 interface StemPartnerProps {
@@ -33,12 +41,24 @@ interface StemPartnerProps {
 }
 
 export default function StemPartner({ config }: StemPartnerProps) {
-  const { hero, initiative, programs, support, timeline, grant_callout, target_audience, contact } = config;
+  const { hero, collaborators, initiative, programs, featured_resources, support, timeline, grant_callout, target_audience, contact } = config;
 
   const [scrolled, setScrolled] = useState(false);
   const isSnapping = useRef(false);
   const contactRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const programsCarouselRef = useRef<HTMLDivElement>(null);
+
+  const scrollProgramsLeft = () => {
+    if (programsCarouselRef.current) {
+      programsCarouselRef.current.scrollBy({ left: -800, behavior: 'smooth' });
+    }
+  };
+  const scrollProgramsRight = () => {
+    if (programsCarouselRef.current) {
+      programsCarouselRef.current.scrollBy({ left: 800, behavior: 'smooth' });
+    }
+  };
 
   const timelineRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress: timelineScrollProgress } = useScroll({
@@ -210,15 +230,37 @@ export default function StemPartner({ config }: StemPartnerProps) {
                 <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight drop-shadow-lg mb-4 text-neutral-900 dark:text-white">
                   {renderHeadline(hero.headline)}
                 </h1>
-                <p className="text-xl md:text-2xl text-neutral-600 dark:text-neutral-300 font-medium tracking-wide mb-8">
-                  {hero.sub_headline}
-                </p>
-                <button
-                  onClick={scrollToContact}
-                  className="px-8 py-4 bg-primary hover:bg-primary-light text-white text-lg font-bold rounded-full shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5 cursor-pointer"
-                >
-                  {hero.cta_button}
-                </button>
+
+                {/* Collaborators inside Hero */}
+                {collaborators && (
+                  <div className="mt-8 md:mt-12 flex flex-col items-center">
+                    {collaborators.title && (
+                      <h2 className="text-xs md:text-sm font-bold tracking-widest text-neutral-600 dark:text-neutral-300 uppercase mb-6">
+                        {collaborators.title}
+                      </h2>
+                    )}
+                    <div className="flex flex-wrap justify-center items-center gap-6 md:gap-12">
+                      {collaborators.items.map((collab, idx) => (
+                        <div key={idx} className="relative flex items-center justify-center">
+                          {collab.logo_url === 'placeholder' ? (
+                            <div className="w-40 h-16 md:w-48 md:h-20 bg-neutral-200/50 dark:bg-neutral-800/50 backdrop-blur-md rounded-xl flex flex-col items-center justify-center text-neutral-600 dark:text-neutral-300 border border-neutral-300/30 dark:border-white/10 opacity-80 shadow-sm">
+                              <svg className="w-5 h-5 mb-1 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                              </svg>
+                              <span className="font-semibold text-[10px] md:text-xs uppercase tracking-wider text-center px-2">{collab.name}</span>
+                            </div>
+                          ) : (
+                            <img 
+                              src={collab.logo_url} 
+                              alt={`${collab.name} logo`} 
+                              className="max-h-16 md:max-h-20 w-auto object-contain grayscale opacity-70 drop-shadow-sm"
+                            />
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             </motion.div>
           )}
@@ -276,7 +318,7 @@ export default function StemPartner({ config }: StemPartnerProps) {
             {target_audience.items.map((item, idx) => {
               const Icon = iconMap[item.icon] || UserGroupIcon;
               return (
-                <div key={idx} className="bg-white dark:bg-neutral-800/50 p-8 rounded-3xl shadow-md border border-neutral-200 dark:border-neutral-800 flex flex-col items-center text-center group hover:shadow-xl transition-all">
+                <div key={idx} className="bg-white dark:bg-neutral-800/50 p-8 rounded-3xl shadow-md border border-neutral-200 dark:border-neutral-800 flex flex-col items-center text-center">
                   <div className="w-16 h-16 rounded-full bg-accent/10 text-accent flex items-center justify-center mb-6">
                     <Icon className="w-8 h-8" />
                   </div>
@@ -287,51 +329,6 @@ export default function StemPartner({ config }: StemPartnerProps) {
               );
             })}
           </motion.div>
-        </section>
-
-        {/* 4. Core Programs (Grid) */}
-        <section className="py-8 md:py-16 space-y-12">
-          {programs && (
-            <>
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="w-full text-center px-4"
-              >
-                <h2 className="text-sm font-bold tracking-widest text-accent uppercase mb-4">{programs.title}</h2>
-                <h3 className="text-4xl md:text-6xl font-extrabold text-primary tracking-tighter">{programs.headline}</h3>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-7xl mx-auto px-4"
-              >
-            {programs.items.map((item, idx) => {
-              const Icon = iconMap[item.icon] || CalculatorIcon;
-              return (
-                <div
-                  key={idx}
-                  className="bg-neutral-50 dark:bg-neutral-800/50 p-8 md:p-10 rounded-3xl shadow-xl border border-neutral-200 dark:border-neutral-800"
-                >
-                  <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mb-6">
-                    <Icon className="w-8 h-8 text-accent" />
-                  </div>
-                  <h4 className="text-2xl font-extrabold text-primary mb-4 tracking-tight">{item.title}</h4>
-                  <div className="space-y-3">
-                    <p className="text-neutral-600 dark:text-neutral-300 text-lg">{item.description}</p>
-                  </div>
-                </div>
-              );
-            })}
-
-          </motion.div>
-            </>
-          )}
         </section>
 
         {/* 5. Season at a Glance (Interactive Timeline) */}
@@ -405,6 +402,99 @@ export default function StemPartner({ config }: StemPartnerProps) {
             </div>
           </section>
         )}
+
+        {/* 4. Core Programs (Grid) */}
+        <section className="py-8 md:py-16 space-y-12">
+          {programs && (
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="w-full text-center px-4"
+            >
+              <h2 className="text-sm font-bold tracking-widest text-accent uppercase mb-4">{programs.title}</h2>
+              <h3 className="text-4xl md:text-6xl font-extrabold text-primary tracking-tighter">{programs.headline}</h3>
+            </motion.div>
+          )}
+
+          {/* Featured Resources (Moved to top of unified grid) */}
+          {featured_resources && (
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 w-full"
+            >
+              {featured_resources.items.map((resource, idx) => {
+                return (
+                  <Link href={resource.link} key={idx} className="block group h-full">
+                    <div className="h-full bg-white dark:bg-neutral-800/50 p-8 rounded-3xl shadow-md border border-neutral-200 dark:border-neutral-800 flex flex-col items-center justify-center text-center group-hover:shadow-xl group-hover:border-accent dark:group-hover:border-accent group-hover:ring-2 group-hover:ring-accent dark:group-hover:ring-accent transition-all duration-300 relative overflow-hidden">
+                      
+                      <h4 className="text-2xl md:text-3xl font-extrabold text-neutral-800 dark:text-neutral-100 mb-4 tracking-tighter leading-tight group-hover:text-accent transition-colors duration-300">
+                        {resource.name}
+                      </h4>
+                      
+                      <p className="text-base text-neutral-600 dark:text-neutral-300 leading-relaxed">
+                        {resource.description}
+                      </p>
+                      
+                    </div>
+                  </Link>
+                );
+              })}
+            </motion.div>
+          )}
+
+          {/* Core Programs (Marquee Rows) */}
+          {programs && (
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="mt-6 w-full overflow-hidden relative group pb-8 select-none cursor-default"
+              style={{
+                maskImage: 'linear-gradient(to right, transparent, black 80px, black calc(100% - 80px), transparent)',
+                WebkitMaskImage: 'linear-gradient(to right, transparent, black 80px, black calc(100% - 80px), transparent)'
+              }}
+            >
+              {(() => {
+                const allFeatures = programs.items.flatMap(item => item.features || []);
+                const createSet = () => [...Array(2)].map((_, i) => (
+                  <React.Fragment key={i}>
+                    {allFeatures.map((feature, fIdx) => (
+                      <span 
+                        key={`${i}-${fIdx}`} 
+                        className="whitespace-nowrap inline-flex items-center px-4 py-2 rounded-xl text-sm font-semibold bg-white dark:bg-neutral-800 text-neutral-700 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700 shadow-sm"
+                      >
+                        {feature}
+                      </span>
+                    ))}
+                  </React.Fragment>
+                ));
+
+                return (
+                  <motion.div 
+                    className="flex w-max" 
+                    animate={{ x: ["0%", "-50%"] }}
+                    transition={{ ease: "linear", duration: 180, repeat: Infinity }}
+                  >
+                    {/* First Set */}
+                    <div className="flex gap-2 md:gap-2.5 pr-2 md:pr-2.5">
+                      {createSet()}
+                    </div>
+                    {/* Second Set (Duplicated for Marquee) */}
+                    <div className="flex gap-2 md:gap-2.5 pr-2 md:pr-2.5">
+                      {createSet()}
+                    </div>
+                  </motion.div>
+                );
+              })()}
+            </motion.div>
+          )}
+        </section>
 
         {/* Support & Grant Callout */}
         {(support || grant_callout) && (

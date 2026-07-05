@@ -14,30 +14,34 @@ interface SciolyResourcesProps {
   config: SciolyResourcesPageConfig;
 }
 
-const categoryThemes: Record<number, { text: string, hoverText: string, bgLight: string, hoverBgLight: string }> = {
+const categoryThemes: Record<number, { text: string, hoverText: string, bgLight: string, hoverBgLight: string, hoverBorderRing: string }> = {
   1: {
     text: "text-red-500 dark:text-red-400",
     hoverText: "group-hover:text-red-600 dark:group-hover:text-red-300",
     bgLight: "bg-red-500/10 dark:bg-red-400/10",
     hoverBgLight: "group-hover:bg-red-500/20 dark:group-hover:bg-red-400/20",
+    hoverBorderRing: "hover:border-red-500 dark:hover:border-red-500 hover:ring-2 hover:ring-red-500 dark:hover:ring-red-500",
   },
   2: {
     text: "text-green-500 dark:text-green-400",
     hoverText: "group-hover:text-green-600 dark:group-hover:text-green-300",
     bgLight: "bg-green-500/10 dark:bg-green-400/10",
     hoverBgLight: "group-hover:bg-green-500/20 dark:group-hover:bg-green-400/20",
+    hoverBorderRing: "hover:border-green-500 dark:hover:border-green-500 hover:ring-2 hover:ring-green-500 dark:hover:ring-green-500",
   },
   3: {
     text: "text-blue-500 dark:text-blue-400",
     hoverText: "group-hover:text-blue-600 dark:group-hover:text-blue-300",
     bgLight: "bg-blue-500/10 dark:bg-blue-400/10",
     hoverBgLight: "group-hover:bg-blue-500/20 dark:group-hover:bg-blue-400/20",
+    hoverBorderRing: "hover:border-blue-500 dark:hover:border-blue-500 hover:ring-2 hover:ring-blue-500 dark:hover:ring-blue-500",
   },
   4: {
     text: "text-yellow-500 dark:text-yellow-400",
     hoverText: "group-hover:text-yellow-600 dark:group-hover:text-yellow-300",
     bgLight: "bg-yellow-500/10 dark:bg-yellow-400/10",
     hoverBgLight: "group-hover:bg-yellow-500/20 dark:group-hover:bg-yellow-400/20",
+    hoverBorderRing: "hover:border-yellow-500 dark:hover:border-yellow-500 hover:ring-2 hover:ring-yellow-500 dark:hover:ring-yellow-500",
   }
 };
 
@@ -200,7 +204,7 @@ export default function SciolyResources({ config }: SciolyResourcesProps) {
                 className="h-full"
               >
                 <Link href={event.link} className="block h-full">
-                  <div className="bg-neutral-50 dark:bg-neutral-800/50 p-8 rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-neutral-200 dark:border-neutral-800 h-full flex items-center justify-center text-center group">
+                  <div className={`bg-neutral-50 dark:bg-neutral-800/50 p-8 rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300 border border-neutral-200 dark:border-neutral-800 ${theme.hoverBorderRing} h-full flex items-center justify-center text-center group`}>
                     <h4 className={`text-2xl font-extrabold ${theme.text} tracking-tight ${theme.hoverText} transition-colors duration-300`}>
                       {event.title}
                     </h4>

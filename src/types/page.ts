@@ -70,8 +70,7 @@ export interface StemInitiativeSection {
 
 export interface StemProgramItem {
     title: string;
-    description: string;
-    icon: string;
+    features: string[];
 }
 
 export interface StemProgramsSection {
@@ -125,11 +124,37 @@ export interface StemGrantCallout {
     disclaimer: string;
 }
 
+export interface StemCollaborator {
+    name: string;
+    logo_url: string;
+    link?: string;
+}
+
+export interface StemCollaboratorsSection {
+    title?: string;
+    items: StemCollaborator[];
+}
+
+export interface StemResource {
+    name: string;
+    description: string;
+    link: string;
+    icon: string;
+}
+
+export interface StemFeaturedResourcesSection {
+    title: string;
+    headline: string;
+    items: StemResource[];
+}
+
 export interface StemPartnerPageConfig extends BasePageConfig {
     type: 'stem-partner';
     hero: StemHeroSection;
+    collaborators?: StemCollaboratorsSection;
     initiative: StemInitiativeSection;
     programs: StemProgramsSection;
+    featured_resources?: StemFeaturedResourcesSection;
     support: StemSupportSection;
 
     timeline: StemTimelineSection;

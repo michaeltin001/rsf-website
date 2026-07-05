@@ -7,6 +7,17 @@ sub_headline = "Helping schools launch, grow, and sustain rigorous STEM opportun
 cta_button = "Learn More"
 bg_image = "https://images.unsplash.com/photo-1564069114553-7215e1ff1890?q=80&w=2000&auto=format&fit=crop"
 
+[collaborators]
+title = "In Partnership With"
+
+[[collaborators.items]]
+name = "Delta SIFY"
+logo_url = "placeholder"
+
+[[collaborators.items]]
+name = "Riverside STEM Academy"
+logo_url = "placeholder"
+
 [initiative]
 title = "The Initiative"
 headline = "Empowering Middle School STEM"
@@ -20,23 +31,70 @@ headline = "Available Resources"
 
 [[programs.items]]
 title = "FIRST LEGO League / Robotics"
-description = "Team setup, seasonal planning, judging prep, project guidance, practice structures, and competition readiness."
-icon = "CpuChipIcon"
+features = [
+  "Team setup",
+  "Seasonal planning",
+  "Judging prep",
+  "Project guidance",
+  "Practice structures",
+  "Competition readiness"
+]
 
 [[programs.items]]
 title = "Math Competition Clubs"
-description = "Club models, contest calendars, meeting agendas, lesson plans, practice routines, recruitment ideas, and competition preparation."
-icon = "CalculatorIcon"
+features = [
+  "Club models",
+  "Contest calendars",
+  "Meeting agendas",
+  "Lesson plans",
+  "Practice routines",
+  "Recruitment ideas",
+  "Competition preparation"
+]
 
 [[programs.items]]
 title = "Science Olympiad"
-description = "Event selection, coaching structures, weekly agendas, lesson plans, build-event planning, tournament preparation, and volunteer guidance."
-icon = "BeakerIcon"
+features = [
+  "Event selection",
+  "Coaching structures",
+  "Weekly agendas",
+  "Lesson plans",
+  "Build-event planning",
+  "Tournament preparation",
+  "Volunteer guidance"
+]
 
 [[programs.items]]
 title = "Science & Engineering Fair"
-description = "Project timelines, research question development, judging preparation, presentation practice, and pathways to advanced opportunities."
-icon = "PresentationChartBarIcon"
+features = [
+  "Project timelines",
+  "Research question development",
+  "Judging preparation",
+  "Presentation practice",
+  "Pathways to advanced opportunities"
+]
+
+[featured_resources]
+title = "Featured Resources"
+headline = "Explore Our Materials"
+
+[[featured_resources.items]]
+name = "STEM Club Starter Kit"
+description = "Everything you need to launch a new STEM club at your middle school, including sample bylaws and recruitment flyers."
+link = "/resources/stem-club-starter-kit"
+icon = "BriefcaseIcon"
+
+[[featured_resources.items]]
+name = "Competition Calendar"
+description = "A unified calendar of local and regional STEM competitions, deadlines, and registration information."
+link = "/resources/competition-calendar"
+icon = "AcademicCapIcon"
+
+[[featured_resources.items]]
+name = "Grant Application Guide"
+description = "Step-by-step guidance on applying for the TAiSE grant and other funding opportunities for your program."
+link = "/resources/grant-guide"
+icon = "SparklesIcon"
 
 [support]
 title = "Our Support"
