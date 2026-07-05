@@ -194,7 +194,7 @@ export default function SciolyResources({ config }: SciolyResourcesProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 md:mt-20"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 md:mt-20 auto-rows-fr"
         >
           {filteredEvents.map((event) => {
             const theme = categoryThemes[event.category] || categoryThemes[3];

@@ -12,11 +12,13 @@ title = "In Partnership With"
 
 [[collaborators.items]]
 name = "Delta SIFY"
-logo_url = "placeholder"
+logo_url = "/images/deltasify_576x240.png"
+link = "https://www.deltasify.org/"
 
 [[collaborators.items]]
 name = "Riverside STEM Academy"
-logo_url = "placeholder"
+logo_url = "/images/rsa_576x240.png"
+link = "https://stemacademy.riversideunified.org/"
 
 [initiative]
 title = "The Initiative"
@@ -79,22 +81,19 @@ title = "Featured Resources"
 headline = "Explore Our Materials"
 
 [[featured_resources.items]]
-name = "STEM Club Starter Kit"
-description = "Everything you need to launch a new STEM club at your middle school, including sample bylaws and recruitment flyers."
-link = "/resources/stem-club-starter-kit"
-icon = "BriefcaseIcon"
+name = "Science Olympiad Resources"
+description = "These resources serve as a syllabus-style repository of teaching materials designed to help students study for Science Olympiad events."
+link = "/scioly-resources"
 
 [[featured_resources.items]]
-name = "Competition Calendar"
-description = "A unified calendar of local and regional STEM competitions, deadlines, and registration information."
-link = "/resources/competition-calendar"
-icon = "AcademicCapIcon"
+name = "Tally"
+description = "Tally is a real-time tournament scheduling dashboard designed for FIRST LEGO League (FLL) events."
+link = "https://github.com/michaeltin001/tally"
 
 [[featured_resources.items]]
-name = "Grant Application Guide"
-description = "Step-by-step guidance on applying for the TAiSE grant and other funding opportunities for your program."
-link = "/resources/grant-guide"
-icon = "SparklesIcon"
+name = "Scansheet"
+description = "Scansheet is a simple and intuitive application that keeps track of attendance records through a QR code-based system."
+link = "https://github.com/michaeltin001/Scansheet"
 
 [support]
 title = "Our Support"

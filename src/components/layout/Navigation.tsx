@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
@@ -21,6 +21,7 @@ export default function Navigation({ items, transparentNavPaths = [] }: Navigati
   const [scrolled, setScrolled] = useState(false);
   const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0, opacity: 0 });
   const navRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+  const closeDisclosureRef = useRef<(() => void) | null>(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -61,6 +62,45 @@ export default function Navigation({ items, transparentNavPaths = [] }: Navigati
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Bug: Mobile hamburger menu stays open when nav auto-hides
+  //
+  // Root cause: On transparent-nav pages (e.g., home, StemPartner), scrolling
+  // back to the hero triggers a smooth scroll to scrollY = 0, which auto-hides
+  // the nav bar via the navY transform. However, the DisclosurePanel sits
+  // outside that transform div and is controlled by Headless UI's internal
+  // state — so it remained visible even after the nav bar slid away.
+  //
+  // Why it was tricky: Simply calling close() to dismiss the Disclosure
+  // triggered a React re-render mid-scroll, which interrupted the Hero's
+  // smooth scroll animation — the page would stop short of scrollY = 0,
+  // leaving the nav bar visible until an additional scroll.
+  //
+  // The fix:
+  // - Two-phase panel dismissal
+  // - Added closeDisclosureRef to capture Headless UI's close function from
+  //   the Disclosure render prop
+  // - Phase 1 (CSS): Applied opacity-0 pointer-events-none to the
+  //   DisclosurePanel when isTransparentNav && !scrolled — instant visual
+  //   hide with zero scroll interference
+  // - Phase 2 (deferred close): A scrollY motion value listener calls close()
+  //   only when scrollY < 5, ensuring the smooth scroll has already finished
+  //   before any React state change occurs
+  // - Also calls document.activeElement.blur() to clear the persistent focus
+  //   ring on the hamburger button
+  useEffect(() => {
+    if (!isTransparentNav) return;
+
+    const unsubscribe = scrollY.on('change', (latest) => {
+      if (latest < 5) {
+        closeDisclosureRef.current?.();
+        if (document.activeElement instanceof HTMLElement) {
+          document.activeElement.blur();
+        }
+      }
+    });
+    return unsubscribe;
+  }, [isTransparentNav, scrollY]);
+
   // Ensure we scroll to the top on every route change
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
@@ -77,7 +117,9 @@ export default function Navigation({ items, transparentNavPaths = [] }: Navigati
 
   return (
     <Disclosure as="nav" className="fixed top-4 left-0 right-0 z-50 pointer-events-none px-4 sm:px-6 lg:px-8">
-      {({ open }) => (
+      {({ open, close }) => {
+        closeDisclosureRef.current = close;
+        return (
         <div className="max-w-7xl mx-auto w-full">
           <motion.div
             layoutRoot
@@ -156,7 +198,7 @@ export default function Navigation({ items, transparentNavPaths = [] }: Navigati
 
                 <div className="lg:hidden flex items-center space-x-2">
                   <ThemeToggle />
-                  <DisclosureButton className="inline-flex items-center justify-center p-2 rounded-md text-neutral-600 hover:text-primary hover:bg-neutral-100 dark:hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent transition-colors duration-200 cursor-pointer">
+                  <DisclosureButton className="-mr-2 inline-flex items-center justify-center p-2 rounded-md text-neutral-600 hover:text-primary hover:bg-neutral-100 dark:hover:bg-neutral-800 focus:outline-none transition-colors duration-200 cursor-pointer">
                     <span className="sr-only">Open main menu</span>
                     <motion.div
                       animate={{ rotate: open ? 180 : 0 }}
@@ -176,7 +218,15 @@ export default function Navigation({ items, transparentNavPaths = [] }: Navigati
 
           <AnimatePresence>
             {open && (
-              <DisclosurePanel static className="pointer-events-auto mt-2">
+              <DisclosurePanel
+                static
+                className={cn(
+                  'mt-2 transition-opacity duration-200',
+                  isTransparentNav && !scrolled
+                    ? 'opacity-0 pointer-events-none'
+                    : 'pointer-events-auto'
+                )}
+              >
                 <motion.div
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
@@ -219,7 +269,8 @@ export default function Navigation({ items, transparentNavPaths = [] }: Navigati
             )}
           </AnimatePresence>
         </div>
-      )}
+      );
+      }}
     </Disclosure>
   );
 }

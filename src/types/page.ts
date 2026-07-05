@@ -4,7 +4,7 @@ export interface BasePageConfig {
     description?: string;
 }
 
-// --- 1. Home Page / Hero Layout Types ---
+// --- 1. Home Page Types ---
 export interface Initiative {
     title: string;
     content: string;
@@ -54,7 +54,7 @@ export interface HomePageConfig extends BasePageConfig {
     volunteer: VolunteerSection;
 }
 
-// --- 2. RUSD STEM MS Collaboration Types ---
+// --- 2. STEM Partner Page Types ---
 export interface StemHeroSection {
     headline: string;
     sub_headline: string;
@@ -182,7 +182,7 @@ export interface StandardPageConfig extends BasePageConfig {
     content: string;
 }
 
-// --- Scioly Resources Types ---
+// --- 5. Scioly Resources Page Types ---
 export interface SciolyEventItem {
     title: string;
     description?: string;
@@ -218,7 +218,7 @@ export interface SciolyResourcesPageConfig extends BasePageConfig {
     }[];
 }
 
-// --- 5. Tally Page Types ---
+// --- 6. Tally Page Types ---
 export interface TallyPageConfig extends BasePageConfig {
     type: 'tally';
     labels: {

@@ -8,16 +8,13 @@ import {
   BeakerIcon,
   CpuChipIcon,
   PresentationChartBarIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
   CheckCircleIcon,
   UserIcon,
   BuildingOfficeIcon,
   UserGroupIcon,
   BriefcaseIcon,
   AcademicCapIcon,
-  SparklesIcon,
-  ArrowRightIcon
+  SparklesIcon
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import type { StemPartnerPageConfig } from '@/types/page';
@@ -45,20 +42,7 @@ export default function StemPartner({ config }: StemPartnerProps) {
 
   const [scrolled, setScrolled] = useState(false);
   const isSnapping = useRef(false);
-  const contactRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-  const programsCarouselRef = useRef<HTMLDivElement>(null);
-
-  const scrollProgramsLeft = () => {
-    if (programsCarouselRef.current) {
-      programsCarouselRef.current.scrollBy({ left: -800, behavior: 'smooth' });
-    }
-  };
-  const scrollProgramsRight = () => {
-    if (programsCarouselRef.current) {
-      programsCarouselRef.current.scrollBy({ left: 800, behavior: 'smooth' });
-    }
-  };
 
   const timelineRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress: timelineScrollProgress } = useScroll({
@@ -131,12 +115,7 @@ export default function StemPartner({ config }: StemPartnerProps) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToContact = () => {
-    if (contactRef.current) {
-      const navHeight = (window.innerWidth >= 1024 ? 64 : 56) + 16;
-      performSmoothScroll(contactRef.current.getBoundingClientRect().top + window.scrollY - navHeight);
-    }
-  };
+
 
   const scrollToContent = () => {
     if (contentRef.current) {
@@ -181,7 +160,7 @@ export default function StemPartner({ config }: StemPartnerProps) {
           <span className="text-neutral-900 dark:text-white">Riverside </span>
           <span className="text-neutral-900 dark:text-white">STEM </span>
           <span className="text-neutral-900 dark:text-white">Partner </span>
-          <span className="text-neutral-900 dark:text-white block mt-2">Program</span>
+          <span className="text-neutral-900 dark:text-white block">Program</span>
         </>
       );
     }
@@ -190,7 +169,18 @@ export default function StemPartner({ config }: StemPartnerProps) {
 
   return (
     <div className="w-full">
-      {/* 1. Hero Section */}
+      {/* Preload hero logos to prevent re-fetching when AnimatePresence unmounts them on scroll */}
+      {collaborators && (
+        <div className="hidden" aria-hidden="true">
+          {collaborators.items.map((collab, idx) => (
+            collab.logo_url !== 'placeholder' && (
+              <img key={`preload-logo-${idx}`} src={collab.logo_url} alt="" />
+            )
+          ))}
+        </div>
+      )}
+
+      {/* 1. Hero */}
       <section className="relative w-full h-screen -mt-14 lg:-mt-16 overflow-hidden shadow-2xl flex items-center justify-center">
 
         {/* Subtle CSS Dot Matrix Background */}
@@ -203,7 +193,7 @@ export default function StemPartner({ config }: StemPartnerProps) {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -30, filter: "blur(4px)" }}
               transition={{ duration: 0.5 }}
-              className="relative z-20 w-full max-w-7xl mx-auto rounded-2xl bg-white/10 dark:bg-black/10 backdrop-blur-3xl backdrop-saturate-200"
+              className="relative z-20 w-11/12 max-w-7xl mx-auto rounded-2xl bg-white/10 dark:bg-black/10 backdrop-blur-3xl backdrop-saturate-200"
             >
               {/* 1. The Synced Glowing Hue (Blurred and positioned behind) */}
               <div className="absolute inset-0 rounded-2xl blur-2xl opacity-50 dark:opacity-40 -z-10 pointer-events-none">
@@ -231,7 +221,7 @@ export default function StemPartner({ config }: StemPartnerProps) {
                   {renderHeadline(hero.headline)}
                 </h1>
 
-                {/* Collaborators inside Hero */}
+                {/* Collaborators */}
                 {collaborators && (
                   <div className="mt-8 md:mt-12 flex flex-col items-center">
                     {collaborators.title && (
@@ -239,7 +229,7 @@ export default function StemPartner({ config }: StemPartnerProps) {
                         {collaborators.title}
                       </h2>
                     )}
-                    <div className="flex flex-wrap justify-center items-center gap-6 md:gap-12">
+                    <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6">
                       {collaborators.items.map((collab, idx) => (
                         <div key={idx} className="relative flex items-center justify-center">
                           {collab.logo_url === 'placeholder' ? (
@@ -249,11 +239,19 @@ export default function StemPartner({ config }: StemPartnerProps) {
                               </svg>
                               <span className="font-semibold text-[10px] md:text-xs uppercase tracking-wider text-center px-2">{collab.name}</span>
                             </div>
+                          ) : collab.link ? (
+                            <Link href={collab.link} target="_blank" rel="noopener noreferrer" className="block">
+                              <img
+                                src={collab.logo_url}
+                                alt={`${collab.name} logo`}
+                                className="max-h-16 md:max-h-20 w-auto object-contain rounded-xl shadow-md border border-neutral-200/50 dark:border-white/10"
+                              />
+                            </Link>
                           ) : (
-                            <img 
-                              src={collab.logo_url} 
-                              alt={`${collab.name} logo`} 
-                              className="max-h-16 md:max-h-20 w-auto object-contain grayscale opacity-70 drop-shadow-sm"
+                            <img
+                              src={collab.logo_url}
+                              alt={`${collab.name} logo`}
+                              className="max-h-16 md:max-h-20 w-auto object-contain rounded-xl shadow-md border border-neutral-200/50 dark:border-white/10"
                             />
                           )}
                         </div>
@@ -286,7 +284,7 @@ export default function StemPartner({ config }: StemPartnerProps) {
       {/* CONTENT WRAPPER */}
       <div ref={contentRef} className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-[104px] md:pt-[120px] lg:pt-32 pb-8 md:pb-12 overflow-clip">
 
-        {/* 2. The Initiative (Value Proposition) */}
+        {/* 2. Initiative */}
         <section className="pt-0 pb-8 md:pb-16 flex flex-col items-center space-y-12">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -300,25 +298,26 @@ export default function StemPartner({ config }: StemPartnerProps) {
               {initiative.headline}
             </div>
             {initiative.paragraphs.map((p, idx) => (
-              <p 
-                key={idx} 
+              <p
+                key={idx}
                 className="text-lg md:text-xl text-neutral-600 dark:text-neutral-300 leading-relaxed"
                 dangerouslySetInnerHTML={{ __html: parseMarkdown(p) }}
               />
             ))}
           </motion.div>
 
+          {/* Target Audience */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="w-full grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8"
+            className="w-full grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 auto-rows-fr"
           >
             {target_audience.items.map((item, idx) => {
               const Icon = iconMap[item.icon] || UserGroupIcon;
               return (
-                <div key={idx} className="bg-white dark:bg-neutral-800/50 p-8 rounded-3xl shadow-md border border-neutral-200 dark:border-neutral-800 flex flex-col items-center text-center">
+                <div key={idx} className="h-full bg-white dark:bg-neutral-800/50 p-8 rounded-3xl shadow-md border border-neutral-200 dark:border-neutral-800 flex flex-col items-center text-center">
                   <div className="w-16 h-16 rounded-full bg-accent/10 text-accent flex items-center justify-center mb-6">
                     <Icon className="w-8 h-8" />
                   </div>
@@ -331,7 +330,7 @@ export default function StemPartner({ config }: StemPartnerProps) {
           </motion.div>
         </section>
 
-        {/* 5. Season at a Glance (Interactive Timeline) */}
+        {/* 3. Timeline */}
         {timeline && (
           <section className="py-8 md:py-16 space-y-12">
             <motion.div
@@ -403,7 +402,7 @@ export default function StemPartner({ config }: StemPartnerProps) {
           </section>
         )}
 
-        {/* 4. Core Programs (Grid) */}
+        {/* 4. Programs */}
         <section className="py-8 md:py-16 space-y-12">
           {programs && (
             <motion.div
@@ -418,28 +417,34 @@ export default function StemPartner({ config }: StemPartnerProps) {
             </motion.div>
           )}
 
-          {/* Featured Resources (Moved to top of unified grid) */}
+          {/* Featured Resources */}
           {featured_resources && (
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 w-full"
+              className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 w-full auto-rows-fr"
             >
               {featured_resources.items.map((resource, idx) => {
+                const isExternal = resource.link.startsWith('http');
                 return (
-                  <Link href={resource.link} key={idx} className="block group h-full">
+                  <Link
+                    href={resource.link}
+                    key={idx}
+                    className="block group h-full"
+                    {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                  >
                     <div className="h-full bg-white dark:bg-neutral-800/50 p-8 rounded-3xl shadow-md border border-neutral-200 dark:border-neutral-800 flex flex-col items-center justify-center text-center group-hover:shadow-xl group-hover:border-accent dark:group-hover:border-accent group-hover:ring-2 group-hover:ring-accent dark:group-hover:ring-accent transition-all duration-300 relative overflow-hidden">
-                      
+
                       <h4 className="text-2xl md:text-3xl font-extrabold text-neutral-800 dark:text-neutral-100 mb-4 tracking-tighter leading-tight group-hover:text-accent transition-colors duration-300">
                         {resource.name}
                       </h4>
-                      
+
                       <p className="text-base text-neutral-600 dark:text-neutral-300 leading-relaxed">
                         {resource.description}
                       </p>
-                      
+
                     </div>
                   </Link>
                 );
@@ -447,13 +452,13 @@ export default function StemPartner({ config }: StemPartnerProps) {
             </motion.div>
           )}
 
-          {/* Core Programs (Marquee Rows) */}
+          {/* Programs (Marquee Rows) */}
           {programs && (
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.4 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
               className="mt-6 w-full overflow-hidden relative group pb-8 select-none cursor-default"
               style={{
                 maskImage: 'linear-gradient(to right, transparent, black 80px, black calc(100% - 80px), transparent)',
@@ -465,8 +470,8 @@ export default function StemPartner({ config }: StemPartnerProps) {
                 const createSet = () => [...Array(2)].map((_, i) => (
                   <React.Fragment key={i}>
                     {allFeatures.map((feature, fIdx) => (
-                      <span 
-                        key={`${i}-${fIdx}`} 
+                      <span
+                        key={`${i}-${fIdx}`}
                         className="whitespace-nowrap inline-flex items-center px-4 py-2 rounded-xl text-sm font-semibold bg-white dark:bg-neutral-800 text-neutral-700 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700 shadow-sm"
                       >
                         {feature}
@@ -476,8 +481,8 @@ export default function StemPartner({ config }: StemPartnerProps) {
                 ));
 
                 return (
-                  <motion.div 
-                    className="flex w-max" 
+                  <motion.div
+                    className="flex w-max"
                     animate={{ x: ["0%", "-50%"] }}
                     transition={{ ease: "linear", duration: 180, repeat: Infinity }}
                   >
@@ -496,11 +501,11 @@ export default function StemPartner({ config }: StemPartnerProps) {
           )}
         </section>
 
-        {/* Support & Grant Callout */}
+        {/* 5. Support & Grant Callout */}
         {(support || grant_callout) && (
           <section className="py-8 md:py-16 max-w-7xl mx-auto px-4">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
-              {/* Left Pane: Our Support */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch auto-rows-fr">
+              {/* Left Pane: Support */}
               {support && (
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
@@ -521,7 +526,7 @@ export default function StemPartner({ config }: StemPartnerProps) {
                 </motion.div>
               )}
 
-              {/* Right Pane: TAiSE Grant Callout */}
+              {/* Right Pane: Grant Callout */}
               {grant_callout && (
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
@@ -545,8 +550,8 @@ export default function StemPartner({ config }: StemPartnerProps) {
           </section>
         )}
 
-        {/* 9. Next Steps & Contact (Bottom) */}
-        <section ref={contactRef} id="contact" className="pt-8 md:pt-16 pb-0">
+        {/* 6. Contact */}
+        <section id="contact" className="pt-8 md:pt-16 pb-0">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}

@@ -34,7 +34,9 @@ export interface VolunteerSection {
   headline: string;
   content: string;
   buttonPrimary: string;
+  linkPrimary?: string;
   buttonSecondary: string;
+  linkSecondary?: string;
   imagePlaceholder: string;
 }
 

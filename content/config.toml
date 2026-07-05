@@ -33,4 +33,8 @@ type = "page"
 target = "stem-partner"
 href = "/stem-partner"
 
-
+[[navigation]]
+title = "Science Olympiad Resources"
+type = "page"
+target = "scioly-resources"
+href = "/scioly-resources"

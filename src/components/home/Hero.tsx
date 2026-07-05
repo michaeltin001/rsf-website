@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
 import CircuitBoard from '@/components/ui/CircuitBoard';
 import {
   ChevronDownIcon,
@@ -231,12 +232,12 @@ export default function Hero({ hero, about, impact, initiatives, volunteer }: He
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="w-full lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6"
+              className="w-full lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 auto-rows-fr"
             >
               {impact?.metrics?.map((metric, idx) => {
                 const Icon = iconMap[metric.icon] || SparklesIcon;
                 return (
-                  <div key={idx} className="bg-neutral-50 dark:bg-neutral-800/50 p-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 hover:shadow-md transition-shadow">
+                  <div key={idx} className="h-full bg-neutral-50 dark:bg-neutral-800/50 p-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 hover:shadow-md transition-shadow flex flex-col">
                     <Icon className="h-8 w-8 text-accent mb-4" />
                     <h3 className="text-lg font-semibold text-primary mb-2">{metric.title}</h3>
                     <p className="text-sm text-neutral-600 dark:text-neutral-300">{metric.description}</p>
@@ -364,12 +365,33 @@ export default function Hero({ hero, about, impact, initiatives, volunteer }: He
               />
 
               <div className="pt-4 flex flex-col sm:flex-row gap-4">
-                <button className="px-6 py-3 bg-accent text-white text-sm font-semibold rounded-lg hover:bg-accent-light shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 cursor-pointer">
-                  {volunteer?.buttonPrimary}
-                </button>
-                <button className="px-6 py-3 bg-white dark:bg-neutral-800 text-primary dark:text-white text-sm font-semibold rounded-lg shadow-sm border border-neutral-200 dark:border-neutral-700 hover:border-accent dark:hover:border-accent transition-all hover:-translate-y-0.5 cursor-pointer">
-                  {volunteer?.buttonSecondary}
-                </button>
+                {volunteer?.linkPrimary ? (
+                  <Link 
+                    href={volunteer.linkPrimary}
+                    {...(volunteer.linkPrimary.startsWith('http') ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                    className="inline-block px-6 py-3 bg-accent text-white text-center text-sm font-semibold rounded-lg hover:bg-accent-light shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 cursor-pointer"
+                  >
+                    {volunteer.buttonPrimary}
+                  </Link>
+                ) : (
+                  <button className="px-6 py-3 bg-accent text-white text-sm font-semibold rounded-lg hover:bg-accent-light shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 cursor-pointer">
+                    {volunteer?.buttonPrimary}
+                  </button>
+                )}
+                
+                {volunteer?.linkSecondary ? (
+                  <Link 
+                    href={volunteer.linkSecondary}
+                    {...(volunteer.linkSecondary.startsWith('http') ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                    className="inline-block px-6 py-3 bg-white dark:bg-neutral-800 text-center text-primary dark:text-white text-sm font-semibold rounded-lg shadow-sm border border-neutral-200 dark:border-neutral-700 hover:border-accent dark:hover:border-accent transition-all hover:-translate-y-0.5 cursor-pointer"
+                  >
+                    {volunteer.buttonSecondary}
+                  </Link>
+                ) : (
+                  <button className="px-6 py-3 bg-white dark:bg-neutral-800 text-primary dark:text-white text-sm font-semibold rounded-lg shadow-sm border border-neutral-200 dark:border-neutral-700 hover:border-accent dark:hover:border-accent transition-all hover:-translate-y-0.5 cursor-pointer">
+                    {volunteer?.buttonSecondary}
+                  </button>
+                )}
               </div>
             </motion.div>
 

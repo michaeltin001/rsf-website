@@ -34,7 +34,7 @@ const categoryRingThemes: Record<number, string> = {
 };
 
 export default function SciolyResourcesEvent({ event, config }: SciolyResourcesEventProps) {
-  const parentTitle = config?.title || "Resources for Science Olympiad";
+  const parentTitle = config?.title || "Science Olympiad Resources";
   const noSyllabusError = config?.messages?.no_syllabus || 'No Syllabus Connected';
   const apiError = config?.messages?.google_sheets_error || 'Google Sheets API error';
   const noDataError = config?.messages?.no_data || 'No Data';
