@@ -261,21 +261,21 @@ export default function SciolyResourcesEvent({ event, config }: SciolyResourcesE
                            
                            {item.agenda && (
                              <div>
-                               <h4 className="font-bold text-neutral-900 dark:text-white uppercase tracking-wider text-sm mb-2">{config?.syllabus_headers?.agenda || 'Agenda'}</h4>
+                               <h4 className="font-bold text-neutral-900 dark:text-white uppercase tracking-widest text-sm mb-2">{config?.syllabus_headers?.agenda || 'Agenda'}</h4>
                                <div dangerouslySetInnerHTML={{ __html: parseMarkdownWithColor(item.agenda, titleTheme) }} className="space-y-2" />
                              </div>
                            )}
 
                            {item.todayTasks && (
                              <div>
-                               <h4 className="font-bold text-neutral-900 dark:text-white uppercase tracking-wider text-sm mb-2">{config?.syllabus_headers?.today_tasks || "Today's Tasks"}</h4>
+                               <h4 className="font-bold text-neutral-900 dark:text-white uppercase tracking-widest text-sm mb-2">{config?.syllabus_headers?.today_tasks || "Today's Tasks"}</h4>
                                <div dangerouslySetInnerHTML={{ __html: parseMarkdownWithColor(item.todayTasks, titleTheme) }} className="space-y-2" />
                              </div>
                            )}
 
                            {item.homework && (
                              <div>
-                               <h4 className="font-bold text-neutral-900 dark:text-white uppercase tracking-wider text-sm mb-2">{config?.syllabus_headers?.homework || 'Homework Tasks'}</h4>
+                               <h4 className="font-bold text-neutral-900 dark:text-white uppercase tracking-widest text-sm mb-2">{config?.syllabus_headers?.homework || 'Homework Tasks'}</h4>
                                <div dangerouslySetInnerHTML={{ __html: parseMarkdownWithColor(item.homework, titleTheme) }} className="space-y-2" />
                              </div>
                            )}
