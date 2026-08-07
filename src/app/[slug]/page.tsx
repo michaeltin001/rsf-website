@@ -5,16 +5,16 @@ import { Metadata } from 'next';
 
 // Component Imports
 import StemPartner from '@/components/stem-partner/StemPartner';
-import OurTeam from '@/components/team/OurTeam';
-import Tally from '@/components/tally/Tally';
+// import OurTeam from '@/components/team/OurTeam';
+// import Tally from '@/components/tally/Tally';
 import SciolyResources from '@/components/scioly-resources/SciolyResources';
 
 import {
     BasePageConfig,
     StemPartnerPageConfig,
     StandardPageConfig,
-    OurTeamPageConfig,
-    TallyPageConfig,
+    // OurTeamPageConfig,
+    // TallyPageConfig,
     SciolyResourcesPageConfig
 } from '@/types/page';
 
@@ -66,6 +66,7 @@ export default async function DynamicPage({ params }: { params: Promise<{ slug: 
                 <StandardPageWrapper config={pageConfig as StandardPageConfig} />
             )}
 
+            {/*
             {pageConfig.type === 'our-team' && (
                 <OurTeam config={pageConfig as OurTeamPageConfig} />
             )}
@@ -73,7 +74,8 @@ export default async function DynamicPage({ params }: { params: Promise<{ slug: 
             {pageConfig.type === 'tally' && (
                 <Tally config={pageConfig as TallyPageConfig} />
             )}
-            
+            */}
+
             {pageConfig.type === 'scioly-resources' && (
                 <SciolyResources config={pageConfig as SciolyResourcesPageConfig} />
             )}

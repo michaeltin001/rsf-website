@@ -21,11 +21,6 @@ location_url = "https://maps.google.com/?q=Riverside,+CA"
 # target = "about"
 # href = "/"
 
-[[navigation]]
-title = "Our Team"
-type = "page"
-target = "our-team"
-href = "/our-team"
 
 [[navigation]]
 title = "STEM Partner Program"

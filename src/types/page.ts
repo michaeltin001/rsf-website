@@ -1,5 +1,6 @@
 export interface BasePageConfig {
-    type: 'home' | 'stem-partner' | 'standard' | 'our-team' | 'tally' | 'scioly-resources';
+    // type: 'home' | 'stem-partner' | 'standard' | 'our-team' | 'tally' | 'scioly-resources';
+    type: 'home' | 'stem-partner' | 'standard' | 'scioly-resources';
     title?: string;
     description?: string;
 }
@@ -163,6 +164,8 @@ export interface StemPartnerPageConfig extends BasePageConfig {
     contact: StemContactSection;
 }
 
+
+/*
 // --- 3. Our Team Page Types ---
 export interface TeamMember {
     name: string;
@@ -175,6 +178,7 @@ export interface OurTeamPageConfig extends BasePageConfig {
     type: 'our-team';
     team: TeamMember[];
 }
+*/
 
 // --- 4. Standard Fallback Types ---
 export interface StandardPageConfig extends BasePageConfig {
@@ -218,6 +222,7 @@ export interface SciolyResourcesPageConfig extends BasePageConfig {
     }[];
 }
 
+/*
 // --- 6. Tally Page Types ---
 export interface TallyPageConfig extends BasePageConfig {
     type: 'tally';
@@ -391,4 +396,6 @@ export interface SettingsModalConfig {
         invalid_sheet_id: string;
     };
 }
+*/
+
 
