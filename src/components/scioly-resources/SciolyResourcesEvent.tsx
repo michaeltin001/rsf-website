@@ -45,17 +45,19 @@ export default function SciolyResourcesEvent({ event, config }: SciolyResourcesE
   const [openIndices, setOpenIndices] = useState<number[]>([]);
 
   useEffect(() => {
-    if (!event.sheet_id || event.sheet_id === 'PLACEHOLDER_SHEET_ID') {
+    if (!config?.main_sheet_id) {
       setError(noSyllabusError);
       setIsLoading(false);
       return;
     }
 
+    const tabName = event.sheet_name || event.title;
+
     const fetchSyllabus = async () => {
       setIsLoading(true);
       setError(null);
       
-      const cacheKey = `syllabus_${event.sheet_id}`;
+      const cacheKey = `syllabus_${config.main_sheet_id}_${tabName}`;
       const cached = sessionStorage.getItem(cacheKey);
       
       if (cached) {
@@ -74,7 +76,7 @@ export default function SciolyResourcesEvent({ event, config }: SciolyResourcesE
       }
 
       try {
-        const url = `https://docs.google.com/spreadsheets/d/${event.sheet_id}/gviz/tq?tqx=out:json&headers=2&sheet=SYLLABUS`;
+        const url = `https://docs.google.com/spreadsheets/d/${config.main_sheet_id}/gviz/tq?tqx=out:json&headers=2&sheet=${encodeURIComponent(tabName)}`;
         const res = await fetch(url);
         const text = await res.text();
         const match = text.match(/google\.visualization\.Query\.setResponse\(([\s\S\w]+)\);/);
@@ -83,11 +85,13 @@ export default function SciolyResourcesEvent({ event, config }: SciolyResourcesE
           const json = JSON.parse(match[1]);
           
           if (json.status === 'error') {
-            throw new Error(json.errors?.[0]?.message || apiError);
+            setError(json.errors?.[0]?.message || apiError);
+            return;
           }
           
           if (!json.table || !json.table.rows) {
-            throw new Error(noDataError);
+            setError(noDataError);
+            return;
           }
 
           const rows = json.table.rows;
@@ -110,7 +114,8 @@ export default function SciolyResourcesEvent({ event, config }: SciolyResourcesE
           }
           
           if (extractedSyllabus.length === 0) {
-            throw new Error(noSyllabusError);
+            setError(noDataError);
+            return;
           }
 
           setSyllabus(extractedSyllabus);
@@ -130,7 +135,7 @@ export default function SciolyResourcesEvent({ event, config }: SciolyResourcesE
     };
 
     fetchSyllabus();
-  }, [event.sheet_id]);
+  }, [config?.main_sheet_id, event.sheet_name, event.title]);
 
   const toggleIndex = (idx: number) => {
     setOpenIndices(prev => 

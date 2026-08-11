@@ -1,5 +1,6 @@
 type = "scioly-resources"
 title = "Science Olympiad Resources"
+main_sheet_id = "1Dcs6HDWLj5MyOtFPSQ4YD8X225QYl7SKQhXdT1xD_O8"
 paragraphs = [
   "This is the resources page for the Science Olympiad Coaching Program at [Riverside STEM Academy](https://stemacademy.riversideunified.org/), run in collaboration with [Change in Scientific Importance for Youth (Delta SIFY)](https://www.deltasify.org/). Our program focuses on the 23 Division B events, specifically the 17 non-build events. We will post all the resources that our coaches make for teaching on a week-by-week basis over the course of the season in a \"syllabus\" format. These resources include, but are not limited to, lecture slides, assignments, exams, and hands-on activities.",
   "Updates will be published every Monday at around 5:00 PM. While these materials are designed with in-person coaching in mind, anybody is welcome to use this content to study for the Science Olympiad season. As a disclaimer, that these are volunteer-made resources and are not affiliated with Science Olympiad.",
@@ -10,103 +11,103 @@ paragraphs = [
 title = "Anatomy & Physiology"
 link = "/scioly-resources/anatomy-and-physiology"
 category = 1
-sheet_id = "PLACEHOLDER_SHEET_ID"
+sheet_name = "Anatomy & Physiology"
 
 [[events]]
 title = "Botany"
 link = "/scioly-resources/botany"
 category = 1
-sheet_id = "PLACEHOLDER_SHEET_ID"
+sheet_name = "Botany"
 
 [[events]]
 title = "Disease Detectives"
 link = "/scioly-resources/disease-detectives"
 category = 1
-sheet_id = "PLACEHOLDER_SHEET_ID"
+sheet_name = "Disease Detectives"
 
 [[events]]
 title = "Heredity"
 link = "/scioly-resources/heredity"
 category = 1
-sheet_id = "PLACEHOLDER_SHEET_ID"
+sheet_name = "Heredity"
 
 [[events]]
 title = "Water Quality"
 link = "/scioly-resources/water-quality"
 category = 1
-sheet_id = "PLACEHOLDER_SHEET_ID"
+sheet_name = "Water Quality"
 
 [[events]]
 title = "Dynamic Planet"
 link = "/scioly-resources/dynamic-planet"
 category = 2
-sheet_id = "PLACEHOLDER_SHEET_ID"
+sheet_name = "Dynamic Planet"
 
 [[events]]
 title = "Meteorology"
 link = "/scioly-resources/meteorology"
 category = 2
-sheet_id = "PLACEHOLDER_SHEET_ID"
+sheet_name = "Meteorology"
 
 [[events]]
 title = "Remote Sensing"
 link = "/scioly-resources/remote-sensing"
 category = 2
-sheet_id = "PLACEHOLDER_SHEET_ID"
+sheet_name = "Remote Sensing"
 
 [[events]]
 title = "Rocks and Minerals"
 link = "/scioly-resources/rocks-and-minerals"
 category = 2
-sheet_id = "PLACEHOLDER_SHEET_ID"
+sheet_name = "Rocks and Minerals"
 
 [[events]]
 title = "Solar System"
 link = "/scioly-resources/solar-system"
 category = 2
-sheet_id = "PLACEHOLDER_SHEET_ID"
+sheet_name = "Solar System"
 
 [[events]]
 title = "Circuit Lab"
 link = "/scioly-resources/circuit-lab"
 category = 3
-sheet_id = "PLACEHOLDER_SHEET_ID"
+sheet_name = "Circuit Lab"
 
 [[events]]
 title = "Crime Busters"
 link = "/scioly-resources/crime-busters"
 category = 3
-sheet_id = "PLACEHOLDER_SHEET_ID"
+sheet_name = "Crime Busters"
 
 [[events]]
 title = "Food Science"
 link = "/scioly-resources/food-science"
 category = 3
-sheet_id = "PLACEHOLDER_SHEET_ID"
+sheet_name = "Food Science"
 
 [[events]]
 title = "Thermodynamics"
 link = "/scioly-resources/thermodynamics"
 category = 3
-sheet_id = "PLACEHOLDER_SHEET_ID"
+sheet_name = "Thermodynamics"
 
 [[events]]
 title = "Codebusters"
 link = "/scioly-resources/codebusters"
 category = 4
-sheet_id = "1DNwdvHpios7ZozJs3tK3eQW-8Sb-gWlA3V6VAeSEsqE"
+sheet_name = "Codebusters"
 
 [[events]]
 title = "Experimental Design"
 link = "/scioly-resources/experimental-design"
 category = 4
-sheet_id = "PLACEHOLDER_SHEET_ID"
+sheet_name = "Experimental Design"
 
 [[events]]
-title = "Write It, Do It"
+title = "Write It Do It"
 link = "/scioly-resources/write-it-do-it"
 category = 4
-sheet_id = "PLACEHOLDER_SHEET_ID"
+sheet_name = "Write It Do It"
 
 [labels]
 search_placeholder = "Search events..."

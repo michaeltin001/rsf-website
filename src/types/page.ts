@@ -192,11 +192,12 @@ export interface SciolyEventItem {
     description?: string;
     link: string;
     category: number;
-    sheet_id?: string;
+    sheet_name?: string;
 }
 
 export interface SciolyResourcesPageConfig extends BasePageConfig {
     type: 'scioly-resources';
+    main_sheet_id?: string;
     paragraphs?: string[];
     events?: SciolyEventItem[];
     labels?: {
